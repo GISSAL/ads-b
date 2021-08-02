@@ -17,4 +17,31 @@ The objectives of this project are to effectively track low-level overflights ab
 
 Intuitive data processing toolkits will be produced for both the achievement of this project’s deliverables and for future use by NPS staff, including those who are not GIS specialists. These easy-to-use toolkits simplify and expedite complicated data workflows and produce outputs that provide information about overflight travel patterns that will be beneficial when addressing overflight compliance, evaluating amendments of air tour plans, and adaptively managing air tours. To accomplish this, we propose a multi-module custom GIS “toolbox” that processes, analyzes, and creates visualizations from ADS-B data.  
 
-GIS tools will be organized in a custom toolbox called the ADS-B Overflight Toolkit (Figure 1).  This toolkit will be designed for Esri’s ArcGIS geoprocessing environment as a custom toolbox and can be used locally to clean raw ADS-B Data, process and analyze data, develop descriptive summary statistics, conduct spatio-temporal analyses, and output a standard series of tabular and graphical results. 
+GIS tools will be organized in a custom toolbox called the ADS-B Overflight Toolkit.  This toolkit will be designed for Esri’s ArcGIS geoprocessing environment as a custom toolbox and can be used locally to clean raw ADS-B Data, process and analyze data, develop descriptive summary statistics, conduct spatio-temporal analyses, and output a standard series of tabular and graphical results. 
+
+### References
+
+Beeco, J. A., & Joyce, D. (2019). Automated aircraft tracking for park and landscape planning. Landscape and Urban Planning, 186, 103-111.
+
+Beeco, J. A., Joyce, D., & Anderson, S. (2020). Evaluating the use of spatiotemporal aircraft data for air tour management planning and compliance. Journal of Park and Recreation Administration. doi:10.18666/JPRA-2020-10341
+
+Duong, Q., Tran, T., Pham, D. T., & Mai, A. (2019, March). A Simplified Framework for Air Route Clustering Based on ADS-B Data. In 2019 IEEE-RIVF International Conference on Computing and Communication Technologies (RIVF) (pp. 1-6). IEEE.
+
+FAA (2018). ADS-B, Research, Airspace. Retrieved from: https://www.faa.gov/nextgen/equipadsb/research/airspace/
+
+Lawson, S., K Hockett, B. Kiser, N. Reigner, A. Ingrm, J. Howard, and S. Dymond (2007).  Social Science Research to Inform Soundscape Management in Hawai‘i Volcanoes
+National Park. Final Report. Department of Forestry, College of Natural Resources, Virginia Polytechnic Institute and State University.
+
+Lignell, B. W. (2020). Reporting information for commercial air tour operations over units of the national park system: 2019 annual report. Natural Resource Report NPS/NRSS/NSNSD/NRR— 2020/2193. National Park Service, Fort Collins, Colorado.
+
+Mace, B. L., Corser, G. C., Zitting, L., & Denison, J. (2013). Effects of overflights on the national park experience. Journal of Environmental Psychology, 35, 30-39.
+
+McDonald, C. D., Baumgarten, R. M., & Iachan, R. (1995). Aircraft management studies: National park service visitors survey. HMMH Report, (290940.12), 94-2.
+
+Miller, Z. D., Fefer, J. P., Kraja, A., Lash, B., & Freimund, W. (2017, January). Perspectives on visitor use management in the National Parks. In The George Wright Forum (Vol. 34, No. 1, pp. 37-44). George Wright Society.
+
+Prakash, S. L., Perera, P., Newsome, D., Kusuminda, T., & Walker, O. (2019). Reasons for visitor dissatisfaction with wildlife tourism experiences at highly visited national parks in Sri Lanka. Journal of Outdoor Recreation and Tourism, 25, 102-112.
+
+Shannon, G., McKenna, M. F., Angeloni, L. M., Crooks, K. R., Fristrup, K. M., Brown, E., Warner, K. A., Nelson, M. D., White, C., Briggs, J., McFarland, S., & Wittenmyer, G. (2016). A synthesis of two decades of research documenting the effects of noise on wildlife. Biological Reviews, 91(4), 982-1005.
+
+Tarrant, M. A., Haas, G. E., & Manfredo, M. J. (1995). Factors affecting visitor evaluations of aircraft overflights of wilderness areas. Society & Natural Resources, 8(4), 351-360.
