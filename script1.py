@@ -57,6 +57,9 @@ data["DateTime"] = pd.to_datetime(data["DateTime"])
 # Sort records by HexID and DateTime
 data.sort_values(["HexID", "DateTime"], inplace=True)
 
+# Reset dataframe index after sorting
+data = data.reset_index(drop=True)
+
 # Calculate intitial time difference between sequential waypoints for each aircraft
 data["Dur_Secs"] = data.groupby("HexID")["DateTime"].diff().dt.total_seconds()
 data["Dur_Secs"] = data["Dur_Secs"].fillna(-99)
