@@ -14,18 +14,6 @@
 import arcpy
 
 # Local variable(s)
-#inputFile = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/data/ADSB_HAVO_20190708.csv"
-#longitudeField = "Longitude"
-#latitudeField = "Latitude"
-#altitudeField = "Altitude"
-#dateTimeField = "DateTime"
-#parkBoundaryFile = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/NPS_ADS_B_Toolkit_Dev.gdb/Boundary_HAVO"
-#bufferDistance = "25 Miles"
-#inputDEM = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/NPS_ADS_B_Toolkit_Dev.gdb/DEM_10_Hawaii"
-#outputWorkspace = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/NPS_ADS_B_Toolkit_Dev.gdb/"
-#spatialRef = arcpy.SpatialReference(4326)
-
-# Local variable(s)
 inputFile = arcpy.GetParameterAsText(0)
 longitudeField = "Longitude"
 latitudeField = "Latitude"
