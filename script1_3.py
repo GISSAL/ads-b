@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 
 """
-    File name: script1_3.py
+    File name: tool_1.pyt
     Author: Shawn Hutchinson
     Credits: Shawn Hutchinson, Brian Peterson
     Description:  ArcGIS code that reads raw ADS-B data from the logger, creates "flights", and calculates new variables
@@ -19,18 +19,11 @@ import pandas as pd
 import numpy as np
 
 # Local variable(s)
-park_name = arcpy.GetParameterAsText(0)
-input_file = arcpy.GetParameterAsText(1)
+park_name = arcpy.GetParameterAsText(0)         
+input_file = arcpy.GetParameterAsText(1)        
 input_file_date = arcpy.GetParameterAsText(2)
 output_workspace = arcpy.GetParameterAsText(3)
 dur_threshold = arcpy.GetParameterAsText(4)
-
-# Local variable(s)
-#park_name = "HAVO"
-#input_file = "data/adsb1090-2019-07-08.txt"
-#input_file_date = "20190708"
-#output_workspace = "data/"
-#dur_threshold = 900
 
 # Custom Function 1 - Vectorized Haversine function to calculate great circle distance between successive locations
 # Slightly modified version of https://towardsdatascience.com/heres-how-to-calculate-distance-between-2-geolocations-in-python-93ecab5bbba4
