@@ -23,7 +23,7 @@ parkBoundaryFile = arcpy.GetParameterAsText(1)
 bufferDistance = arcpy.GetParameterAsText(2)
 inputDEM = arcpy.GetParameterAsText(3)
 outputWorkspace = arcpy.GetParameterAsText(4)
-spatialRef = arcpy.SpatialReference(4326)
+spatialRef = arcpy.SpatialReference(4269)
 
 # Set local environments
 arcpy.env.overwriteOutput = True
