@@ -5,7 +5,7 @@
     File name: tool_1.pyt
     Author: Shawn Hutchinson
     Credits: Shawn Hutchinson, Brian Peterson
-    Description:  ArcGIS code that reads raw ADS-B data from the logger, creates "flights", and calculates new variables
+    Description:  ArcGIS script tool code that reads raw ADS-B data from the logger, creates "flights", and calculates new variables
     Status:  Development
     Date created: 9/16/2021
     Date last modified: 9/17/2021
