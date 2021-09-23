@@ -4,7 +4,7 @@
 """
     File name: script2_0.py
     Author: Shawn Hutchinson
-    Description:  Ingests processed ADS-B data and produces screened point and line feature classes
+    Description:  ArcGIS script tool code that ingests processed ADS-B data and produces screened point and line feature classes
     Date created: 7/20/2021
     Date last modified: 8/3/2021
     Python Version: 3.7
