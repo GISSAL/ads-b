@@ -14,15 +14,15 @@
 import arcpy
 
 # Local variable(s)
-inputFile = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/data/ADSB_HAVO_20190708.csv"
+inputFile = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/data/ADSB_HAVO_20190708.csv"
 longitudeField = "Longitude"
 latitudeField = "Latitude"
 altitudeField = "Altitude"
 dateTimeField = "DateTime"
-parkBoundaryFile = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/NPS_ADS_B_Toolkit_Dev.gdb/Boundary_HAVO"
+parkBoundaryFile = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_Bv.gdb/Boundary_HAVO"
 bufferDistance = "25 Miles"
-inputDEM = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/NPS_ADS_B_Toolkit_Dev.gdb/DEM_10_Hawaii"
-outputWorkspace = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/NPS_ADS_B_Toolkit_Dev.gdb/"
+inputDEM = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B.gdb/DEM_10_Hawaii"
+outputWorkspace = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B.gdb/"
 spatialRef = arcpy.SpatialReference(4269)
 
 # Set local environments
