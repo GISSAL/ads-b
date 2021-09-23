@@ -59,4 +59,4 @@ arcpy.management.CalculateField(outputFile + "_WayPts_" + bufferDistance.replace
 arcpy.management.DeleteField(outputFile + "_WayPts_" + bufferDistance.replace(" ", "") + "_AGL", ["RASTERVALU"])
 
 # Create line feature class from screened waypoints
-arcpy.management.PointsToLine(outputFile + "_WayPts_" + bufferDistance.replace(" ", ""), outputFile + "_Lines_" + bufferDistance.replace(" ", "") + "_AGL", 'FlightID')
+arcpy.management.PointsToLine(outputFile + "_WayPts_" + bufferDistance.replace(" ", ""), outputFile + "_Lines_" + bufferDistance.replace(" ", "") + "_AGL", 'FlightID', 'DateTime')
