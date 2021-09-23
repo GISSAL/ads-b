@@ -23,7 +23,7 @@ parkBoundaryFile = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/NPS_A
 bufferDistance = "25 Miles"
 inputDEM = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/NPS_ADS_B_Toolkit_Dev.gdb/DEM_10_Hawaii"
 outputWorkspace = "D:/GIS_Research/ResearchProjects/NPS_ADS_B_Toolkit_Dev/NPS_ADS_B_Toolkit_Dev.gdb/"
-spatialRef = arcpy.SpatialReference(4326)
+spatialRef = arcpy.SpatialReference(4269)
 
 # Set local environments
 arcpy.env.overwriteOutput = True
