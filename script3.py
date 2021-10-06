@@ -44,10 +44,10 @@ def getFractal(shape):
 arcpy.CalculateField_management(inputFile, "Sinuosity", "getSinuosity(!shape!)", "PYTHON3")
 arcpy.CalculateField_management(inputFile, "Fractal", "getFractal(!shape!)", "PYTHON3")
 
-## Find flights with sinuosity less than the threshold value (e.g., 0.19) that is indicative of survey flights
-#selFlight = arcpy.SelectLayerByAttribute_management(inputFile, "NEW_SELECTION", '"Sinuosity" <= 0.19')
-#print("There are {0} flights with a sinuosity less than the threshold value of {1}.".format(str(len(selFlight)), str(sinValue)))
-#
+# Find flights with sinuosity less than the threshold value (e.g., 0.19) that is indicative of survey flights
+selFlight = arcpy.SelectLayerByAttribute_management(inputFile, "NEW_SELECTION", '"Sinuosity" <= 0.19')
+print("There are {0} flights with a sinuosity less than the threshold value of {1}.".format(str(len(selFlight)), str(sinValue)))
+
 ## Remove line feature classes with sinuosity less than the threshold value
 #if len(selFlight) > 0:
 #    arcpy.DeleteFeatures_management(selFlight)
