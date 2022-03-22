@@ -54,7 +54,8 @@ ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates
 
 | Label                     | Explanation   | Data Type |
 | ------------------------- |:-------------:| ---------:|
-| National Park Unit Code   | right-aligned | String    |
+| National Park Unit Code   | ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations.
+ | String    |
 | Raw ADS-B File            | centered      | File      |
 | ADS-B Acquisition Date    | are neat      | String    |
 | Flight Duration Threshold | are neat      | Long      |
