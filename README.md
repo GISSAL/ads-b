@@ -51,6 +51,13 @@ Summary
 ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations.
 
 Parameters
+
+| Label         | Explanation   | Data Type |
+| ------------- |:-------------:| -----:|
+| National Park Unit Code      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
 1.  National Park Unit Code
 2.  Raw ADS-B File
 3.  ADS-B Acquisition Date
