@@ -22,6 +22,19 @@ This repository documents and points users to a downloadable ArcGIS Pro project 
 ### Access the Current ArcGIS Pro Project File
 https://kstate.maps.arcgis.com/home/item.html?id=5992d6c52e824b138aff1adb047a67e4
 
+### Summary of Input and Output Files
+
+Enter text here.
+
+### Toolbox Purpose
+
+Enter text here.
+
+### Toolbox Purpose
+
+Enter text here.
+
+
 ### References
 
 Beeco, J. A., & Joyce, D. (2019). Automated aircraft tracking for park and landscape planning. Landscape and Urban Planning, 186, 103-111.
