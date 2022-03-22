@@ -42,7 +42,7 @@ Enter text here.
 
 ## Geoprocessing Tools
 
-Each geoprocessing tool in the custom toolbox is described below and includes a tool summary, list of parameters, and associated ArcGIS license requirements needed for tool operation.
+Each geoprocessing tool in the ADS-B Overflight Analysis Toolbox is described below and includes a tool summary, list of parameters, and associated ArcGIS license and extension requirements needed for successful tool operation.
 
 ### Tool #1 - Process Raw ADS-B Data Files
 
@@ -60,7 +60,7 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 | Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      |
 | Output CSV Folder         | Folder where processed CSV file will be saved.                      | Required | Input     | Workspace |
 
-*Licensing Information*
+*Licensing and Extension Information*
 
 * Basic - Yes
 * Standard - Yes
@@ -80,7 +80,7 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
-*Licensing Information*
+*Licensing and Extension Information*
 
 * Basic - 
 * Standard - 
@@ -99,7 +99,7 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
-*Licensing Information*
+*Licensing and Extension Information*
 
 * Basic - 
 * Standard - 
@@ -118,7 +118,7 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
-*Licensing Information*
+*Licensing and Extension Information*
 
 * Basic - 
 * Standard - 
@@ -137,7 +137,7 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
-*Licensing Information*
+*Licensing and Extension Information*
 
 * Basic - 
 * Standard - 
@@ -156,7 +156,7 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
-*Licensing Information*
+*Licensing and Extension Information*
 
 * Basic - 
 * Standard - 
@@ -175,7 +175,7 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
-*Licensing Information*
+*Licensing and Extension Information*
 
 * Basic - 
 * Standard - 
@@ -194,7 +194,7 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
-*Licensing Information*
+*Licensing and Extension Information*
 
 * Basic - 
 * Standard - 
