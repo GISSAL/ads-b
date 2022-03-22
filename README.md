@@ -48,7 +48,7 @@ Enter text here.
 
 *Summary*
 
-ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations. Based upon the Python script <code>tool_1.py</code>.
+ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations.
 
 *Parameters*
 
