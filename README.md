@@ -11,11 +11,11 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to au
     + [Tool #1 - Process Raw ADS-B Data Files](#tool-1---process-raw-ads-b-data-files)
     + [Tool #2 - Create Waypoint and Flightline Feature Classes](#tool-2---create-waypoint-and-flightline-feature-classes)
     + [Tool #3 - Merge Daily Waypoints and Flightlines](#tool-3---merge-daily-waypoints-and-flightlines)
-    + [Tool #4 - Create Screening Files](#tool-4---create-screening-files)
-    + [Tool #5 - Summarize Aircraft Waypoint Altitudes](#tool-5---summarize-aircraft-waypoint-altitudes)
-    + [Tool #6 - Summarize Aircraft Flights by Hour and Month](#tool-6---summarize-aircraft-flights)
+    + [Tool #4 - Create Screening Features](#tool-4---create-screening-features)
+    + [Tool #5 - Summarize Waypoint Altitudes](#tool-5---summarize-waypoint-altitudes)
+    + [Tool #6 - Summarize Flights by Hour and Month](#tool-6---summarize-flights-by-hour-and-month)
     + [Tool #7 - Summarize Aircraft Operators and Types](#tool-7---summarize-aircraft-operators-and-types)
-    + [Tool #8 - Perform Density Analysis of Aircraft Waypoints](#tool-8---perform-density-analysis-of-aircraft-waypoints)
+    + [Tool #8 - Perform Waypoint Density Analysis](#tool-8---perform-waypoint-density-analysis)
 * [Credits](#credits)
 * [References](#references)
 
@@ -56,15 +56,15 @@ Enter text here.
 
 Enter text here.
 
-### Tool #4 - Create Screening Files
+### Tool #4 - Create Screening Features
 
 Enter text here.
 
-### Tool #5 - Summarize Aircraft Waypoint Altitudes
+### Tool #5 - Summarize Waypoint Altitudes
 
 Enter text here.
 
-### Tool #6 - Summarize Aircraft Flights by Hour and Month
+### Tool #6 - Summarize Flights by Hour and Month
 
 Enter text here.
 
@@ -72,7 +72,7 @@ Enter text here.
 
 Enter text here.
 
-### Tool #8 - Perform Density Analysis of Aircraft Waypoints
+### Tool #8 - Perform Waypoint Density Analysis
 
 Enter text here.
 
