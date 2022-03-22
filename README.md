@@ -81,10 +81,10 @@ Enter summary here.
 
 *Parameters*
 
-| Label                     | Explanation                                     | Type     | Direction | Data Type |
-| ------------------------- |:-----------------------------------------------:| --------:| ---------:|----------:| 
-| Parameter 1               | Enter explanation here.                         | Required | Input     | String    |
-| Parameter 2               | Enter explanation here.                         | Required | Input     | String    |
+| Label                     | Explanation                                                         | Type     | Direction | Data Type |
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| Parameter 1               |                                                                     |          |           |           |
+| Parameter 2               |                                                                     |          |           |           |
 
 ### Tool #4 - Create Screening Features
 
@@ -94,10 +94,10 @@ Enter summary here.
 
 *Parameters*
 
-| Label                     | Explanation                                     | Type     | Direction | Data Type |
-| ------------------------- |:-----------------------------------------------:| --------:| ---------:|----------:| 
-| Parameter 1               | Enter explanation here.                         | Required | Input     | String    |
-| Parameter 2               | Enter explanation here.                         | Required | Input     | String    |
+| Label                     | Explanation                                                         | Type     | Direction | Data Type |
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| Parameter 1               |                                                                     |          |           |           |
+| Parameter 2               |                                                                     |          |           |           |
 
 ### Tool #5 - Summarize Waypoint Altitudes
 
@@ -107,10 +107,10 @@ Enter summary here.
 
 *Parameters*
 
-| Label                     | Explanation                                     | Type     | Direction | Data Type |
-| ------------------------- |:-----------------------------------------------:| --------:| ---------:|----------:| 
-| Parameter 1               | Enter explanation here.                         | Required | Input     | String    |
-| Parameter 2               | Enter explanation here.                         | Required | Input     | String    |
+| Label                     | Explanation                                                         | Type     | Direction | Data Type |
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| Parameter 1               |                                                                     |          |           |           |
+| Parameter 2               |                                                                     |          |           |           |
 
 ### Tool #6 - Summarize Flights by Hour and Month
 
@@ -120,10 +120,10 @@ Enter summary here.
 
 *Parameters*
 
-| Label                     | Explanation                                     | Type     | Direction | Data Type |
-| ------------------------- |:-----------------------------------------------:| --------:| ---------:|----------:| 
-| Parameter 1               | Enter explanation here.                         | Required | Input     | String    |
-| Parameter 2               | Enter explanation here.                         | Required | Input     | String    |
+| Label                     | Explanation                                                         | Type     | Direction | Data Type |
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| Parameter 1               |                                                                     |          |           |           |
+| Parameter 2               |                                                                     |          |           |           |
 
 ### Tool #7 - Summarize Aircraft Operators and Types
 
@@ -133,10 +133,10 @@ Enter summary here.
 
 *Parameters*
 
-| Label                     | Explanation                                     | Type     | Direction | Data Type |
-| ------------------------- |:-----------------------------------------------:| --------:| ---------:|----------:| 
-| Parameter 1               | Enter explanation here.                         | Required | Input     | String    |
-| Parameter 2               | Enter explanation here.                         | Required | Input     | String    |
+| Label                     | Explanation                                                         | Type     | Direction | Data Type |
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| Parameter 1               |                                                                     |          |           |           |
+| Parameter 2               |                                                                     |          |           |           |
 
 ### Tool #8 - Perform Waypoint Density Analysis
 
@@ -146,10 +146,10 @@ Enter summary here.
 
 *Parameters*
 
-| Label                     | Explanation                                     | Type     | Direction | Data Type |
-| ------------------------- |:-----------------------------------------------:| --------:| ---------:|----------:| 
-| Parameter 1               | Enter explanation here.                         | Required | Input     | String    |
-| Parameter 2               | Enter explanation here.                         | Required | Input     | String    |
+| Label                     | Explanation                                                         | Type     | Direction | Data Type |
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| Parameter 1               |                                                                     |          |           |           |
+| Parameter 2               |                                                                     |          |           |           |
 
 ## Credits
 
