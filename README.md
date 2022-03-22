@@ -46,8 +46,15 @@ Enter text here.
 
 ### Tool #1 - Process Raw ADS-B Data Files
 
-### Summary
+Summary
 ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations.
+
+Parameters
+1.  National Park Unit Code
+2.  Raw ADS-B File
+3.  ADS-B Acquisition Date
+4.  Flight Duration Threshold
+5.  Output CSV Folder
 
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
 
