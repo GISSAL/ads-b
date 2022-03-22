@@ -60,6 +60,13 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 | Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      |
 | Output CSV Folder         | Folder where processed CSV file will be saved.                      | Required | Input     | Workspace |
 
+*Licensing Information*
+
+* Basic - Yes
+* Standard - Yes
+* Advanced - Yes
+
+
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
 
 *Summary*
