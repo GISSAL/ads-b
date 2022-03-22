@@ -5,7 +5,7 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to au
 
 [Project Overview](https://github.com/GISSAL/ads-b/blob/main/README.md#project-overview---ads-b-overflight-analysis)
 
-## Project Overview - ADS-B Overflight Analysis
+## Overview of ADS-B Overflight Analysis
 
 Monitoring low-level overflights is important for the NPS to fulfill its mission of providing public enjoyment while preserving cultural and natural resources (Miller et al., 2017), which includes understanding relationships between overflights and quality terrestrial visitor experiences (Mace et al., 2013). Overflight noise can degrade the acoustic environment (Beeco et al., 2020) which has been shown to have adverse effects on the experiences of visitors (McDonald et al., 1995). Research at Hawai‘i Volcanoes National Park, which received the most reported air tours of any national park in 2019 (Lignell, 2020), determined that visitors found it unacceptable to hear overflight noise more than once per 15-minute interval (Lawson et al., 2007). The sight of too many overflights may also experientially impact visitors (Tarrant et al., 1995). Furthermore, overflights have been shown to impact biophysical resources, such as wildlife (Shannon et al., 2016), which subsequently could also compromise the visitor experience (Prakash et al., 2019)
 
