@@ -48,7 +48,7 @@ Each geoprocessing tool in the ADS-B Overflight Analysis Toolbox is described be
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations.
+ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code>.
 
 *Parameters*
 
