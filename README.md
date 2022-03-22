@@ -52,14 +52,13 @@ ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates
 
 *Parameters*
 
-| Label                     | Explanation   | Data Type |
-| ------------------------- |:-------------:| ---------:|
-| National Park Unit Code   | ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations.
- | String    |
-| Raw ADS-B File            | centered      | File      |
-| ADS-B Acquisition Date    | are neat      | String    |
-| Flight Duration Threshold | are neat      | Long      |
-| Output CSV Folder         | are neat      | Workspace |
+| Label                     | Explanation                                     | Type     | Direction | Data Type |
+| ------------------------- |:-----------------------------------------------:| --------:| ---------:|----------:| 
+| National Park Unit Code   | Four character abbreviation code for NPS unit.  | Required | Input     | String    |
+| Raw ADS-B File            | The ADS-B file downloaded from the data logger. | Required | Input     | File      |
+| ADS-B Acquisition Date    | The ADS-B file acquisition date (YYYYMMDD).     | Required | Input     | String    |
+| Flight Duration Threshold | Maximum time between successive waypoints.      | Required | Input     | Long      |
+| Output CSV Folder         | Folder where processed CSV file will be saved.  | Required | Input     | Workspace |
 
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
 
