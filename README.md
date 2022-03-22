@@ -62,7 +62,16 @@ ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates
 
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
 
-Enter text here.
+*Summary*
+
+Enter summary here.
+
+*Parameters*
+
+| Label                     | Explanation   | Data Type |
+| ------------------------- |:-------------:| ---------:|
+| Parameter 1   | Enter explanation here. | String    |
+| Parameter 2   | Enter explanation here. | File      |
 
 ### Tool #3 - Merge Daily Waypoints and Flightlines
 
