@@ -53,7 +53,7 @@ ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates
 *Parameters*
 
 | Label                     | Explanation                                     | Type     | Direction | Data Type |
-| ------------------------- |:-----------------------------------------------:| --------:| ---------:|----------:| 
+| :------------------------ |:------------------------------------------------| :------- | :-------- | :-------- | 
 | National Park Unit Code   | Four character abbreviation code for NPS unit.  | Required | Input     | String    |
 | Raw ADS-B File            | The ADS-B file downloaded from the data logger. | Required | Input     | File      |
 | ADS-B Acquisition Date    | The ADS-B file acquisition date (YYYYMMDD).     | Required | Input     | String    |
