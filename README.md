@@ -3,7 +3,7 @@
 
 A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to automate and simplify processing and analysis of Automatic Dependent Surveillance-Broadcast (ADS-B) for better understanding aircraft overflights of National Park Service (NPS) management units. 
 
-* [Overview of ADS-B Overflight Analysis](#overview-of-ads-b-overflight-analysis)
+* [Overview of ADS-B Overflight Analysis](##overview-of-ads-b-overflight-analysis)
 * [Toolbox Purpose](#toolbox-purpose)
 * [Access the Current ArcGIS Pro Project File](#access-the-current-arcgis-pro-project-file)
 * [Summary of Input and Output Files](#summary-of-input-and-output-files)
@@ -11,7 +11,7 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to au
     + [Tool #1 - Process Raw ADS-B Data Files](#tool--1---process-raw-ads-b-data-files)
     + [Tool #2 - Create Waypoint and Flightline Feature Classes](#tool--2---create-waypoint-and-flightline-feature-classes)
     + [Tool #3 - Merge Daily Waypoints and Flightlines](#tool--3---merge-daily-waypoints-and-flightlines)
-    + [Tool #4 - Create Screening Files](#tool--4---create-screening-files)
+    + [Tool #4 - Create Screening Files](###tool--4---create-screening-files)
     + [Tool #5 - Summarize Aircraft Waypoint Altitudes](#tool--5---summarize-aircraft-waypoint-altitudes)
     + [Tool #6 - Summarize Aircraft Flights](#tool--6---summarize-aircraft-flights)
     + [Tool #7 - Summarize Aircraft Operators and Types](#tool--7---summarize-aircraft-operators-and-types)
