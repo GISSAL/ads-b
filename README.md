@@ -42,7 +42,7 @@ Enter text here.
 
 ## Geoprocessing Tools
 
-Enter text here.
+Each geoprocessing tool in the custom toolbox is described below and includes a tool summary, list of parameters, and associated ArcGIS license requirements needed for tool operation.
 
 ### Tool #1 - Process Raw ADS-B Data Files
 
@@ -60,7 +60,7 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 | Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      |
 | Output CSV Folder         | Folder where processed CSV file will be saved.                      | Required | Input     | Workspace |
 
-*ArcGIS Licensing Information*
+*Licensing Information*
 
 * Basic - Yes
 * Standard - Yes
@@ -80,6 +80,12 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
+*Licensing Information*
+
+* Basic - 
+* Standard - 
+* Advanced - 
+
 ### Tool #3 - Merge Daily Waypoints and Flightlines
 
 *Summary*
@@ -92,6 +98,12 @@ Enter summary here.
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
+
+*Licensing Information*
+
+* Basic - 
+* Standard - 
+* Advanced - 
 
 ### Tool #4 - Create Screening Features
 
@@ -106,6 +118,12 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
+*Licensing Information*
+
+* Basic - 
+* Standard - 
+* Advanced - 
+
 ### Tool #5 - Summarize Waypoint Altitudes
 
 *Summary*
@@ -118,6 +136,12 @@ Enter summary here.
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
+
+*Licensing Information*
+
+* Basic - 
+* Standard - 
+* Advanced - 
 
 ### Tool #6 - Summarize Flights by Hour and Month
 
@@ -132,6 +156,12 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
+*Licensing Information*
+
+* Basic - 
+* Standard - 
+* Advanced - 
+
 ### Tool #7 - Summarize Aircraft Operators and Types
 
 *Summary*
@@ -145,6 +175,12 @@ Enter summary here.
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
 
+*Licensing Information*
+
+* Basic - 
+* Standard - 
+* Advanced - 
+
 ### Tool #8 - Perform Waypoint Density Analysis
 
 *Summary*
@@ -157,6 +193,12 @@ Enter summary here.
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
 | Parameter 1               |                                                                     |          |           |           |
 | Parameter 2               |                                                                     |          |           |           |
+
+*Licensing Information*
+
+* Basic - 
+* Standard - 
+* Advanced - 
 
 ## Credits
 
