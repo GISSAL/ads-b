@@ -13,7 +13,7 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to au
     + [Tool #3 - Merge Daily Waypoints and Flightlines](#tool-3---merge-daily-waypoints-and-flightlines)
     + [Tool #4 - Create Screening Files](#tool-4---create-screening-files)
     + [Tool #5 - Summarize Aircraft Waypoint Altitudes](#tool-5---summarize-aircraft-waypoint-altitudes)
-    + [Tool #6 - Summarize Aircraft Flights](#tool-6---summarize-aircraft-flights)
+    + [Tool #6 - Summarize Aircraft Flights by Hour and Month](#tool-6---summarize-aircraft-flights)
     + [Tool #7 - Summarize Aircraft Operators and Types](#tool-7---summarize-aircraft-operators-and-types)
     + [Tool #8 - Perform Density Analysis of Aircraft Waypoints](#tool-8---perform-density-analysis-of-aircraft-waypoints)
 * [Credits](#credits)
@@ -64,7 +64,7 @@ Enter text here.
 
 Enter text here.
 
-### Tool #6 - Summarize Aircraft Flights
+### Tool #6 - Summarize Aircraft Flights by Hour and Month
 
 Enter text here.
 
