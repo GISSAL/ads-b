@@ -3,7 +3,7 @@
 
 A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to automate and simplify processing and analysis of Automatic Dependent Surveillance-Broadcast (ADS-B) for better understanding aircraft overflights of National Park Service (NPS) management units. 
 
-https://github.com/GISSAL/ads-b/blob/main/README.md#project-overview---ads-b-overflight-analysis
+[Project Overview](https://github.com/GISSAL/ads-b/blob/main/README.md#project-overview---ads-b-overflight-analysis)
 
 ## Project Overview - ADS-B Overflight Analysis
 
