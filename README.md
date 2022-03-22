@@ -46,7 +46,8 @@ Enter text here.
 
 ### Tool #1 - Process Raw ADS-B Data Files
 
-Enter text here.
+### Summary
+ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations.
 
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
 
