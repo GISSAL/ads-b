@@ -68,34 +68,88 @@ Enter summary here.
 
 *Parameters*
 
-| Label                     | Explanation   | Data Type |
-| ------------------------- |:-------------:| ---------:|
-| Parameter 1   | Enter explanation here. | String    |
-| Parameter 2   | Enter explanation here. | File      |
+| Label         | Explanation             | Data Type            |
+| ------------- |:-----------------------:| --------------------:|
+| Parameter 1   | Enter explanation here. | Enter data type here |
+| Parameter 2   | Enter explanation here. | Enter data type here |
 
 ### Tool #3 - Merge Daily Waypoints and Flightlines
 
-Enter text here.
+*Summary*
+
+Enter summary here.
+
+*Parameters*
+
+| Label         | Explanation             | Data Type            |
+| ------------- |:-----------------------:| --------------------:|
+| Parameter 1   | Enter explanation here. | Enter data type here |
+| Parameter 2   | Enter explanation here. | Enter data type here |
 
 ### Tool #4 - Create Screening Features
 
-Enter text here.
+*Summary*
+
+Enter summary here.
+
+*Parameters*
+
+| Label         | Explanation             | Data Type            |
+| ------------- |:-----------------------:| --------------------:|
+| Parameter 1   | Enter explanation here. | Enter data type here |
+| Parameter 2   | Enter explanation here. | Enter data type here |
 
 ### Tool #5 - Summarize Waypoint Altitudes
 
-Enter text here.
+*Summary*
+
+Enter summary here.
+
+*Parameters*
+
+| Label         | Explanation             | Data Type            |
+| ------------- |:-----------------------:| --------------------:|
+| Parameter 1   | Enter explanation here. | Enter data type here |
+| Parameter 2   | Enter explanation here. | Enter data type here |
 
 ### Tool #6 - Summarize Flights by Hour and Month
 
-Enter text here.
+*Summary*
+
+Enter summary here.
+
+*Parameters*
+
+| Label         | Explanation             | Data Type            |
+| ------------- |:-----------------------:| --------------------:|
+| Parameter 1   | Enter explanation here. | Enter data type here |
+| Parameter 2   | Enter explanation here. | Enter data type here |
 
 ### Tool #7 - Summarize Aircraft Operators and Types
 
-Enter text here.
+*Summary*
+
+Enter summary here.
+
+*Parameters*
+
+| Label         | Explanation             | Data Type            |
+| ------------- |:-----------------------:| --------------------:|
+| Parameter 1   | Enter explanation here. | Enter data type here |
+| Parameter 2   | Enter explanation here. | Enter data type here |
 
 ### Tool #8 - Perform Waypoint Density Analysis
 
-Enter text here.
+*Summary*
+
+Enter summary here.
+
+*Parameters*
+
+| Label         | Explanation             | Data Type            |
+| ------------- |:-----------------------:| --------------------:|
+| Parameter 1   | Enter explanation here. | Enter data type here |
+| Parameter 2   | Enter explanation here. | Enter data type here |
 
 ## Credits
 
