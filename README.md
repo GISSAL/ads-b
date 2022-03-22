@@ -68,10 +68,10 @@ Enter summary here.
 
 *Parameters*
 
-| Label         | Explanation             | Data Type            |
-| ------------- |:-----------------------:| --------------------:|
-| Parameter 1   | Enter explanation here. | Enter data type here |
-| Parameter 2   | Enter explanation here. | Enter data type here |
+| Label                     | Explanation                                     | Type     | Direction | Data Type |
+| ------------------------- |:-----------------------------------------------:| --------:| ---------:|----------:| 
+| Parameter 1               | Enter explanation here.                         | Required | Input     | String    |
+| Parameter 2               | Enter explanation here.                         | Required | Input     | String    |
 
 ### Tool #3 - Merge Daily Waypoints and Flightlines
 
