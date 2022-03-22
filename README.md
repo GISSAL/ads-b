@@ -8,7 +8,7 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to au
 * [Access the Current ArcGIS Pro Project File](#access-the-current-arcgis-pro-project-file)
 * [Summary of Input and Output Files](#summary-of-input-and-output-files)
 * [Geoprocessing Tools](#geoprocessing-tools)
-    + [Tool #1 - Process Raw ADS-B Data Files](#tool--1---process-raw-ads-b-data-files)
+    + [Tool #1 - Process Raw ADS-B Data Files](###tool--1---process-raw-ads-b-data-files)
     + [Tool #2 - Create Waypoint and Flightline Feature Classes](#tool--2---create-waypoint-and-flightline-feature-classes)
     + [Tool #3 - Merge Daily Waypoints and Flightlines](#tool--3---merge-daily-waypoints-and-flightlines)
     + [Tool #4 - Create Screening Files](#tool--4---create-screening-files)
