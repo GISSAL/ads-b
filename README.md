@@ -52,13 +52,13 @@ ArcGIS script-based tool code that reads raw ADS-B data from the logger, creates
 
 *Parameters*
 
-| Label                     | Explanation                                     | Type     | Direction | Data Type |
-| :------------------------ |:------------------------------------------------| :------- | :-------- | :-------- | 
-| National Park Unit Code   | Four character abbreviation code for NPS unit.  | Required | Input     | String    |
-| Raw ADS-B File            | The ADS-B file downloaded from the data logger. | Required | Input     | File      |
-| ADS-B Acquisition Date    | The ADS-B file acquisition date (YYYYMMDD).     | Required | Input     | String    |
-| Flight Duration Threshold | Maximum time between successive waypoints.      | Required | Input     | Long      |
-| Output CSV Folder         | Folder where processed CSV file will be saved.  | Required | Input     | Workspace |
+| Label                     | Explanation                                                         | Type     | Direction | Data Type |
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| National Park Unit Code   | Four character abbreviation code for NPS unit.                      | Required | Input     | String    |
+| Raw ADS-B File            | The ADS-B file downloaded from the data logger.                     | Required | Input     | File      |
+| ADS-B Acquisition Date    | The ADS-B file acquisition date (YYYYMMDD).                         | Required | Input     | String    |
+| Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      |
+| Output CSV Folder         | Folder where processed CSV file will be saved.                      | Required | Input     | Workspace |
 
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
 
@@ -68,10 +68,10 @@ Enter summary here.
 
 *Parameters*
 
-| Label                     | Explanation                                     | Type     | Direction | Data Type |
-| ------------------------- |:-----------------------------------------------:| --------:| ---------:|----------:| 
-| Parameter 1               | Enter explanation here.                         | Required | Input     | String    |
-| Parameter 2               | Enter explanation here.                         | Required | Input     | String    |
+| Label                     | Explanation                                                         | Type     | Direction | Data Type |
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| Parameter 1               |                                                                     |          |           |           |
+| Parameter 2               |                                                                     |          |           |           |
 
 ### Tool #3 - Merge Daily Waypoints and Flightlines
 
