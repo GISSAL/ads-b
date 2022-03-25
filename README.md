@@ -71,7 +71,7 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 
 *Summary*
 
-Enter summary here.
+Ingetsts ADS-B data processed with Tool #1 and produces point (aircraft waypoints) and line (aircraft flightlines) feature classes.  The attribute table for aircraft flightlines has appended to it select fields and values from the FAA Releasable Database as well as the field "Sinuosity" whose values are an index representing the ratio of the curvilinear length of the flightline and the Eucliean distance between the first and last waypoint comprising the flightline.
 
 *Parameters*
 
@@ -82,9 +82,9 @@ Enter summary here.
 
 *Licensing and Extension Information*
 
-* Basic - 
-* Standard - 
-* Advanced - 
+* Basic - Requires Spatial Analyst
+* Standard - Requires Spatial Analyst
+* Advanced - Requires Spatial Analyst
 
 ### Tool #3 - Merge Daily Waypoints and Flightlines
 
