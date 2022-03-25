@@ -71,7 +71,7 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 
 *Summary*
 
-Ingetsts ADS-B data processed with Tool #1 and produces point (aircraft waypoints) and line (aircraft flightlines) feature classes within a buffer distance of a management unit polygon and below a threshold altitude.  The buffer distance and altitude threshold values are user-defined.  The attribute table for the output aircraft flightlines has appended to it select fields and values from the FAA Releasable Database, as well as the new field 'Sinuosity'.  
+ArcGIS script-based tool code based upon <code>tool_2.py</code> that ingests ADS-B data processed with Tool #1 and produces point (aircraft waypoints) and line (aircraft flightlines) feature classes within a buffer distance of a management unit polygon and below a threshold altitude.  The buffer distance and altitude threshold values are user-defined.  The attribute table for the output aircraft flightlines has appended to it select fields and values from the FAA Releasable Database, as well as the new field 'Sinuosity'.  
 
 Sinuosity values are calculated as the ratio of the curvilinear length of the flightline and the Eucliean distance between the first and last waypoint comprising the flightline and may be used to identify specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights. 
 
@@ -96,14 +96,17 @@ Sinuosity values are calculated as the ratio of the curvilinear length of the fl
 
 *Summary*
 
-Enter summary here.
+ArcGIS script-based tool code based upon <code>tool_3.py</code> that merges daily aircraft waypoint and flightlines feature classes into single feature classes for a desired time interval.
 
 *Parameters*
 
-| Label                     | Explanation                                                         | Type     | Direction | Data Type |
-| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Parameter 1               |                                                                     |          |           |           |
-| Parameter 2               |                                                                     |          |           |           |
+| Label                        | Explanation                                                         | Type     | Direction | Data Type |
+| :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| Input Workspace              | The geodatabase workspace containing daily waypoint and flightline feature classes. | Required | Input | Workspace |
+| Management Unit Polygon File | A polygon feature representing the boundary of the management unit study area. | Required | Input | Feature Class |
+| Output Workspace             | The geodatabase workspace where merged waypoint and flightline feature classes will be written. | Required | Input | Workspace |
+| Output Merged Waypoints      |
+| Ouput Merged Flightlines     | 
 
 *Licensing and Extension Information*
 
