@@ -77,14 +77,14 @@ Sinuosity values are calculated as the ratio of the curvilinear length of the fl
 
 *Parameters*
 
-| Label                            | Explanation                                                                 | Type     | Direction | Data Type |
-| :------------------------------- |:----------------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Processed ADS-B File             | An output file produced by Tool #1 in the ADS-B Overflight Analysis Toolbox |                                                     
-| Management Unit Polygon File     |                                                                     |          |           |           |
-| Buffer Distance                  |
-| Altitude (MSL) Threshold in Feet |
-| Select FAA Releasable Database   |
-| Output Workspace                 |
+| Label                            | Explanation                                                                      | Type     | Direction | Data Type     |
+| :------------------------------- |:---------------------------------------------------------------------------------| :------- | :-------- | :------------ | 
+| Processed ADS-B File             | An output file produced by Tool #1 in the ADS-B Overflight Analysis Toolbox.     | Required | Input     | File          |
+| Management Unit Polygon File     | A polygon feature representing the boundary of the management unit study area.   | Required | Input     | Feature Class |
+| Buffer Distance                  | The distance (in miles) around the input feature(s) that will be buffered.       | Required | Input     | String        |
+| Altitude (MSL) Threshold in Feet | The distance around the input features that will be buffered.                    | Required | Input     | Long          |
+| Select FAA Releasable Database   | Choose a locally stored geodatabase copy of the FAA Releasable Database.         | Required | Input     | Workspace     |
+| Output Workspace                 | Output geodatabase where aircraft waypoint and flightline files will be written. | Required | Input     | Workspace     |
 
 *Licensing and Extension Information*
 
