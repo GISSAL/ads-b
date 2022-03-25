@@ -71,7 +71,9 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 
 *Summary*
 
-Ingetsts ADS-B data processed with Tool #1 and produces point (aircraft waypoints) and line (aircraft flightlines) feature classes within a buffer distance of a management unit polygon and below a threshold altitude.  The buffer distance and altitude threshold values are user-defined.  The attribute table for the output aircraft flightlines has appended to it select fields and values from the FAA Releasable Database, as well as the new field 'Sinuosity'.  Sinuosity values are calculated as the ratio of the curvilinear length of the flightline and the Eucliean distance between the first and last waypoint comprising the flightline and may be used to identify specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights. 
+Ingetsts ADS-B data processed with Tool #1 and produces point (aircraft waypoints) and line (aircraft flightlines) feature classes within a buffer distance of a management unit polygon and below a threshold altitude.  The buffer distance and altitude threshold values are user-defined.  The attribute table for the output aircraft flightlines has appended to it select fields and values from the FAA Releasable Database, as well as the new field 'Sinuosity'.  
+
+Sinuosity values are calculated as the ratio of the curvilinear length of the flightline and the Eucliean distance between the first and last waypoint comprising the flightline and may be used to identify specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights. 
 
 *Parameters*
 
