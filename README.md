@@ -143,7 +143,7 @@ ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a w
 
 *Summary*
 
-Enter summary here.
+ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates an output table summarizing waypoint frequencies by ten fixed 500 foot altitude bands.
 
 *Parameters*
 
@@ -154,15 +154,15 @@ Enter summary here.
 
 *Licensing and Extension Information*
 
-* Basic - 
-* Standard - 
-* Advanced - 
+* Basic - Yes
+* Standard - Yes
+* Advanced - Yes
 
 ### Tool #6 - Summarize Flights by Hour and Month
 
 *Summary*
 
-Enter summary here.
+ArcGIS script-based tool code based upon <code>tool_6.py</code> that generates an output table summarizing waypoint frequencies by hour and month.
 
 *Parameters*
 
@@ -173,15 +173,15 @@ Enter summary here.
 
 *Licensing and Extension Information*
 
-* Basic - 
-* Standard - 
-* Advanced - 
+* Basic - Yes
+* Standard - Yes
+* Advanced - Yes
 
 ### Tool #7 - Summarize Aircraft Operators and Types
 
 *Summary*
 
-Enter summary here.
+ArcGIS script-based tool code based upon <code>tool_7.py</code> that generates an output table summarizing flight (flightlines) by operator as reported in the FAA Releasable Database.
 
 *Parameters*
 
@@ -200,20 +200,22 @@ Enter summary here.
 
 *Summary*
 
-Enter summary here.
+ArcGIS script-based tool code based upon <code>tool_8.py</code> that performs a kernel density analysis of aircraft waypoints within a buffered management unit.
 
 *Parameters*
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type |
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Parameter 1               |                                                                     |          |           |           |
-| Parameter 2               |                                                                     |          |           |           |
+| Input Waypoint File | Enter text here. | Required | Input | Feature Class |
+| Management Unit Buffer Polygon | Enter text here. | Required | Input | Feature Class |
+| Output Workspace | Enter text here. | Required | Input | Workspace |
+| Output Kernel Density Raster | Enter text here. | Required | Output | Raster Dataset |
 
 *Licensing and Extension Information*
 
-* Basic - 
-* Standard - 
-* Advanced - 
+* Basic - Requires Spatial Analyst
+* Standard - Requires Spatial Analyst
+* Advanced - Requires Spatial Analyst
 
 ## Credits
 
