@@ -126,18 +126,18 @@ ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a w
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
 | Input Waypoint File       | Enter text here. | Required | Input | Feature Class |
 | Input Flightline File     | Enter text here. | Required | Input | Feature Class |
-| Type Registrant Value     | Enter text here. | Required | Input | Feature Class |
-| Sinuosity Values          | Enter text here. | Required | Input | Feature Class |
-| Minimum Flight Length (miles) | Enter text here. | Required | Input | Feature Class | 
-| Output Workspace | Enter text here. | Required | Input | Feature Class |
-| Output Waypoints for Screening | Enter text here. | Required | Input | Feature Class |
-| Output Flightlines for Screening | Enter text here. | Required | Input | Feature Class |
+| Type Registrant Value     | Enter text here. | Required | Input | String |
+| Sinuosity Values          | Enter text here. | Required | Input | String |
+| Minimum Flight Length (miles) | Enter text here. | Required | Input | Long | 
+| Output Workspace | Enter text here. | Required | Input | Workspace |
+| Output Waypoints for Screening | Enter text here. | Required | Output | Feature Class |
+| Output Flightlines for Screening | Enter text here. | Required | Output | Feature Class |
 
 *Licensing and Extension Information*
 
-* Basic - 
-* Standard - 
-* Advanced - 
+* Basic - Yes
+* Standard - Yes
+* Advanced - Yes
 
 ### Tool #5 - Summarize Waypoint Altitudes
 
