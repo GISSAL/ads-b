@@ -105,8 +105,8 @@ ArcGIS script-based tool code based upon <code>tool_3.py</code> that merges dail
 | Input Workspace | The geodatabase workspace containing daily waypoint and flightline feature classes. | Required | Input | Workspace |
 | Management Unit Polygon File | A polygon feature representing the boundary of the management unit study area. | Required | Input | Feature Class |
 | Output Workspace | The geodatabase workspace where merged waypoint and flightline feature classes will be written. | Required | Input | Workspace |
-| Output Merged Waypoints | The output waypoint feature class that will be written after merging two or more daily waypoint files. | Required | Input | Feature Class |
-| Ouput Merged Flightlines | The output flightline feature class that will be written after merging two or more daily flighline files. | Required | Input | Feature Class |
+| Output Merged Waypoints | The output waypoint feature class that will be written after merging two or more daily waypoint files. | Required | Output | Feature Class |
+| Ouput Merged Flightlines | The output flightline feature class that will be written after merging two or more daily flighline files. | Required | Output | Feature Class |
 
 *Licensing and Extension Information*
 
