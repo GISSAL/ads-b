@@ -77,10 +77,14 @@ Sinuosity values are calculated as the ratio of the curvilinear length of the fl
 
 *Parameters*
 
-| Label                     | Explanation                                                         | Type     | Direction | Data Type |
-| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Parameter 1               |                                                                     |          |           |           |
-| Parameter 2               |                                                                     |          |           |           |
+| Label                            | Explanation                                                         | Type     | Direction | Data Type |
+| :------------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| Processed ADS-B File             |                                                                     |          |           |           |
+| Management Unit Polygon File     |                                                                     |          |           |           |
+| Buffer Distance                  |
+| Altitude (MSL) Threshold in Feet |
+| Select FAA Releasable Database   |
+| Output Workspace                 |
 
 *Licensing and Extension Information*
 
