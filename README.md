@@ -147,10 +147,10 @@ ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates a
 
 *Parameters*
 
-| Label                     | Explanation                                                         | Type     | Direction | Data Type |
-| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Parameter 1               | Merged waypoints file produced by Tool #3 | Required          | Input           | Feature Clas          |
-| Parameter 2               |                                                                     |          |           |           |
+| Label                     | Explanation                                                         | Type     | Direction | Data Type     |   
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
+| Parameter 1               | Merged waypoints file produced by Tool #3                           | Required | Input     | Feature Class |
+| Parameter 2               | The geodatabase workspace where the summary table will be written.  | Required | Input     | Workspace     |
 
 *Licensing and Extension Information*
 
