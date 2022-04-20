@@ -189,8 +189,10 @@ ArcGIS script-based tool code based upon <code>tool_7.py</code> that generates a
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type |
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Parameter 1               |                                                                     |          |           |           |
-| Parameter 2               |                                                                     |          |           |           |
+| Input Flightlines File                 | Merged waypoints feature class produced by Tool #3.    |          |           |           |
+| Output Workspace                       | The geodatabase workspace where the summary tables will be written. |          |           |           |
+| Output Aircraft Operator Summary Table | Summary table of aircraft operators.                                |          |           |           |
+| Output Aircraft Type Summary Table     | Summary table of aircraft types in the input flightline file                                     |          |           |           |
 
 *Licensing and Extension Information*
 
