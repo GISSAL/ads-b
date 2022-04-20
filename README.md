@@ -149,8 +149,8 @@ ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates a
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type     |   
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
-| Parameter 1               | Merged waypoints feature class produced by Tool #3.                 | Required | Input     | Feature Class |
-| Parameter 2               | The geodatabase workspace where the summary table will be written.  | Required | Input     | Workspace     |
+| Input Waypoint File       | Merged waypoints feature class produced by Tool #3.                 | Required | Input     | Feature Class |
+| Output Workspace          | The geodatabase workspace where the summary table will be written.  | Required | Input     | Workspace     |
 
 *Licensing and Extension Information*
 
@@ -166,10 +166,12 @@ ArcGIS script-based tool code based upon <code>tool_6.py</code> that generates a
 
 *Parameters*
 
-| Label                     | Explanation                                                         | Type     | Direction | Data Type |
-| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Parameter 1               |                                                                     |          |           |           |
-| Parameter 2               |                                                                     |          |           |           |
+| Label                        | Explanation                                                         | Type     | Direction | Data Type     |
+| :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
+| Input Waypoint File          | Merged waypoints feature class produced by Tool #3.                 | Required | Input     | Feature Class |
+| Output Workspace             | The geodatabase workspace where the summary table will be written.  | Required | Input     | Workspace     |
+| Hourly Flight Summary Table  | Summary table of aircraft flights by hour of day.                   | Required | Output    | String        |
+| Monthly Flight Summary Table | Summary table of aircraft flights by calendar month.                | Required | Output    | String        |
 
 *Licensing and Extension Information*
 
