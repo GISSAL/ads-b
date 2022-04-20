@@ -199,16 +199,16 @@ ArcGIS script-based tool code based upon <code>tool_7.py</code> that generates a
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_8.py</code> that performs a kernel density analysis of aircraft waypoints within a buffered management unit.
+ArcGIS script-based tool code based upon <code>tool_8.py</code> that performs kernel density analyses of aircraft waypoints for five fixed altitude bands within a buffered management unit.
 
 *Parameters*
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type |
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Input Waypoint File | Enter text here. | Required | Input | Feature Class |
-| Management Unit Buffer Polygon | Enter text here. | Required | Input | Feature Class |
-| Output Workspace | Enter text here. | Required | Input | Workspace |
-| Output Kernel Density Raster | Enter text here. | Required | Output | Raster Dataset |
+| Input Waypoint File       | Merged waypoints feature class produced by Tool #3.. | Required | Input | Feature Class |
+| Management Unit Buffer Polygon | A polygon feature representing the buffered boundary of the management unit study area. | Required | Input | Feature Class |
+| Output Workspace | The geodatabase workspace where the kernel density raster will be written.. | Required | Input | Workspace |
+| Output Kernel Density Raster | Base filename of kernel density raster results; altitude band values will be automatically appended to the basename . | Required | Output | Raster Dataset |
 
 *Licensing and Extension Information*
 
