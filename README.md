@@ -6,7 +6,6 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to au
 * [Overview of ADS-B Overflight Analysis](#overview-of-ads-b-overflight-analysis)
 * [Toolbox Purpose](#toolbox-purpose)
 * [Access the Current ArcGIS Pro Project File](#access-the-current-arcgis-pro-project-file)
-* [Summary of Input and Output Files](#summary-of-input-and-output-files)
 * [Geoprocessing Tools](#geoprocessing-tools)
     + [Tool #1 - Process Raw ADS-B Data Files](#tool-1---process-raw-ads-b-data-files)
     + [Tool #2 - Create Waypoint and Flightline Feature Classes](#tool-2---create-waypoint-and-flightline-feature-classes)
@@ -35,10 +34,6 @@ This repository documents and points users to a downloadable ArcGIS Pro project 
 
 ## Access the Current ArcGIS Pro Project File
 https://kstate.maps.arcgis.com/home/item.html?id=5992d6c52e824b138aff1adb047a67e4
-
-## Summary of Input and Output Files
-
-Enter text here.
 
 ## Geoprocessing Tools
 
