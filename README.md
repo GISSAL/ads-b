@@ -124,9 +124,9 @@ ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a w
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type |
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Input Waypoint File       | Enter text here. | Required | Input | Feature Class |
-| Input Flightline File     | Enter text here. | Required | Input | Feature Class |
-| Type Registrant Value     | Enter text here. | Required | Input | String |
+| Input Waypoint File       | Merged waypoints feature class produced by Tool #3. | Required | Input | Feature Class |
+| Input Flightline File     | Merged flightlines feature class produced by Tool #3. | Required | Input | Feature Class |
+| Type Registrant Value     | A single value or comm-separated list of values for aircraft registrant type from the FAA Releasable Database. | Required | Input | String |
 | Sinuosity Values          | Enter text here. | Required | Input | String |
 | Minimum Flight Length (miles) | Enter text here. | Required | Input | Long | 
 | Output Workspace | Enter text here. | Required | Input | Workspace |
@@ -149,7 +149,7 @@ ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates a
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type     |   
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
-| Parameter 1               | Merged waypoints file produced by Tool #3                           | Required | Input     | Feature Class |
+| Parameter 1               | Merged waypoints feature class produced by Tool #3.                 | Required | Input     | Feature Class |
 | Parameter 2               | The geodatabase workspace where the summary table will be written.  | Required | Input     | Workspace     |
 
 *Licensing and Extension Information*
