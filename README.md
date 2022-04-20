@@ -149,7 +149,7 @@ ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates a
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type |
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Parameter 1               |                                                                     |          |           |           |
+| Parameter 1               | Merged waypoints file produced by Tool #3 | Required          | Input           | Feature Clas          |
 | Parameter 2               |                                                                     |          |           |           |
 
 *Licensing and Extension Information*
