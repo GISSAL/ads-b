@@ -187,18 +187,18 @@ ArcGIS script-based tool code based upon <code>tool_7.py</code> that generates a
 
 *Parameters*
 
-| Label                     | Explanation                                                         | Type     | Direction | Data Type |
-| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Input Flightlines File                 | Merged waypoints feature class produced by Tool #3.    |          |           |           |
-| Output Workspace                       | The geodatabase workspace where the summary tables will be written. |          |           |           |
-| Output Aircraft Operator Summary Table | Summary table of aircraft operators.                                |          |           |           |
-| Output Aircraft Type Summary Table     | Summary table of aircraft types in the input flightline file                                     |          |           |           |
+| Label                     | Explanation                                                                      | Type     | Direction | Data Type     |
+| :------------------------ |:---------------------------------------------------------------------------------| :------- | :-------- | :------------ | 
+| Input Flightlines File                 | Merged waypoints feature class produced by Tool #3.                 | Required | Input     | Feature Class |
+| Output Workspace                       | The geodatabase workspace where the summary tables will be written. | Required | Input     | Workspace     |
+| Output Aircraft Operator Summary Table | Summary table of aircraft operators.                                | Required | Output    | String        |
+| Output Aircraft Type Summary Table     | Summary table of aircraft types in the input flightline file        | Required | Output    | String        |
 
 *Licensing and Extension Information*
 
-* Basic - 
-* Standard - 
-* Advanced - 
+* Basic - Yes
+* Standard - Yes
+* Advanced - Yes
 
 ### Tool #8 - Perform Waypoint Density Analysis
 
