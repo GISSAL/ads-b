@@ -32,44 +32,6 @@ outputWorkspace = arcpy.GetParameterAsText(6)
 #faaTable = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/FAA_Releasable_Database.gdb"
 #outputWorkspace = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B_GRSM.gdb"
 
-# FAA Releasable Database MASTER Fields Key
-# Type Aircraft
-#1 - Glider
-#2 - Balloon
-#3 - Blimp/Dirigible
-#4 - Fixed wing single engine
-#5 - Fixed wing multi engine
-#6 - Rotorcraft
-#7 - Weight-shift-control
-#8 - Powered Parachute
-#9 - Gyroplane
-#H - Hybrid Lift
-#O - Other
-
-# Type Engine
-#0 - None
-#1 - Reciprocating
-#2 - Turbo-prop
-#3 - Turbo-shaft
-#4 - Turbo-jet
-#5 - Turbo-fan
-#6 - Ramjet
-#7 - 2 Cycle
-#8 - 4 Cycle
-#9 – Unknown
-#10 – Electric
-#11 - Rotary
-
-# Type Registrant
-#1 - Individual
-#2 - Partnership
-#3 - Corporation
-#4 - Co-Owned
-#5 - Government
-#7 - LLC
-#8 - Non-Citizen Corporation
-#9 - Non-Citizen Co-Owned
-
 # Fixed local variable(s)
 spatialRef = arcpy.SpatialReference(4269)
 inField1 = "ICAO_address"
