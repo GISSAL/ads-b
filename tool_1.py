@@ -8,24 +8,22 @@
     Description:  ArcGIS script tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations
     Status:  Development
     Date created: 10/6/2021
-    Date last modified: 3/22/2022
+    Date last modified: 6/2/2022
     Python Version: 3.7
 """
 
 # Import libraries
-import arcpy, time, pandas as pd
+import arcpy, os, pandas as pd, time
 
 ## User-specified local variable(s) for ArcGIS script tool
 park_name = arcpy.GetParameterAsText(0)
 input_file = arcpy.GetParameterAsText(1)
-input_file_date = arcpy.GetParameterAsText(2)
-dur_threshold = arcpy.GetParameterAsText(3)
-output_workspace = arcpy.GetParameterAsText(4)
+dur_threshold = arcpy.GetParameterAsText(2)
+output_workspace = arcpy.GetParameterAsText(3)
 
 # User-specified local variable(s) for stand-alone Python script
 #park_name = "GRSM"
 #input_file = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/SampleData/GRSM/COVEMTN/20190926.tsv"
-#input_file_date = "20190926"
 #dur_threshold = 900
 #output_workspace = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/Outputs/"
 
@@ -137,7 +135,8 @@ print("Unused attribute fields removed...")
 arcpy.AddMessage("Unneeded attribute fields and flags removed...")
 
 # Write output file in CSV format
-data.to_csv(output_workspace + "\ADSB_" + park_name + "_" + input_file_date + ".csv")
+base = os.path.basename(input_file)
+data.to_csv(output_workspace + "\ADSB_" + park_name + "_" + os.path.splitext(base)[0] + ".csv")
 print("Success... ADS-B data cleaned and formatted output file created.")
 arcpy.AddMessage("Success... ADS-B data cleaned and formatted output file created!")
 
