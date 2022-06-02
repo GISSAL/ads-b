@@ -43,7 +43,7 @@ Each geoprocessing tool in the ADS-B Overflight Analysis Toolbox is described be
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code>.
+ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV files for later GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code>.
 
 *Parameters*
 
@@ -60,6 +60,17 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 * Basic - Yes
 * Standard - Yes
 * Advanced - Yes
+
+*Description*
+
+Ingests and pre-processes a single daily ADS-B data logger TSV file and returns a new daily file in CSV format.  Tool messaging includes data regarding QA/QC results, number of unique aircraft and flights, and total execution time.  Important preprocessing steps include:
+•	Unpacking validFlags data from the ADS-B input file and removing any records with invalid latlon and altitude flags.
+•	Removing any records with TSLC values of 1 or 2 seconds.
+•	Converts original Unix timestamps to Python datetime objects in UTC which are then re-scaled to integer values.
+•	Calculating the time difference between sequential waypoints for each aircraft.
+•	Removing  any identical waypoints based on ICAO address, time, lat, and lon values.
+•	Appending a zero-based index to the ICAO Address for a new FlightID attribute field and values (e.g., ICAO_0, ICAO_1, etc).  A new flight by the same aircraft is indicated when two sequential waypoints have a time difference exceeding the user parameter “Flight Duration Threshold” which is set to a default value of 900 seconds.
+•	Removing any records where a unique FlightID has just a single recorded waypoint. 
 
 
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
