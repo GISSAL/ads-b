@@ -8,7 +8,7 @@
     Description:  Ingests processed ADS-B data and produces point and line feature classes with sinuosity values and joined FAA database fields
     Status:  Development
     Date created: 10/7/2021
-    Date last modified: 2/23/2022
+    Date last modified: 6/2/2022
     Python Version: 3.7
 """
 # Import libraries
