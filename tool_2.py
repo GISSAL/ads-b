@@ -110,13 +110,18 @@ try:
         print("Point feature class created from ADS-B input file...")
         arcpy.AddMessage("Point feature class created from ADS-B input file...")
         
-        # Create park buffer...
-        arcpy.analysis.Buffer(parkBoundaryFile, "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), bufferDistance)
-        
-        # Then remove waypoints outside the bufferScreen waypoints by a park buffer
-        arcpy.analysis.Clip("temp1", "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), "temp2")
-        print("Park buffer generated and points outside buffer removed...")
-        arcpy.AddMessage("Park buffer generated and points outside buffer removed...")
+        # Check for an existing park buffer file and use it, or create a new buffer file to screen waypoints
+        if arcpy.Exists("Buffer_" + parkName + "_" + bufferDistance.replace(" ", "")):
+            print("Park buffer file already exists.  Moving to next process...")
+            arcpy.AddMessage("Park buffer file already exists.  Moving to next process...")
+            arcpy.analysis.Clip("temp1", "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), "temp2")
+            print("Waypoints outside buffer removed...")
+            arcpy.AddMessage("Waypoints outside buffer removed...")
+        else:
+            arcpy.analysis.Buffer(parkBoundaryFile, "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), bufferDistance)
+            arcpy.analysis.Clip("temp1", "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), "temp2")
+            print("Park buffer generated and waypoints outside buffer removed...")
+            arcpy.AddMessage("Park buffer generated and waypoints outside buffer removed...")      
         
         # Convert altitude (MSL) units converted from meters to feet and screen waypoints above threshold
         arcpy.management.CalculateField("temp2", "alt_msl", "int(!altitude! * 3.28084)", "PYTHON3", "", "LONG")
@@ -190,5 +195,7 @@ except arcpy.ExecuteError:
 finally:    
     # Report aircraft and flight summaries and execution time
     end = time.time()
+    print("There are {0} total aircraft with null values for N-Number.".format(str(count1))) 
+    arcpy.AddMessage("There are {0} total aircraft with null values for N-Number.".format(str(count1)))
     print("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
     arcpy.AddMessage("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
