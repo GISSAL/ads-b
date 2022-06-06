@@ -54,19 +54,31 @@ try:
             
     # Merge point and line feature classes into single files and filter by horizontal and vertical buffers
     if len(pointList) > 0:
+        print("There are {0} point feature classes to be merged...".format(str(len(pointList))))
+        arcpy.AddMessage("There are {0} point feature classes to be merged...".format(str(len(pointList))))
         desc = arcpy.Describe(pointList[0])
         parkName = desc.baseName[5:9]
         arcpy.management.Merge(pointList, os.path.join(outputWorkspace, outputPoints))
         count1 = arcpy.management.GetCount(os.path.join(outputWorkspace, outputPoints))
-        print("There are {0} point feature classes to be merged...".format(str(len(pointList))))
-        arcpy.AddMessage("There are {0} point feature classes to be merged...".format(str(len(pointList))))
+        print("There are a total of {0} aircraft waypoints in the input point feature classes.".format(str(count1)))
+        arcpy.AddMessage("There are a total of {0} aircraft waypoints in the input point feature classes.".format(str(count1)))
+        arcpy.management.ConvertTimeField(os.path.join(outputWorkspace, outputPoints), 'TIME', "", 'DATE', 'TEXT', 'yyyyMMdd')
+        arcpy.management.DeleteIdentical(os.path.join(outputWorkspace, outputPoints), ['flight_id', 'lat', 'lon', 'DATE'])
+        count2 = arcpy.management.GetCount(os.path.join(outputWorkspace, outputPoints))
+        count3 = int(str(count1)) - int(str(count2))
+        print("A total of {0} duplicate aircraft waypoints were removed leaving {1} total waypoints in the merged waypoint feature class.".format(str(count3), str(count2)))
+        arcpy.AddMessage("A total of {0} duplicate aircraft waypoints were removed leaving {1} total waypoints in the merged waypoint feature class.".format(str(count3), str(count2)))
+        arcpy.management.DeleteField(os.path.join(outputWorkspace, outputPoints), "DATE")        
+ 
     if len(lineList) > 0:
+        print("There are {0} line feature classes to be merged...".format(str(len(lineList))))
+        arcpy.AddMessage("There are {0} line feature classes to be merged...".format(str(len(lineList))))
         desc = arcpy.Describe(lineList[0])
         parkName = desc.baseName[5:9]
         arcpy.management.Merge(lineList, os.path.join(outputWorkspace, outputLines))
-        count2 = arcpy.management.GetCount(os.path.join(outputWorkspace, outputLines))
-        print("There are {0} line feature classes to be merged...".format(str(len(lineList))))
-        arcpy.AddMessage("There are {0} line feature classes to be merged...".format(str(len(lineList))))
+        count4 = arcpy.management.GetCount(os.path.join(outputWorkspace, outputLines))
+        print("There are {0} total aircraft flights in the merged flightline feature class.".format(str(count4))) 
+        arcpy.AddMessage("There are {0} total aircraft flights in the merged flightline feature class.".format(str(count4)))
     else:
         print("There are no waypoints or flight lines in the workspace.")
         arcpy.AddMessage("There are no waypoints or flight lines in the workspace.")
@@ -78,9 +90,5 @@ except arcpy.ExecuteError:
 finally:    
     # Report aircraft and flight summaries and execution time
     end = time.time()
-    print("There are {0} total aircraft waypoints in the merged output.".format(str(count1))) 
-    arcpy.AddMessage("There are {0} total aircraft waypoints in the merged output.".format(str(count1)))
-    print("There are {0} total aircraft flights in the merged output.".format(str(count2))) 
-    arcpy.AddMessage("There are {0} total aircraft flights in the merged output.".format(str(count2)))
     print("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))    
     arcpy.AddMessage("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
