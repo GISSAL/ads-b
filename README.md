@@ -51,7 +51,7 @@ Before starting, be sure to have an ArcGIS Pro project file created with the add
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV files for later GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code>.
+ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV files for later GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code> where the acquisition date is obtained from the input TSV file.  
 
 *Parameters*
 
@@ -59,7 +59,6 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
 | National Park Unit Code   | Four character abbreviation code for NPS unit.                      | Required | Input     | String    |
 | Raw ADS-B File            | The ADS-B file downloaded from the data logger.                     | Required | Input     | File      |
-| ADS-B Acquisition Date    | The ADS-B file acquisition date (YYYYMMDD).                         | Required | Input     | String    |
 | Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      |
 | Output CSV Folder         | Folder where processed CSV file will be saved.                      | Required | Input     | Workspace |
 
@@ -71,7 +70,7 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 
 *Description*
 
-Ingests and pre-processes a single daily ADS-B data logger TSV file and returns a new daily file in CSV format.  Tool messaging includes data regarding QA/QC results, number of unique aircraft and flights, and total execution time.  Important preprocessing steps include:
+Ingests and pre-processes a single daily ADS-B data logger TSV file and returns a new daily file in CSV format.  This tool can be operated in "batch" mode within ArcGIS Pro to process many daily ADS-B files at once.  Tool messaging includes data regarding QA/QC results, number of unique aircraft and flights, and total execution time.  Important preprocessing steps include:
 * Unpacking validFlags data from the ADS-B input file and removing any records with invalid latlon and altitude flags.
 * Removing any records with TSLC values of 1 or 2 seconds.
 * Converts original Unix timestamps to Python datetime objects in UTC which are then re-scaled to integer values.
