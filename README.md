@@ -47,7 +47,7 @@ Before starting, be sure to have an ArcGIS Pro project file created with the add
 * Add a file or enterprise geodatabase to your project that contains, at minimum, two tables imported from the FAA Releasable Database.  The required tables are MASTER and ACFTREF.  A compressed file containing text-based attribute tables valid for a calendar year can be downloaded from https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download/.
 * Finally, download the ADS-B Overflight Analysis Toolbox and add it to your ArcGIS Pro project.
 
-Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remove records from further analysis.  Users may need to modify these procedures to suit their particular needs.  Filtering operations are outlined in the Description section for each tool.  Those indicated by **bold** text are operations that are hard-coded into the script and cannot be changed within the script tool dialog window while those that are *italicized* are controlled by user-defined parameters in the script tool.
+Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remove records from further analysis.  Users may need to modify these procedures to suit their particular needs.  Filtering operations are outlined in the Description section for each tool.  Those indicated by **bold** text are operations that are hard-coded into the script and cannot be changed within the script tool dialog window.
 
 ### Tool #1 - Process Raw ADS-B Data Files
 
@@ -79,7 +79,7 @@ Ingests and pre-processes a single daily ADS-B data logger TSV file and returns 
 * Calculating the time difference between sequential waypoints for each aircraft.
 * **Removes any identical waypoints in a single daily file that has the same values for ICAO address, time, latitude, and longitude.**
 * Appending a zero-based index to the ICAO Address for a new FlightID attribute field and values (e.g., ICAO_0, ICAO_1, etc).  A new flight by the same aircraft is indicated when two sequential waypoints have a time difference exceeding the user parameter “Flight Duration Threshold” which is set to a default value of 900 seconds.
-* **Removing any records where a unique FlightID has just a single recorded waypoint.** 
+* **Removing any records where a unique flight_id has just a single recorded waypoint.** 
 
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
 
@@ -112,7 +112,7 @@ Ingests preprocessed ADS-B CSV files produced by Tool #1 and creates point (airc
 * Converting original MSL altitude units in the aircraft waypoints table from meters to feet.
 * Calculating a new Alt_AGL field (altitude above ground level) in the aircraft waypoints table with values based on aircraft waypoint MSL altitudes minus corresponding terrain elevations from a user-supplied digital elevation model (DEM).
 * Adding new fields and values for the aircraft flightlines feature class including ICAO Address (retrieved from the aircraft waypoint table), Sinuosity, and LengthMiles.  Sinuosity is calculated as the ratio of the curvilinear length of the flightline and the Euclidean distance between the first and last waypoint comprising the flightline and may be used later to identify specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights.  The field LengthMiles is the total length of the flightpath in miles.
-* **Removes anyaircraft flightline features with a length of 0.**
+* **Removes any aircraft flightline features with a length of 0.**
 * Performing a table join between aircraft flightlines and select fields from the FAA Releasable Database.  Joined fields from the MASTER table include N-Number, MFR MDL CODE, TYPE REGISTRANT, NAME, and Type Engine.  A single field – Model – is joined from the ACFTREF table.
 
 ### Tool #3 - Merge Daily Waypoints and Flightlines
@@ -136,6 +136,13 @@ ArcGIS script-based tool code based upon <code>tool_3.py</code> that merges dail
 * Basic - Yes
 * Standard - Yes
 * Advanced - Yes
+
+*Description*
+Merges a series of user-selected daily aircraft waypoint and flightline feature classes into single feature classes.  Waypoints are further filtered to identify and remove duplicates based on the attribute fields flight_id, lat, lon, and DATE.  Tool messaging includes the number of original, duplicate, and final waypoints and the total number of unique aircraft flightlines in the merged aircraft waypoint and flightline feature classes, respectively.  Key processing steps executed include:
+* A new field called DATE is created based on the original datetime stamp field TIME, but includes only the yyyyMMdd information.  The newly created DATE field is deleted at the end of the script after it is no longer needed.
+* Combines all point feature classes in the input workspace into a single merged waypoint feature class.
+* **Removes duplicate waypoints from the merged feature class if identical values appear in the flight_id, lat, lon, and DATE fields.**
+* Combines all line feature classes in the input workspace into a single merged flightline feature class.
 
 ### Tool #4 - Create Screening Features
 
