@@ -47,6 +47,8 @@ Before starting, be sure to have an ArcGIS Pro project file created with the add
 * Add a file or enterprise geodatabase to your project that contains, at minimum, two tables imported from the FAA Releasable Database.  The required tables are MASTER and ACFTREF.  A compressed file containing text-based attribute tables valid for a calendar year can be downloaded from https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download/.
 * Finally, download the ADS-B Overflight Analysis Toolbox and add it to your ArcGIS Pro project.
 
+Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remove records from further analysis.  Users may need to modify these procedures to suit their particular needs.  Filtering operations are outlined in the Description section for each tool.  Those indicated by **bold** text are operations that are hard-coded into the script and cann be changed within the script tool dialog window while those that are *italicized* are controlled by user-defined parameters in the script tool.
+
 ### Tool #1 - Process Raw ADS-B Data Files
 
 *Summary*
@@ -71,13 +73,13 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 *Description*
 
 Ingests and pre-processes a single daily ADS-B data logger TSV file and returns a new daily file in CSV format.  This tool can be operated in "batch" mode within ArcGIS Pro to process many daily ADS-B files at once.  Tool messaging includes data regarding QA/QC results, number of unique aircraft and flights, and total execution time.  Important preprocessing steps include:
-* Unpacking validFlags data from the ADS-B input file and removing any records with invalid latlon and altitude flags.
-* Removing any records with TSLC values of 1 or 2 seconds.
+* **Unpacking validFlags data from the ADS-B input file and removing any records with invalid latitude, longitude, and/or altitude flags.**
+* **Removes any records with Time Since Last Communication (TSLC) values equal to 0 or greater than or equal to 3 (i.e., only TSLC values of 1 or 2 are retained).**  
 * Converts original Unix timestamps to Python datetime objects in UTC which are then re-scaled to integer values.
 * Calculating the time difference between sequential waypoints for each aircraft.
-* Removing  any identical waypoints based on ICAO address, time, lat, and lon values.
+* **Removes any identical waypoints in a single daily file that has the same values for ICAO address, time, latitude, and longitude.**
 * Appending a zero-based index to the ICAO Address for a new FlightID attribute field and values (e.g., ICAO_0, ICAO_1, etc).  A new flight by the same aircraft is indicated when two sequential waypoints have a time difference exceeding the user parameter “Flight Duration Threshold” which is set to a default value of 900 seconds.
-* Removing any records where a unique FlightID has just a single recorded waypoint. 
+* **Removing any records where a unique FlightID has just a single recorded waypoint.** 
 
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
 
@@ -110,7 +112,7 @@ Ingests preprocessed ADS-B CSV files produced by Tool #1 and creates point (airc
 * Converting original MSL altitude units in the aircraft waypoints table from meters to feet.
 * Calculating a new Alt_AGL field (altitude above ground level) in the aircraft waypoints table with values based on aircraft waypoint MSL altitudes minus corresponding terrain elevations from a user-supplied digital elevation model (DEM).
 * Adding new fields and values for the aircraft flightlines feature class including ICAO Address (retrieved from the aircraft waypoint table), Sinuosity, and LengthMiles.  Sinuosity is calculated as the ratio of the curvilinear length of the flightline and the Euclidean distance between the first and last waypoint comprising the flightline and may be used later to identify specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights.  The field LengthMiles is the total length of the flightpath in miles.
-* Retaining only aircraft flightline features with a length greater than 0.
+* **Removes anyaircraft flightline features with a length of 0.**
 * Performing a table join between aircraft flightlines and select fields from the FAA Releasable Database.  Joined fields from the MASTER table include N-Number, MFR MDL CODE, TYPE REGISTRANT, NAME, and Type Engine.  A single field – Model – is joined from the ACFTREF table.
 
 ### Tool #3 - Merge Daily Waypoints and Flightlines
