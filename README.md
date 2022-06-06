@@ -44,8 +44,7 @@ Before starting, be sure to have an ArcGIS Pro project file created with the add
 * Add a folder connection to the system folder containing raw ADS-B data files in TSV format (e.g., InputData).
 * Create and add a folder connection to another system folder that will store CSV outputs from Tool #1 (e.g., OutputData).
 * Add a file or enterprise geodatabase to your project containing, at minimum, study area specific files for the unit boundary and digital elevation model that records elevation in units of meters.
-* Add a file or enterprise geodatabase to your project that contains, at minimum, two tables imported from the FAA Releasable Database.  The required tables are MASTER and ACFTREF.  A compressed file containing text-based attribute tables valid for a calendar year can be downloaded from [https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download/]
-(https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download/)
+* Add a file or enterprise geodatabase to your project that contains, at minimum, two tables imported from the FAA Releasable Database.  The required tables are MASTER and ACFTREF.  A compressed file containing text-based attribute tables valid for a calendar year can be downloaded from https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download/.
 * Finally, download the ADS-B Overflight Analysis Toolbox and add it to your ArcGIS Pro project.
 
 ### Tool #1 - Process Raw ADS-B Data Files
