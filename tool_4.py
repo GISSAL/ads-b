@@ -8,7 +8,7 @@
     Description:  Create waypoint and flightline files for screening
     Status:  Development
     Date created: 2/22/2022
-    Date last modified: 2/23/2022
+    Date last modified: 6/7/2022
     Python Version: 3.72
 """
 
@@ -16,26 +16,19 @@
 import arcpy, time
 
 # User-specified local variable(s) for ArcGIS script tool
-#inputWaypoints = arcpy.GetParameterAsText(0)
-#inputFlightlines = arcpy.GetParameterAsText(1)
-#registrantValue = arcpy.GetParameterAsText(2)
-#sinuosityValue = arcpy.GetParameterAsText(3)
-#nameValues = arcpy.GetParameterAsText(4)
-#mileValue = arcpy.GetParameterAsText(5)
-#outputWorkspace = arcpy.GetParameterAsText(6)
-#outputCleanPoints = arcpy.GetParameterAsText(7)
-#outputCleanLines = arcpy.GetParameterAsText(8)
+inputWaypoints = arcpy.GetParameterAsText(0)
+inputFlightlines = arcpy.GetParameterAsText(1)
+registrantValues = arcpy.GetParameterAsText(2)
+sinuosityValues = arcpy.GetParameterAsText(3)
+nameValues = arcpy.GetParameterAsText(4)
+mileValue = arcpy.GetParameterAsText(5)
+outputWorkspace = arcpy.GetParameterAsText(6)
+outputScreenPoints = arcpy.GetParameterAsText(7)
+outputScreenLines = arcpy.GetParameterAsText(8)
 
-# User-specified local variable(s) for stand-alone Python script
-inputWaypoints = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B_GRSM.gdb/MergedWaypoints"
-inputFlightlines = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B_GRSM.gdb/MergedFlightlines"
-registrantValues = "5"  # Can enter a comma delimited list of values
-sinuosityValues = "0.10, 0.99"  # Enter a minimum and maximum as comma separated values
-nameValues = "'AMERICAN AIRLINES INC','DELTA AIR LINES INC'"
-mileValue = 1 # Enter single minimum value for flightpath length in miles
-outputWorkspace = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B_GRSM.gdb"
-outputScreenPoints = "ScreenMergedWaypoints"
-outputScreenLines = "ScreenMergedFlightlines"
+# Set local environments
+arcpy.env.workspace = outputWorkspace
+arcpy.env.overwriteOutput = True
 
 # Set local environments
 arcpy.env.workspace = outputWorkspace
@@ -61,6 +54,7 @@ try:
     arcpy.AddMessage("Flights meeting TYPE_REGISTRANT criteria selected...")
         
     # Select flightlines with Sinuosity values between user-supplied minimum and maximum
+    arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
     splitSinuosityValues = sinuosityValues.split(",")
     newSinuosityValues = []
     for value in splitSinuosityValues:
@@ -75,16 +69,15 @@ try:
     
     # Select commercial flightlines with NAME equal to user-supplied list in nameValues
     arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
-    newNameValues = nameValues.strip()
-    splitNameValues = newNameValues.split(",")
+    newNameValues = nameValues.split(",")
+    splitNameValues = [num.strip() for num in newNameValues]
     for name in splitNameValues:
-        whereClause = "NAME = {0}".format(name)
+        whereClause = "NAME = '{0}'".format(name)
         arcpy.management.SelectLayerByAttribute(tempFlightlines, 'ADD_TO_SELECTION', whereClause)
     arcpy.management.CopyFeatures(tempFlightlines, 'temp3')
     count3 = arcpy.management.GetCount('temp3')
     print("Flights meeting Operator Name criteria selected...")
-    arcpy.AddMessage("Flights meeting Operator Name criteria selected...")        
-   
+    arcpy.AddMessage("Flights meeting Operator Name criteria selected...")           
     
     # Select flightlines with length in miles less than threshold in user-supplied mileValue
     arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
@@ -92,14 +85,18 @@ try:
     arcpy.management.SelectLayerByAttribute(tempFlightlines, 'NEW_SELECTION', whereClause)
     arcpy.management.CopyFeatures(tempFlightlines, 'temp4')
     count4 = arcpy.management.GetCount('temp4')
-    print("Flights meeting minimum path length criteria selected...")
-    arcpy.AddMessage("Flights meeting minimum path length criteria selected...")        
+    print("Flights not meeting minimum path length selected...")
+    arcpy.AddMessage("Flights not meeting minimum path length selected...")        
     
     # Merge temporary files into single new screening flightline file and delete temp files
+    arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
     arcpy.management.Merge(['temp1', 'temp2', 'temp3', 'temp4'], outputScreenLines)
-    arcpy.management.DeleteIdentical(outputScreenLines, 'flight_id')
+    arcpy.management.DeleteIdentical(outputScreenLines, ['flight_id', 'LengthMiles', 'Sinuosity'])
+    count5 = arcpy.management.GetCount(outputScreenLines)
     print("Flightline feature class created for screening...")
     arcpy.AddMessage("Flightline feature class created for screening...")            
+    
+    # Delete temporary files
     delList = arcpy.ListFeatureClasses("temp*")
     for i in delList:
         arcpy.management.Delete(i)
@@ -132,13 +129,15 @@ except arcpy.ExecuteError:
 finally:    
     # Report aircraft and flight summaries and execution time
     end = time.time()
-    print("There were {0} total registrant flights removed.".format(str(count1))) 
-    arcpy.AddMessage("There were {0} total registrant flights removed.".format(str(count1)))
-    print("There were {0} total flights removed due to sinuosity.".format(str(count2))) 
-    arcpy.AddMessage("There were {0} total flights removed due to sinuosity.".format(str(count2)))
-    print("There were {0} total commerical flights removed.".format(str(count3))) 
-    arcpy.AddMessage("There were {0} total commerical flights removed.".format(str(count3)))
-    print("There were {0} total flights removed due to short flightpath lengths.".format(str(count4))) 
-    arcpy.AddMessage("There were {0} total flights removed due to short flightpath lengths.".format(str(count4)))
+    print("There were {0} total flights meeting the registrant type(s).".format(str(count1))) 
+    arcpy.AddMessage("There were {0} total flights meeting the registrant type(s).".format(str(count1)))
+    print("There were {0} total flights meeting sinuosity criteria.".format(str(count2))) 
+    arcpy.AddMessage("There were {0} total flights meeting sinuosity criteria.".format(str(count2)))
+    print("There were {0} total commericial flight providers identified.".format(str(count3))) 
+    arcpy.AddMessage("There were {0} total commericial flight providers identified.".format(str(count3)))
+    print("There were {0} total flights with flightpath lengths less than the minimum.".format(str(count4))) 
+    arcpy.AddMessage("There were {0} total flights with flightpath lengths less than the minimum.".format(str(count4)))
+    print("There were {0} unique flights identified meeting screening criteria.".format(str(count5))) 
+    arcpy.AddMessage("There were {0} unique flights identified meeting screening criteria.".format(str(count5)))
     print("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))    
     arcpy.AddMessage("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
