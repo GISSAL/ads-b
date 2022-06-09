@@ -148,7 +148,7 @@ Merges a series of user-selected daily aircraft waypoint and flightline feature 
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a waypoint and flighline feature class containing features meriting further scrutiny fo inclusion in later analyses.  User's may use screening parameters including the FAA Releasable Database attribute 'Type Registrant', minimum and maximum 'Sinuosity" value, and minimum flight path length (in miles).
+ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a waypoint and flightline feature class containing features meriting further scrutiny for inclusion in later analyses.  User's may use screening parameters including the FAA Releasable Database attribute 'Type Registrant', minimum and maximum 'Sinuosity" value, and minimum flight path length (in miles).
 
 *Parameters*
 
