@@ -30,10 +30,6 @@ outputScreenLines = arcpy.GetParameterAsText(8)
 arcpy.env.workspace = outputWorkspace
 arcpy.env.overwriteOutput = True
 
-# Set local environments
-arcpy.env.workspace = outputWorkspace
-arcpy.env.overwriteOutput = True
-
 try:
     
     # Start timer
