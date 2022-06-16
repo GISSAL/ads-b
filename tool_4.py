@@ -8,7 +8,7 @@
     Description:  Create waypoint and flightline files for screening
     Status:  Development
     Date created: 2/22/2022
-    Date last modified: 6/7/2022
+    Date last modified: 6/16/2022
     Python Version: 3.72
 """
 
