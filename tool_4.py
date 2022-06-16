@@ -22,12 +22,10 @@ registrantValues = arcpy.GetParameterAsText(2)
 sinuosityValues = arcpy.GetParameterAsText(3)
 nameValues = arcpy.GetParameterAsText(4)
 mileValue = arcpy.GetParameterAsText(5)
-outputWorkspace = arcpy.GetParameterAsText(6)
-outputScreenPoints = arcpy.GetParameterAsText(7)
-outputScreenLines = arcpy.GetParameterAsText(8)
+outputScreenPoints = arcpy.GetParameterAsText(6)
+outputScreenLines = arcpy.GetParameterAsText(7)
 
 # Set local environments
-arcpy.env.workspace = outputWorkspace
 arcpy.env.overwriteOutput = True
 
 try:
