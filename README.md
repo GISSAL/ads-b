@@ -157,9 +157,9 @@ ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a w
 | Input Waypoint File       | Merged waypoints feature class produced by Tool #3. | Required | Input | Feature Class |
 | Input Flightline File     | Merged flightlines feature class produced by Tool #3. | Required | Input | Feature Class |
 | Type Registrant Value     | A single value or comma-separated list of values representing aircraft registrant types from the FAA Releasable Database that may be eliminated from further analysis. | Required | Input | String |
-| Sinuosity Values          | A comma-separted list of values for the minimum and maximum sinuosity below or above which flightlines may be eliminated from further analysis. | Required | Input | String |
+| Sinuosity Values          | A comma-separated list of values for the minimum and maximum sinuosity below or above which flightlines may be eliminated from further analysis. | Required | Input | String |
+| Aircraft Operator Name    | A comma-separated list of values for commerical airlines flying in the region. | Required | Input | String |
 | Minimum Flight Length (miles) | A single value representing the minimum flightline length (in miles) below which flightlines may be eliminated from further analysis. | Required | Input | Long | 
-| Output Workspace | Output geodatabase where screened aircraft waypoint and flightline files will be written. | Required | Input | Workspace |
 | Output Waypoints for Screening | Output waypoint feature class meeting screening critera for further examination. | Required | Output | Feature Class |
 | Output Flightlines for Screening | Output flightline feature class meeting screening critera for further examination. | Required | Output | Feature Class |
 
