@@ -8,7 +8,7 @@
     Description:  Calculate waypoint frequencies and percentages by altitude bands.
     Status:  Development
     Date created: 1/24/2022
-    Date last modified: 1/25/2022
+    Date last modified: 6/17/2022
     Python Version: 3.72
 """
 
@@ -18,10 +18,6 @@ import arcpy, os, time
 # User-specified local variable(s) for ArcGIS script tool
 inputFile = arcpy.GetParameterAsText(0)
 outputWorkspace = arcpy.GetParameterAsText(1)
-
-# User-specified local variable(s) for stand-alone Python script
-#inputFile = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B_GRSM.gdb/MergedWaypoints"
-#outputWorkspace = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B_GRSM.gdb"
 
 # Set local environments
 arcpy.env.overwriteOutput = True
@@ -40,7 +36,7 @@ try:
     print("Reclassifying waypoints by AGL and MSL altitude bands...")
     arcpy.AddMessage("Reclassifying waypoints by AGL and MSL altitude bands...")
     arcpy.management.ReclassifyField(inputFile, "alt_agl", "MANUAL", None, None, "ONE", agl_reclassTable, "", "alt_agl_MANUAL")
-    arcpy.management.ReclassifyField(inputFile, "altitude", "MANUAL", None, None, "ONE", msl_reclassTable, "", "alt_msl_MANUAL")   
+    arcpy.management.ReclassifyField(inputFile, "alt_msl", "MANUAL", None, None, "ONE", msl_reclassTable, "", "alt_msl_MANUAL")   
     print("Reclassification complete.")
     arcpy.AddMessage("Reclassification complete.")
     
