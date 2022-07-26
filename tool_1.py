@@ -88,11 +88,6 @@ data["hor_velocity"] = data["hor_velocity"].astype(int)
 data["ver_velocity"] = data["ver_velocity"].astype(int)
 data["tslc"] = data["tslc"].astype(int)
 
-# Keep only records with TSLC values of 1 or 2
-invalidTslc = len(data.query("tslc >= 3 or tslc == 0")) / data.shape[0] * 100
-data.drop(data[data["tslc"] >= 3].index, inplace = True)
-data.drop(data[data["tslc"] == 0].index, inplace = True)
-
 # Convert Unix timestamp to datetime objects in UTC and re-scale selected variable values 
 data["TIME"] = pd.to_datetime(data["TIME"], unit = "s")
 data["DATE"] = data["TIME"].dt.strftime("%Y%m%d")
