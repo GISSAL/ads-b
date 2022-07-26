@@ -84,6 +84,15 @@ try:
             arcpy.analysis.Clip("temp1", "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), "temp2")
             print("Park buffer generated and waypoints outside buffer removed...")
             arcpy.AddMessage("Park buffer generated and waypoints outside buffer removed...")      
+
+        # Ensure waypoints exist within buffer before continuing, otherwise exit      
+        if int (arcpy.GetCount_management("temp2") [0]) > 0:
+            print("Aircraft waypoints exist within the buffered park boundary.  Continuing processing...")
+            arcpy.AddMessage("Aircraft waypoints exist within the buffered park boundary.  Continuing processing...")
+            pass
+        else:
+            print("No aircraft waypoints exist within the buffered park boundary.  Script exiting...")
+            arcpy.AddMessage("No aircraft waypoints exist within the buffered park boundary.  Script exiting...")
         
         # Convert altitude (MSL) units converted from meters to feet and screen waypoints above threshold
         arcpy.management.CalculateField("temp2", "alt_msl", "int(!altitude! * 3.28084)", "PYTHON3", "", "LONG")
