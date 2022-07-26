@@ -162,7 +162,15 @@ try:
 
 except WaypointError:
     print("No aircraft waypoints exist within the buffered park boundary.  Script exiting...")
-    arcpy.AddMessage("No aircraft waypoints exist within the buffered park boundary.  Script exiting...")   
+    arcpy.AddMessage("No aircraft waypoints exist within the buffered park boundary.  Script exiting...")
+    
+    # Delete files no longer needed
+    delList = arcpy.ListFeatureClasses("temp*")
+    for i in delList:
+        arcpy.management.Delete(i)
+    print("Intermediate data removed from current workspace...")
+    arcpy.AddMessage("Intermediate data removed from current workspace...")
+    
     exit()  
     
 except arcpy.ExecuteError:
