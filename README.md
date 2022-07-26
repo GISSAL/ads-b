@@ -73,6 +73,7 @@ ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw A
 *Description*
 
 Ingests and pre-processes a single daily ADS-B data logger TSV file and returns a new daily file in CSV format.  This tool can be operated in "batch" mode within ArcGIS Pro to process many daily ADS-B files at once.  Tool messaging includes data regarding QA/QC results, number of unique aircraft and flights, and total execution time.  Important preprocessing steps include:
+* Checks for presence of required header line and exits if it is not present.
 * **Unpacking validFlags data from the ADS-B input file and removing any records with invalid latitude, longitude, and/or altitude flags.**
 * **Removes any records with Time Since Last Communication (TSLC) values equal to 0 or greater than or equal to 3 (i.e., only TSLC values of 1 or 2 are retained).**  
 * Converts original Unix timestamps to Python datetime objects in UTC which are then re-scaled to integer values.
