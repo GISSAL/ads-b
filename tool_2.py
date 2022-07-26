@@ -11,6 +11,11 @@
     Date last modified: 7/26/2022
     Python Version: 3.7
 """
+
+# Create custom error class
+class WaypointError(Exception):
+    pass
+
 # Import libraries
 import arcpy, time
 
@@ -22,15 +27,6 @@ mslFilter = arcpy.GetParameterAsText(3)
 inputDEM = arcpy.GetParameterAsText(4)
 faaTable = arcpy.GetParameterAsText(5)
 outputWorkspace = arcpy.GetParameterAsText(6)
-
-# User-specified local variable(s) for stand-alone Python script
-#inputFile = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/Outputs/ADSB_GRSM_20190926.csv"
-#parkBoundaryFile = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B_GRSM.gdb/Boundary_GRSM"
-#bufferDistance = "10 Miles"
-#mslFilter = 9000
-#inputDEM = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B_GRSM.gdb/DEM_10_GRSM"
-#faaTable = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/FAA_Releasable_Database.gdb"
-#outputWorkspace = "D:/GIS_Research/ResearchProjects/NPS_ADS_B/NPS_ADS_B_GRSM.gdb"
 
 # Fixed local variable(s)
 spatialRef = arcpy.SpatialReference(4269)
@@ -86,13 +82,12 @@ try:
             arcpy.AddMessage("Park buffer generated and waypoints outside buffer removed...")      
 
         # Ensure waypoints exist within buffer before continuing, otherwise exit      
-        if int (arcpy.GetCount_management("temp2") [0]) > 0:
+        if int(arcpy.GetCount_management("temp2") [0]) > 0:
             print("Aircraft waypoints exist within the buffered park boundary.  Continuing processing...")
             arcpy.AddMessage("Aircraft waypoints exist within the buffered park boundary.  Continuing processing...")
             pass
         else:
-            print("No aircraft waypoints exist within the buffered park boundary.  Script exiting...")
-            arcpy.AddMessage("No aircraft waypoints exist within the buffered park boundary.  Script exiting...")
+            raise WaypointError
         
         # Convert altitude (MSL) units converted from meters to feet and screen waypoints above threshold
         arcpy.management.CalculateField("temp2", "alt_msl", "int(!altitude! * 3.28084)", "PYTHON3", "", "LONG")
@@ -120,7 +115,6 @@ try:
         arcpy.management.CalculateGeometryAttributes(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), [["LengthMiles", "LENGTH_GEODESIC"]], "MILES_US")
         print("Line feature class created from ADS-B waypoint data...")
         arcpy.AddMessage("Line feature class created from ADS-B waypoint data...")
-
 
         # Add new field to store sinuosity values
         arcpy.management.AddField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "Sinuosity", "FLOAT")    
@@ -158,15 +152,19 @@ try:
 
     else:
         arcpy.AddMessage("An ArcGIS Spatial Analyst extension is required!  The current status of this extension is {0}.".format(arcpy.CheckExtension("Spatial")))
-        
-except arcpy.ExecuteError:
-    for i in range(0, arcpy.GetMessageCount()):
-        arcpy.AddMessage("{0}:  {1}".format(arcpy.GetSeverity(i), arcpy.GetMessage(i)))
 
-finally:    
     # Report aircraft and flight summaries and execution time
     end = time.time()
     print("There are {0} total aircraft with null values for N-Number.".format(str(count1))) 
     arcpy.AddMessage("There are {0} total aircraft with null values for N-Number.".format(str(count1)))
     print("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
     arcpy.AddMessage("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
+
+except WaypointError:
+    print("No aircraft waypoints exist within the buffered park boundary.  Script exiting...")
+    arcpy.AddMessage("No aircraft waypoints exist within the buffered park boundary.  Script exiting...")   
+    exit()  
+    
+except arcpy.ExecuteError:
+    for i in range(0, arcpy.GetMessageCount()):
+        arcpy.AddMessage("{0}:  {1}".format(arcpy.GetSeverity(i), arcpy.GetMessage(i)))
