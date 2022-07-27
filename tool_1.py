@@ -8,7 +8,7 @@
     Description:  ArcGIS script tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations
     Status:  Development
     Date created: 10/6/2021
-    Date last modified: 7/26/2022
+    Date last modified: 7/27/2022
     Python Version: 3.7
 """
 
@@ -24,8 +24,10 @@ output_workspace = arcpy.GetParameterAsText(3)
 # Start timer
 start = time.time()
 
-# Read in ADS-B text file and check for presence of text header
+# Read in ADS-B text file and check for presence of a single text header row
 data = pd.read_csv(input_file, sep="\t")
+mask = data.iloc[:, 0].isin(["TIME", "timestamp"])
+data = data[~mask]
 header_list = ["TIME", "timestamp"]
 import_header = data.axes[1]
 result = any(elem in import_header for elem in header_list)
@@ -47,8 +49,8 @@ data.drop(["squawk", "altitude_type", "alt_type", "altType", "callsign", "emitte
 print("Key field names standardized and unused fields removed...")
 arcpy.AddMessage("Key field names standardized and unused fields removed...")
     
-# Delete duplicate and NA records, including potential duplicate headers
-data = data.drop_duplicates()
+# Delete duplicate and NA records
+data.drop_duplicates(inplace=True)
 data.dropna(how="any", axis=0, inplace=True)
 print("Duplicate rows and rows having NA values removed...")
 arcpy.AddMessage("Duplicate rows and rows having NA values removed...")
