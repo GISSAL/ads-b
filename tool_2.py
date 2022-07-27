@@ -8,7 +8,7 @@
     Description:  Ingests processed ADS-B data and produces point and line feature classes with sinuosity values and joined FAA database fields
     Status:  Development
     Date created: 10/7/2021
-    Date last modified: 7/26/2022
+    Date last modified: 7/27/2022
     Python Version: 3.7
 """
 
@@ -56,6 +56,9 @@ try:
     start = time.time()
     
     if arcpy.CheckExtension("Spatial") == "Available":
+        
+        # Check out Spatial Analyst extension
+        arcpy.CheckOutExtension("Spatial")
         
         # Parse park name and output filename from local input variables
         outputFile = arcpy.Describe(inputFile).baseName
@@ -149,6 +152,9 @@ try:
             arcpy.management.Delete(i)
         print("Intermediate data removed from current workspace...")
         arcpy.AddMessage("Intermediate data removed from current workspace...")
+        
+        # Check in Spatial Analyst Extension
+        arcpy.CheckInExtension("Spatial")
 
     else:
         arcpy.AddMessage("An ArcGIS Spatial Analyst extension is required!  The current status of this extension is {0}.".format(arcpy.CheckExtension("Spatial")))
