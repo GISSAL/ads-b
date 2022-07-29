@@ -11,6 +11,7 @@
     Date last modified: 7/29/2022
     Python Version: 3.7
 """
+
 # Create custom error class
 class HeaderError(Exception):
     pass
@@ -40,13 +41,9 @@ try:
     header_list = ["TIME", "timestamp"]
     import_header = data.axes[1]
     result = any(elem in import_header for elem in header_list)
-    if result:
-        print("Input file has the required text header...processing will continue!")
-        arcpy.AddMessage("Input file has the required text header...processing will continue!")
+    if result:  
         pass    
-    else :
-        print("Input file does not have the required text header...processing cannot proceed!")
-        arcpy.AddWarning("The input file {0} does not have a valid header line.  Script exiting...".format(base))
+    else:
         raise HeaderError
 
     # Standardize key field names and remove extra columns collected by the ADS-B data logger
@@ -58,7 +55,6 @@ try:
         data = data.rename(columns={"valid_flags":"validFlags"})
     data.drop(["squawk", "altitude_type", "alt_type", "altType", "callsign", "emitter_type", "emitterType"], axis=1, inplace=True, errors="ignore")
     print("Key field names standardized and unused fields removed...")
-    arcpy.AddMessage("Key field names standardized and unused fields removed...")
 
     # Delete duplicate and NA records
     arcpy.SetProgressorLabel("Removing duplicate rows and rows with NA values...")
@@ -66,7 +62,6 @@ try:
     data.drop_duplicates(inplace=True)
     data.dropna(how="any", axis=0, inplace=True)
     print("Duplicate rows and rows having NA values removed...")
-    arcpy.AddMessage("Duplicate rows and rows having NA values removed...")
 
     # Unpack validFLags data and convert the 2-byte flag field into a list of Boolean values
     arcpy.SetProgressorLabel("Unpacking data in validFlags field and converting to Boolean values...")
@@ -76,7 +71,6 @@ try:
     flags_df = pd.DataFrame(list(flags), columns=flags_names).replace({'0': False, '1': True})
     data = pd.concat([data.drop("validFlags", axis=1), flags_df], axis=1)
     print("Data in validFlags field unpacked and converted to boolean values...")
-    arcpy.AddMessage("Data in validFlags field unpacked and converted to boolean values...")
 
     # Keep only those records with valid latlon and altitude values based on validFlags
     arcpy.SetProgressorLabel("Identifying rows with invalid altitudes and lat/long coordinates...")
@@ -93,7 +87,6 @@ try:
     data.drop(data[data["valid_LATLON"] == "False"].index, inplace = True)
     data.drop(data[data["valid_ALTITUDE"] == "False"].index, inplace = True)
     print("Rows with invalid Altitudes and Lat/Lon coordinates removed...")
-    arcpy.AddMessage("Rows with invalid Altitudes and Lat/Lon coordinates removed...")
 
     # Ensure remaining field values except TIME are in proper numeric format
     arcpy.SetProgressorLabel("Formatting field values...")
@@ -121,7 +114,6 @@ try:
     data["hor_velocity"] = data["hor_velocity"] / 1e2
     data["ver_velocity"] = data["ver_velocity"] / 1e2
     print("ADS-B field data types formatted and re-scaled...")
-    arcpy.AddMessage("ADS-B field data types formatted and re-scaled...")
 
     # Keep only those records with TSLC values of 1 or 2 seconds
     arcpy.SetProgressorLabel("Removing records with TSLC values of 0 and greater than 2 seconds...")
@@ -130,7 +122,6 @@ try:
     data.drop(data[data["tslc"] >= 3].index, inplace = True)
     data.drop(data[data["tslc"] == 0].index, inplace = True)
     print("Data screened for valid TSLC values...")
-    arcpy.AddMessage("Data screened for valid TSLC values...")
 
     # Sort records by ICAO Address and TIME then reset dataframe index
     arcpy.SetProgressorLabel("Sorting records by ICAO Address and Time...")
@@ -138,7 +129,6 @@ try:
     data.sort_values(["ICAO_address", "TIME"], inplace=True)
     data = data.reset_index(drop=True)
     print("ADS-B records sorted by ICAO Address and Time...")
-    arcpy.AddMessage("ADS-B records sorted by ICAO Address and Time...")
 
     # Calculate time difference between sequential waypoints for each aircraft
     arcpy.SetProgressorLabel("Calculating time difference between waypoints for each aircraft...")
@@ -152,8 +142,7 @@ try:
     duplicateWaypoints = 100 - (len(data.drop_duplicates(subset=['ICAO_address', 'TIME', 'lat', 'lon'])) / len(data) * 100)
     data.drop_duplicates(subset=['ICAO_address', 'TIME', 'lat', 'lon'], keep = 'last')
     print("Identical waypoints removed...")
-    arcpy.AddMessage("Identical waypoints removed...")
-
+    
     # Use threshold waypoint duration value to identify separate flights by an aircraft then sum the number of "true" conditions to assign unique ID's
     arcpy.SetProgressorLabel("Identifying and creating labels for separate flights by the same aircraft...")
     arcpy.SetProgressorPosition()
@@ -161,13 +150,13 @@ try:
     data['cumsum'] = data.groupby('ICAO_address')['diff_flight'].cumsum()
     data['flight_id'] = data['ICAO_address'] + "_" + data['cumsum'].astype(str) + "_" + data['DATE']       
     print("Separate flights by same aircraft identified...")
-    arcpy.AddMessage("Separate flights by same aircraft identified...")
     
     # Remove records where there is only one recorded waypoint for an aircraft and fields that are no longer needed 
+    arcpy.SetProgressorLabel("Removing aircraft records with a single waypoint and unneeded attribute fields...")
+    arcpy.SetProgressorPosition()
     data = data[data.groupby("flight_id").flight_id.transform(len) > 1]
     data = data.drop(columns = ['tslc', 'dur_secs', 'diff_flight', 'cumsum', 'valid_BARO', 'valid_VERTICAL_VELOCITY', 'SIMULATED_REPORT', 'valid_IDENT', 'valid_CALLSIGN', 'valid_VELOCITY', 'valid_HEADING', 'valid_ALTITUDE', 'valid_LATLON', 'DATE'])
     print("Unused attribute fields removed...")
-    arcpy.AddMessage("Unneeded attribute fields and flags removed...")
 
     # Write output file in CSV format based on the TSV input file name
     arcpy.SetProgressorLabel("Writing the output CSV file...")
@@ -203,7 +192,8 @@ try:
     arcpy.ResetProgressor()
 
 except HeaderError:
-    pass
+    print("Input file does not have a required text header...processing cannot proceed!")
+    arcpy.AddWarning("The input file {0} does not have a required text header...processing cannot proceed!".format(base))
     
 except:
     print("An unexpected error occurred processing the input file {0}".format(base))
