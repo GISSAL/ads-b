@@ -5,10 +5,10 @@
     File name: tool_4.py
     Author: Shawn Hutchinson
     Credits: Shawn Hutchinson, Brian Peterson
-    Description:  Create waypoint and flightline files for screening
+    Description:  Create waypoint and flightline files to further scrutinize suspected non-tourism flights
     Status:  Development
     Date created: 2/22/2022
-    Date last modified: 6/16/2022
+    Date last modified: 8/1/2022
     Python Version: 3.72
 """
 
