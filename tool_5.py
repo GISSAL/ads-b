@@ -75,8 +75,8 @@ try:
     # Report final aircraft summaries
     print("Success... Aircraft waypoint altitudes summarized!")
     arcpy.AddMessage("Success... Aircraft waypoint altitudes summarized!")
-    print("There were a total of {0} waypoints in the merged waypoint input file.".format(str(totalWaypoints)))
-    arcpy.AddMessage("There are were total of {0} waypoints in the merged waypoint input file.".format(str(totalWaypoints)))
+    print("A total of {0} waypoints were used to generate summary data.".format(str(totalWaypoints)))
+    arcpy.AddMessage("A total of {0} waypoints were used to generate summary data.".format(str(totalWaypoints)))
 
     # Reset the progressor
     arcpy.ResetProgressor()
