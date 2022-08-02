@@ -10,7 +10,7 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to au
     + [Tool #1 - Process Raw ADS-B Data Files](#tool-1---process-raw-ads-b-data-files)
     + [Tool #2 - Create Waypoint and Flightline Feature Classes](#tool-2---create-waypoint-and-flightline-feature-classes)
     + [Tool #3 - Merge Daily Waypoints and Flightlines](#tool-3---merge-daily-waypoints-and-flightlines)
-    + [Tool #4 - Create Screening Features](#tool-4---create-screening-features)
+    + [Tool #4 - Create Suspected Non-Tourism Features](#tool-4---create-suspected-non-tourism-features)
     + [Tool #5 - Summarize Waypoint Altitudes](#tool-5---summarize-waypoint-altitudes)
     + [Tool #6 - Summarize Flights by Hour and Month](#tool-6---summarize-flights-by-hour-and-month)
     + [Tool #7 - Summarize Aircraft Operators and Types](#tool-7---summarize-aircraft-operators-and-types)
@@ -147,7 +147,7 @@ Merges a series of user-selected daily aircraft waypoint and flightline feature 
 * **Removes duplicate waypoints from the merged feature class if identical values appear in the flight_id, lat, lon, and DATE fields.**
 * Combines all line feature classes in the input workspace into a single merged flightline feature class.
 
-### Tool #4 - Create Screening Features
+### Tool #4 - Create Suspected Non-Tourism Features
 
 *Summary*
 
@@ -171,6 +171,12 @@ ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a w
 * Basic - Yes
 * Standard - Yes
 * Advanced - Yes
+
+*Description*
+The output of this tool represents waypoints/flights that may need to be eliminated from further analysis.  Users may edit this file by deleting valid records and leaving only those to be omitted from analysis, then apply the "Delete Identical" tool to a merged waypoint and/or flightline feature class.
+* For the parameter "Type Registrant Values", users should enter one or more comma-separated numeric values representing valid values from the "Type Registrant" field in the FAA Releasable Database (e.g., 5 = Government)
+* For the parameter "Sinuosity Values", users should enter a comma-separated minimum and maximum sinuosity value to select flightlines with less than the minimum or greater than the maximum for further scrutiny (e.g., 0.10, 0.99).
+* For the parameter "Aircraft Operator Name(s), users should enter comma-separated values for aircraft operator names (e.g., AMERICAN AIRLINES INC, DELTA AIR LINES INC) to select specific operators for further scrutiny.  Note that operator names must exactly match those published in the FAA Releasable Database.
 
 ### Tool #5 - Summarize Waypoint Altitudes
 
