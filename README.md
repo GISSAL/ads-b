@@ -12,7 +12,7 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to au
     + [Tool #3 - Merge Daily Waypoints and Flightlines](#tool-3---merge-daily-waypoints-and-flightlines)
     + [Tool #4 - Create Suspected Non-Tourism Features](#tool-4---create-suspected-non-tourism-features)
     + [Tool #5 - Summarize Waypoint Altitudes](#tool-5---summarize-waypoint-altitudes)
-    + [Tool #6 - Summarize Flights by Hour and Month](#tool-6---summarize-flights-by-hour-and-month)
+    + [Tool #6 - Summarize Waypoints by Hour and Month](#tool-6---summarize-waypoints-by-hour-and-month)
     + [Tool #7 - Summarize Aircraft Operators and Types](#tool-7---summarize-aircraft-operators-and-types)
     + [Tool #8 - Perform Waypoint Density Analysis](#tool-8---perform-waypoint-density-analysis)
 * [Credits](#credits)
@@ -206,7 +206,7 @@ ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates a
 * Standard - Yes
 * Advanced - Yes
 
-### Tool #6 - Summarize Flights by Hour and Month
+### Tool #6 - Summarize Waypoints by Hour and Month
 
 *Summary*
 
