@@ -60,10 +60,10 @@ try:
     arcpy.management.AddField("WaypointSummary_MSL", "PERCENTAGE", "DOUBLE")
     with arcpy.da.UpdateCursor("WaypointSummary_AGL", ("FREQUENCY", "PERCENTAGE")) as cursor:
         for frequency, percentage in cursor:            
-            cursor.updateRow([frequency, (frequency / totalWaypoints) * 100])
+            cursor.updateRow([frequency, round(frequency / totalWaypoints * 100, 1)])         
     with arcpy.da.UpdateCursor("WaypointSummary_MSL", ("FREQUENCY", "PERCENTAGE")) as cursor:
         for frequency, percentage in cursor:            
-            cursor.updateRow([frequency, (frequency / totalWaypoints) * 100])            
+            cursor.updateRow([frequency, round(frequency / totalWaypoints * 100, 1)])       
     print("Waypoint frequencies and percentages calculated.") 
     
     # Clean-up original merged waypoint attribute table
