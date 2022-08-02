@@ -189,6 +189,16 @@ ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates a
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
 | Input Waypoint File       | Merged waypoints feature class produced by Tool #3.                 | Required | Input     | Feature Class |
 | Output Workspace          | The geodatabase workspace where the summary table will be written.  | Required | Input     | Workspace     |
+| Max Altitude Class 1      | Maximum altitude value for the first (lowest) class.                | Required | Input     | Double        |
+| Max Altitude Class 2      | Maximum altitude value for the second class.                        | Required | Input     | Double        |
+| Max Altitude Class 3      | Maximum altitude value for the Third class.                         | Required | Input     | Double        |
+| Max Altitude Class 4      | Maximum altitude value for the fourth class.                        | Required | Input     | Double        |
+| Max Altitude Class 5      | Maximum altitude value for the fifth class.                         | Required | Input     | Double        |
+| Max Altitude Class 6      | Maximum altitude value for the sixth class.                         | Required | Input     | Double        |
+| Max Altitude Class 7      | Maximum altitude value for the seventh class.                       | Required | Input     | Double        |
+| Max Altitude Class 8      | Maximum altitude value for the eigth class.                         | Required | Input     | Double        |
+| Max Altitude Class 9      | Maximum altitude value for the ninth class.                         | Required | Input     | Double        |
+| Max Altitude Class 10     | Maximum altitude value for the tenth (highest) lass.                | Required | Input     | Double        |
 
 *Licensing and Extension Information*
 
@@ -208,8 +218,6 @@ ArcGIS script-based tool code based upon <code>tool_6.py</code> that generates a
 | :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
 | Input Waypoint File          | Merged waypoints feature class produced by Tool #3.                 | Required | Input     | Feature Class |
 | Output Workspace             | The geodatabase workspace where the summary table will be written.  | Required | Input     | Workspace     |
-| Hourly Flight Summary Table  | Summary table of aircraft flights by hour of day.                   | Required | Output    | String        |
-| Monthly Flight Summary Table | Summary table of aircraft flights by calendar month.                | Required | Output    | String        |
 
 *Licensing and Extension Information*
 
