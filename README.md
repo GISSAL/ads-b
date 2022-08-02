@@ -99,6 +99,7 @@ Sinuosity values are calculated as the ratio of the curvilinear length of the fl
 | Management Unit Polygon File     | A polygon feature representing the boundary of the management unit study area.   | Required | Input     | Feature Class |
 | Buffer Distance                  | The distance (in miles) around the input feature(s) that will be buffered.       | Required | Input     | String        |
 | Altitude (MSL) Threshold in Feet | The distance around the input features that will be buffered.                    | Required | Input     | Long          |
+| Input DEM                        | Select a digital elevation model (DEM) for the park.                             | Required | Input     | Raster Dataset|
 | Select FAA Releasable Database   | Choose a locally stored geodatabase copy of the FAA Releasable Database.         | Required | Input     | Workspace     |
 | Output Workspace                 | Output geodatabase where aircraft waypoint and flightline files will be written. | Required | Input     | Workspace     |
 
