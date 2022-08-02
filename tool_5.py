@@ -77,7 +77,10 @@ try:
     arcpy.AddMessage("Success... Aircraft waypoint altitudes summarized!")
     print("There were a total of {0} waypoints in the merged waypoint input file.".format(str(totalWaypoints)))
     arcpy.AddMessage("There are were total of {0} waypoints in the merged waypoint input file.".format(str(totalWaypoints)))
-       
+
+    # Reset the progressor
+    arcpy.ResetProgressor()
+    
 except arcpy.ExecuteError:
     for i in range(0, arcpy.GetMessageCount()):
         arcpy.AddMessage("{0}:  {1}".format(arcpy.GetSeverity(i), arcpy.GetMessage(i)))
