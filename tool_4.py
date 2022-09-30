@@ -5,10 +5,10 @@
     File name: tool_4.py
     Author: Shawn Hutchinson
     Credits: Shawn Hutchinson, Brian Peterson
-    Description:  Create waypoint and flightline files to further scrutinize suspected non-tourism flights
+    Description:  Create waypoint and flightline files to further scrutinize suspected non-tourism flights.
     Status:  Development
     Date created: 2/22/2022
-    Date last modified: 8/1/2022
+    Date last modified: 9/27/2022
     Python Version: 3.72
 """
 
@@ -26,6 +26,7 @@ outputScreenPoints = arcpy.GetParameterAsText(6)
 outputScreenLines = arcpy.GetParameterAsText(7)
 
 # Set local environments
+arcpy.env.workspace = arcpy.Describe(inputWaypoints).path
 arcpy.env.overwriteOutput = True
 
 try:
@@ -98,6 +99,8 @@ try:
     arcpy.AddMessage("Intermediate data removed from current workspace...")
     
     # Create a list of flight_id's for screened flightlines to screen waypoints
+    print("Creating list of Flight IDs for screened waypoints...")
+    arcpy.AddMessage("Creating list of Flight IDs for screened waypoints...")  
     flightIdList = []
     with arcpy.da.SearchCursor(outputScreenLines, 'flight_id') as cursor:
         for row in cursor:
@@ -106,12 +109,12 @@ try:
     # Make a feature layer of the waypoints file to be cleaned
     tempWaypoints = arcpy.management.MakeFeatureLayer(inputWaypoints)
         
-    # Create a list from undesired flightline flight_id's 
-    for flight in flightIdList:
-        whereClause = "flight_id = '{0}'".format(flight)
-        arcpy.management.SelectLayerByAttribute(tempWaypoints, 'ADD_TO_SELECTION', whereClause)
-        
-    # Save selected flight_id waypoints to new screening waypoint file
+    # Select flight_id's and save waypoints to new screening waypoint file
+    print("Preparing waypoint feature class...")
+    arcpy.AddMessage("Preparing waypoint feature class...") 
+    flights = "', '".join(flightIdList)
+    whereClause = "flight_id IN ('{}')".format(flights)
+    arcpy.management.SelectLayerByAttribute(tempWaypoints, 'NEW_SELECTION', whereClause)
     arcpy.management.CopyFeatures(tempWaypoints, outputScreenPoints)
     print("Waypoint feature class created for screening...")
     arcpy.AddMessage("Waypoint feature class created for screening...")         
