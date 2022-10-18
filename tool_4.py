@@ -22,8 +22,10 @@ registrantValues = arcpy.GetParameterAsText(2)
 sinuosityValues = arcpy.GetParameterAsText(3)
 nameValues = arcpy.GetParameterAsText(4)
 mileValue = arcpy.GetParameterAsText(5)
-outputScreenPoints = arcpy.GetParameterAsText(6)
-outputScreenLines = arcpy.GetParameterAsText(7)
+outputSuspectPoints = arcpy.GetParameterAsText(6)
+outputSuspectLines = arcpy.GetParameterAsText(7)
+outputScreenedMergedPoints = arcpy.GetParameterAsText(8)
+outputScreenedMergedLines = arcpy.GetParameterAsText(9)
 
 # Set local environments
 arcpy.env.workspace = arcpy.Describe(inputWaypoints).path
@@ -35,7 +37,8 @@ try:
     start = time.time()
         
     # Make a feature layer of the flightline file to be screened
-    tempFlightlines = arcpy.management.MakeFeatureLayer(inputFlightlines)
+    arcpy.management.CopyFeatures(inputFlightlines, outputScreenedMergedLines)
+    tempFlightlines = arcpy.management.MakeFeatureLayer(outputScreenedMergedLines)
     
     # Select flightlines with TYPE_REGISTRANT equal to user-supplied list in registrantValues
     newRegistrantValues = registrantValues.strip()
@@ -43,10 +46,11 @@ try:
     for value in splitRegistrantValues:
         whereClause = 'TYPE_REGISTRANT = {0}'.format(value)
         arcpy.management.SelectLayerByAttribute(tempFlightlines, 'ADD_TO_SELECTION', whereClause)
-    arcpy.management.CopyFeatures(tempFlightlines, 'temp1')
+    arcpy.management.CopyFeatures(tempFlightlines, 'temp1')   
     count1 = arcpy.management.GetCount('temp1')
     print("Flights meeting TYPE_REGISTRANT criteria selected...")
     arcpy.AddMessage("Flights meeting TYPE_REGISTRANT criteria selected...")
+    arcpy.management.DeleteFeatures(tempFlightlines)
         
     # Select flightlines with Sinuosity values between user-supplied minimum and maximum
     arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
@@ -61,6 +65,7 @@ try:
     count2 = arcpy.management.GetCount('temp2')
     print("Flights meeting Sinuosity criteria selected...")
     arcpy.AddMessage("Flights meeting Sinuosity criteria selected...")    
+    arcpy.management.DeleteFeatures(tempFlightlines)
     
     # Select commercial flightlines with NAME equal to user-supplied list in nameValues
     arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
@@ -73,6 +78,7 @@ try:
     count3 = arcpy.management.GetCount('temp3')
     print("Flights meeting Operator Name criteria selected...")
     arcpy.AddMessage("Flights meeting Operator Name criteria selected...")           
+    arcpy.management.DeleteFeatures(tempFlightlines)
     
     # Select flightlines with length in miles less than threshold in user-supplied mileValue
     arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
@@ -81,13 +87,15 @@ try:
     arcpy.management.CopyFeatures(tempFlightlines, 'temp4')
     count4 = arcpy.management.GetCount('temp4')
     print("Flights not meeting minimum path length selected...")
-    arcpy.AddMessage("Flights not meeting minimum path length selected...")        
+    arcpy.AddMessage("Flights not meeting minimum path length selected...")            
+    arcpy.management.DeleteFeatures(tempFlightlines)
+    print("Suspect flightlines removed from merged flightline feature class...")
+    arcpy.AddMessage("Suspect flightlines removed from merged flightline feature class...")   
     
     # Merge temporary files into single new screening flightline file and delete temp files
-    arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
-    arcpy.management.Merge(['temp1', 'temp2', 'temp3', 'temp4'], outputScreenLines)
-    arcpy.management.DeleteIdentical(outputScreenLines, ['flight_id', 'LengthMiles', 'Sinuosity'])
-    count5 = arcpy.management.GetCount(outputScreenLines)
+    arcpy.management.Merge(['temp1', 'temp2', 'temp3', 'temp4'], outputSuspectLines)
+    arcpy.management.DeleteIdentical(outputSuspectLines, ['flight_id', 'LengthMiles', 'Sinuosity'])      
+    count5 = arcpy.management.GetCount(outputSuspectLines)
     print("Flightline feature class created for screening...")
     arcpy.AddMessage("Flightline feature class created for screening...")            
     
@@ -100,24 +108,26 @@ try:
     
     # Create a list of flight_id's for screened flightlines to screen waypoints
     print("Creating list of Flight IDs for screened waypoints...")
-    arcpy.AddMessage("Creating list of Flight IDs for screened waypoints...")  
+    arcpy.AddMessage("Creating list of Flight IDs for screened waypoints...")           
     flightIdList = []
-    with arcpy.da.SearchCursor(outputScreenLines, 'flight_id') as cursor:
+    with arcpy.da.SearchCursor(outputSuspectLines, 'flight_id') as cursor:
         for row in cursor:
             flightIdList.append(row[0])
         
     # Make a feature layer of the waypoints file to be cleaned
-    tempWaypoints = arcpy.management.MakeFeatureLayer(inputWaypoints)
-        
+    arcpy.management.CopyFeatures(inputWaypoints, outputScreenedMergedPoints)
+    tempWaypoints = arcpy.management.MakeFeatureLayer(outputScreenedMergedPoints)
+    
     # Select flight_id's and save waypoints to new screening waypoint file
-    print("Preparing waypoint feature class...")
-    arcpy.AddMessage("Preparing waypoint feature class...") 
     flights = "', '".join(flightIdList)
     whereClause = "flight_id IN ('{}')".format(flights)
     arcpy.management.SelectLayerByAttribute(tempWaypoints, 'NEW_SELECTION', whereClause)
-    arcpy.management.CopyFeatures(tempWaypoints, outputScreenPoints)
+    arcpy.management.CopyFeatures(tempWaypoints, outputSuspectPoints)
     print("Waypoint feature class created for screening...")
-    arcpy.AddMessage("Waypoint feature class created for screening...")         
+    arcpy.AddMessage("Waypoint feature class created for screening...")
+    arcpy.management.DeleteFeatures(tempWaypoints)
+    print("Suspect waypoints removed from merged waypoint feature class...")
+    arcpy.AddMessage("Suspect waypoints removed from merged waypoint feature class...")              
     
 except arcpy.ExecuteError:
     for i in range(0, arcpy.GetMessageCount()):
