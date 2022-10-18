@@ -10,7 +10,7 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to au
     + [Tool #1 - Process Raw ADS-B Data Files](#tool-1---process-raw-ads-b-data-files)
     + [Tool #2 - Create Waypoint and Flightline Feature Classes](#tool-2---create-waypoint-and-flightline-feature-classes)
     + [Tool #3 - Merge Daily Waypoints and Flightlines](#tool-3---merge-daily-waypoints-and-flightlines)
-    + [Tool #4 - Create Suspected Non-Tourism Features](#tool-4---create-suspected-non-tourism-features)
+    + [Tool #4 - Screen Suspected Non-Tourism Flights](#tool-4---screen-suspected-non-tourism-flights)
     + [Tool #5 - Summarize Waypoint Altitudes](#tool-5---summarize-waypoint-altitudes)
     + [Tool #6 - Summarize Waypoints by Hour and Month](#tool-6---summarize-waypoints-by-hour-and-month)
     + [Tool #7 - Summarize Aircraft Operators and Types](#tool-7---summarize-aircraft-operators-and-types)
@@ -146,7 +146,7 @@ Merges a series of user-selected daily aircraft waypoint and flightline feature 
 * **Removes duplicate waypoints from the merged feature class if identical values appear in the flight_id, lat, lon, and DATE fields.**
 * Combines all line feature classes in the input workspace into a single merged flightline feature class.
 
-### Tool #4 - Create Suspected Non-Tourism Features
+### Tool #4 - Screen Suspected Non-Tourism Flights
 
 *Summary*
 
