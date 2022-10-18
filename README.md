@@ -150,20 +150,22 @@ Merges a series of user-selected daily aircraft waypoint and flightline feature 
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a waypoint and flightline feature class containing features meriting further scrutiny for inclusion in later analyses.  User's may use screening parameters including the FAA Releasable Database attribute 'Type Registrant', minimum and maximum 'Sinuosity" value, and minimum flight path length (in miles).
+ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a waypoint and flightline feature class containing waypoints and flightlines suspected of being unrelated to tourism.  User's may use screening parameters including the FAA Releasable Database attribute 'Type Registrant', minimum and maximum 'Sinuosity" value, and minimum flight path length (in miles).  The tool also automatically deletes suspect waypoints and flightlines from the merged feature classes produced by Tool #3.
 
 *Parameters*
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type |
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
 | Input Waypoint File       | Merged waypoints feature class produced by Tool #3. | Required | Input | Feature Class |
-| Input Flightline File     | Merged flightlines feature class produced by Tool #3. | Required | Input | Feature Class |
-| Type Registrant Value     | A single value or comma-separated list of values representing aircraft registrant types from the FAA Releasable Database that may be eliminated from further analysis. | Required | Input | String |
-| Sinuosity Values          | A comma-separated list of values for the minimum and maximum sinuosity below or above which flightlines may be eliminated from further analysis. | Required | Input | String |
-| Aircraft Operator Name    | A comma-separated list of values for commerical airlines flying in the region. | Required | Input | String |
-| Minimum Flight Length (miles) | A single value representing the minimum flightline length (in miles) below which flightlines may be eliminated from further analysis. | Required | Input | Long | 
-| Output Waypoints for Screening | Output waypoint feature class meeting screening critera for further examination. | Required | Output | Feature Class |
-| Output Flightlines for Screening | Output flightline feature class meeting screening critera for further examination. | Required | Output | Feature Class |
+| Input Flightlines File     | Merged flightlines feature class produced by Tool #3. | Required | Input | Feature Class |
+| Type Registrant Value(s)     | A single value or comma-separated list of values representing aircraft registrant types from the FAA Releasable Database that may be eliminated from further analysis. | Required | Input | String |
+| Sinuosity Value(s)          | A comma-separated list of values for the minimum and maximum sinuosity below or above which flightlines may be eliminated from further analysis. | Required | Input | String |
+| Aircraft Operator Name(s)    | A comma-separated list of values for commerical airlines flying in the region. | Required | Input | String |
+| Minimum Flight Length (Miles) | A single value representing the minimum flightline length (in miles) below which flightlines may be eliminated from further analysis. | Required | Input | Long |
+| Output Suspect Waypoints | Output waypoint feature class meeting screening critera for further examination. | Required | Output | Feature Class |
+| Output Suspect Flightlines | Output flightline feature class meeting screening critera for further examination. | Required | Output | Feature Class |
+| Output Screened Waypoints | Output merged waypoint feature class with suspect waypoints removed. | Required | Output | Feature Class |
+| Output Screened Flightlines | Output merged flightline feature class with suspect flighlines removed. | Required | Output | Feature Class |
 
 *Licensing and Extension Information*
 
@@ -172,7 +174,7 @@ ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a w
 * Advanced - Yes
 
 *Description*
-The output of this tool represents waypoints/flights that may need to be eliminated from further analysis.  Users may edit this file by deleting valid records and leaving only those to be omitted from analysis, then apply the "Delete Identical" tool to a merged waypoint and/or flightline feature class.
+The output of this tool represents waypoints/flights that may need to be eliminated from further analysis.  The tool also automatically deletes suspect flights from the existing merged waypoint and flightline feature classes.
 * For the parameter "Type Registrant Values", users should enter one or more comma-separated numeric values representing valid values from the "Type Registrant" field in the FAA Releasable Database (e.g., 5 = Government)
 * For the parameter "Sinuosity Values", users should enter a comma-separated minimum and maximum sinuosity value to select flightlines with less than the minimum or greater than the maximum for further scrutiny (e.g., 0.10, 0.99).
 * For the parameter "Aircraft Operator Name(s), users should enter comma-separated values for aircraft operator names (e.g., AMERICAN AIRLINES INC, DELTA AIR LINES INC) to select specific operators for further scrutiny.  Note that operator names must exactly match those published in the FAA Releasable Database.
