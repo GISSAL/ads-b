@@ -8,7 +8,7 @@
     Description:  Create waypoint and flightline files to further scrutinize suspected non-tourism flights.
     Status:  Development
     Date created: 2/22/2022
-    Date last modified: 9/27/2022
+    Date last modified: 11/2/2022
     Python Version: 3.72
 """
 
@@ -136,15 +136,15 @@ except arcpy.ExecuteError:
 finally:    
     # Report aircraft and flight summaries and execution time
     end = time.time()
-    print("There were {0} total flights meeting the registrant type(s).".format(str(count1))) 
-    arcpy.AddMessage("There were {0} total flights meeting the registrant type(s).".format(str(count1)))
-    print("There were {0} total flights meeting sinuosity criteria.".format(str(count2))) 
-    arcpy.AddMessage("There were {0} total flights meeting sinuosity criteria.".format(str(count2)))
-    print("There were {0} total commericial flight providers identified.".format(str(count3))) 
-    arcpy.AddMessage("There were {0} total commericial flight providers identified.".format(str(count3)))
-    print("There were {0} total flights with flightpath lengths less than the minimum.".format(str(count4))) 
-    arcpy.AddMessage("There were {0} total flights with flightpath lengths less than the minimum.".format(str(count4)))
-    print("There were {0} unique flights identified meeting screening criteria.".format(str(count5))) 
-    arcpy.AddMessage("There were {0} unique flights identified meeting screening criteria.".format(str(count5)))
+    print("There were {0} flights meeting the registrant type(s).".format(str(count1))) 
+    arcpy.AddMessage("There were {0} flights meeting the registrant type(s).".format(str(count1)))
+    print("There were {0} flights meeting sinuosity criteria.".format(str(count2))) 
+    arcpy.AddMessage("There were {0} flights meeting sinuosity criteria.".format(str(count2)))
+    print("There were {0} commercial flight providers identified.".format(str(count3))) 
+    arcpy.AddMessage("There were {0} commercial flight providers identified.".format(str(count3)))
+    print("There were {0} flights with flightpath lengths less than the minimum.".format(str(count4))) 
+    arcpy.AddMessage("There were {0} flights with flightpath lengths less than the minimum.".format(str(count4)))
+    print("There were a total of {0} suspect flights identified meeting screening criteria.".format(str(count5))) 
+    arcpy.AddMessage("There were {0} suspect flights identified meeting screening criteria.".format(str(count5)))
     print("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))    
     arcpy.AddMessage("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
