@@ -8,7 +8,7 @@
     Description:  Merges daily aircraft waypoint and flightlines feature classes into single feature classes for a desired time interval.
     Status:  Development
     Date created: 12/15/2021
-    Date last modified: 8/1/2022
+    Date last modified: 11/2/2022
     Python Version: 3.72
 """
 
@@ -59,8 +59,8 @@ try:
         arcpy.AddMessage("A total of {0} aircraft waypoints were found in the input point feature classes.".format(str(count1)))
         print("A total of {0} duplicate aircraft waypoints were removed from the input files.".format(str(count3)))
         arcpy.AddMessage("A total of {0} duplicate aircraft waypoints were removed from the input files.".format(str(count3)))
-        print("A total of {0} aircraft waypoints were written to the merged point feature class.".format(str(count2)))        
-        arcpy.AddMessage("A total of {0} aircraft waypoints were written to the merged point feature class.".format(str(count2)))        
+        print("A total of {0} unique aircraft waypoints were written to the merged point feature class.".format(str(count2)))        
+        arcpy.AddMessage("A total of {0} unique aircraft waypoints were written to the merged point feature class.".format(str(count2)))        
     else:
         print("There are no waypoint files in the workspace {0}!")
         arcpy.AddWarning("There are no waypoint files in the workspace!")
@@ -74,8 +74,8 @@ try:
         parkName = desc.baseName[5:9]
         arcpy.management.Merge(lineList, outputLines)
         count4 = arcpy.management.GetCount(outputLines)
-        print("A total of {0} aircraft flightlines were written to the merged line feature class.".format(str(count4)))        
-        arcpy.AddMessage("A total of {0} aircraft flightlines were written to the merged line feature class.".format(str(count4)))        
+        print("A total of {0} unique aircraft flightlines were written to the merged line feature class.".format(str(count4)))        
+        arcpy.AddMessage("A total of {0} unique aircraft flightlines were written to the merged line feature class.".format(str(count4)))           
     else:
         print("There are no flightline files in the workspace!")
         arcpy.AddWarning("There are no flightline files in the workspace!")
