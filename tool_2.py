@@ -8,7 +8,7 @@
     Description:  Ingests processed ADS-B data and produces point and line feature classes with sinuosity values and joined FAA database fields
     Status:  Development
     Date created: 10/7/2021
-    Date last modified: 7/29/2022
+    Date last modified: 11/2/2022
     Python Version: 3.7
 """
 
@@ -189,8 +189,8 @@ except arcpy.ExecuteError:
         arcpy.AddMessage("{0}:  {1}".format(arcpy.GetSeverity(i), arcpy.GetMessage(i)))
         
 except WaypointError:
-    print("No aicraft waypoints in {0} exist within the buffered park boundary.  Script exiting...".format(outputFile))
-    arcpy.AddWarning("No aicraft waypoints in {0} exist within the buffered park boundary.  Script exiting...".format(outputFile))
+    print("No aircraft waypoints in {0} exist within the buffered park boundary.  Moving to the next file...".format(outputFile))
+    arcpy.AddWarning("No aircraft waypoints in {0} exist within the buffered park boundary.  Moving to the next file...".format(outputFile))
     
 finally:    
     
