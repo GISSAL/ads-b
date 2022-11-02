@@ -140,6 +140,7 @@ ArcGIS script-based tool code based upon <code>tool_3.py</code> that merges dail
 * Advanced - Yes
 
 *Description*
+
 Merges a series of user-selected daily aircraft waypoint and flightline feature classes into single feature classes.  Waypoints are further filtered to identify and remove duplicates based on the attribute fields flight_id, lat, lon, and DATE.  Tool messaging includes the number of original, duplicate, and final waypoints and the total number of unique aircraft flightlines in the merged aircraft waypoint and flightline feature classes, respectively.  Key processing steps executed include:
 * A new field called DATE is created based on the original datetime stamp field TIME, but includes only the yyyyMMdd information.  The newly created DATE field is deleted at the end of the script after it is no longer needed.
 * Combines all point feature classes in the input workspace into a single merged waypoint feature class.
@@ -174,6 +175,7 @@ ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a w
 * Advanced - Yes
 
 *Description*
+
 The output of this tool includes waypoints/flights that meet certain characteristics typical of flights that should be omitted during further analyses.  One example of this might be commerical airliner flights included in the parameter "Aircraft Operator Name(s)". The tool also automatically deletes suspect flights from the existing merged waypoint and flightline feature classes.
 * For the parameter "Type Registrant Values", users should enter one or more comma-separated numeric values representing valid values from the "Type Registrant" field in the FAA Releasable Database (e.g., 5 = Government)
 * For the parameter "Sinuosity Values", users should enter a comma-separated minimum and maximum sinuosity value to select flightlines with less than the minimum or greater than the maximum for identifying suspect flights (e.g., 0.10, 0.99).
