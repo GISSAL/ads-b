@@ -33,14 +33,17 @@ arcpy.env.overwriteOutput = True
 
 try:
     
-    # Start timer
+    # Start timer and create progressor
     start = time.time()
-        
+    arcpy.SetProgressor("step", "Copying merged flightlines for screening...", 0, 10, 1)
+       
     # Make a feature layer of the flightline file to be screened
     arcpy.management.CopyFeatures(inputFlightlines, outputScreenedMergedLines)
     tempFlightlines = arcpy.management.MakeFeatureLayer(outputScreenedMergedLines)
     
     # Select flightlines with TYPE_REGISTRANT equal to user-supplied list in registrantValues
+    arcpy.SetProgressorLabel("Removing TYPE_REGISTRANT values from merged flightlines...")
+    arcpy.SetProgressorPosition()
     newRegistrantValues = registrantValues.strip()
     splitRegistrantValues = newRegistrantValues.split(",")
     for value in splitRegistrantValues:
@@ -53,6 +56,8 @@ try:
     arcpy.management.DeleteFeatures(tempFlightlines)
         
     # Select flightlines with Sinuosity values between user-supplied minimum and maximum
+    arcpy.SetProgressorLabel("Removing SINUOSITY values from merged flightlines...")
+    arcpy.SetProgressorPosition()
     arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
     splitSinuosityValues = sinuosityValues.split(",")
     newSinuosityValues = []
@@ -68,6 +73,8 @@ try:
     arcpy.management.DeleteFeatures(tempFlightlines)
     
     # Select commercial flightlines with NAME equal to user-supplied list in nameValues
+    arcpy.SetProgressorLabel("Removing OPERATOR values from merged flightlines...")
+    arcpy.SetProgressorPosition()
     arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
     newNameValues = nameValues.split(",")
     splitNameValues = [num.strip() for num in newNameValues]
@@ -81,57 +88,72 @@ try:
     arcpy.management.DeleteFeatures(tempFlightlines)
     
     # Select flightlines with length in miles less than threshold in user-supplied mileValue
+    arcpy.SetProgressorLabel("Removing flights less than MIN PATH LENGTH from merged flightlines...")
+    arcpy.SetProgressorPosition()
     arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
     whereClause = "LengthMiles < {0}".format(mileValue)
     arcpy.management.SelectLayerByAttribute(tempFlightlines, 'NEW_SELECTION', whereClause)
     arcpy.management.CopyFeatures(tempFlightlines, 'temp4')
     count4 = arcpy.management.GetCount('temp4')
-    print("Flights not meeting minimum path length selected...")
-    arcpy.AddMessage("Flights not meeting minimum path length selected...")            
     arcpy.management.DeleteFeatures(tempFlightlines)
-    print("Suspect flightlines removed from merged flightline feature class...")
-    arcpy.AddMessage("Suspect flightlines removed from merged flightline feature class...")   
+    print("Flights not meeting minimum path length selected...")
+    arcpy.AddMessage("Flights not meeting minimum path length selected...")
     
     # Merge temporary files into single new screening flightline file and delete temp files
+    arcpy.SetProgressorLabel("Merging suspect flightlines into output feature class.....")
+    arcpy.SetProgressorPosition()
     arcpy.management.Merge(['temp1', 'temp2', 'temp3', 'temp4'], outputSuspectLines)
     arcpy.management.DeleteIdentical(outputSuspectLines, ['flight_id', 'LengthMiles', 'Sinuosity'])      
     count5 = arcpy.management.GetCount(outputSuspectLines)
-    print("Flightline feature class created for screening...")
-    arcpy.AddMessage("Flightline feature class created for screening...")            
+    print("Suspect flightlines merged into screening featureclass...")
+    arcpy.AddMessage("Suspect flightlines merged into screening featureclass...")            
     
     # Delete temporary files
+    arcpy.SetProgressorLabel("Removing temporary files...")
+    arcpy.SetProgressorPosition()
     delList = arcpy.ListFeatureClasses("temp*")
     for i in delList:
         arcpy.management.Delete(i)
-    print("Intermediate data removed from current workspace...")
-    arcpy.AddMessage("Intermediate data removed from current workspace...")
+    print("Temporary files removed from current workspace...")
+    arcpy.AddMessage("Temporary files removed from current workspace...")
     
     # Create a list of flight_id's for screened flightlines to screen waypoints
-    print("Creating list of Flight IDs for screened waypoints...")
-    arcpy.AddMessage("Creating list of Flight IDs for screened waypoints...")           
+    arcpy.SetProgressorLabel("Creating list of suspect FLIGHT ID's...")
+    arcpy.SetProgressorPosition()      
     flightIdList = []
     with arcpy.da.SearchCursor(outputSuspectLines, 'flight_id') as cursor:
         for row in cursor:
             flightIdList.append(row[0])
-        
+    print("List of suspect Flight IDs created...")
+    arcpy.AddMessage("List of suspect Flight IDs created...")             
+
     # Make a feature layer of the waypoints file to be cleaned
-    arcpy.management.CopyFeatures(inputWaypoints, outputScreenedMergedPoints)
-    tempWaypoints = arcpy.management.MakeFeatureLayer(outputScreenedMergedPoints)
+    arcpy.SetProgressorLabel("Creating feature class for suspect waypoints...")
+    arcpy.SetProgressorPosition()    
+    tempWaypoints = arcpy.management.MakeFeatureLayer(inputWaypoints)
     
     # Select flight_id's and save waypoints to new screening waypoint file
     flights = "', '".join(flightIdList)
     whereClause = "flight_id IN ('{}')".format(flights)
     arcpy.management.SelectLayerByAttribute(tempWaypoints, 'NEW_SELECTION', whereClause)
     arcpy.management.CopyFeatures(tempWaypoints, outputSuspectPoints)
-    print("Waypoint feature class created for screening...")
-    arcpy.AddMessage("Waypoint feature class created for screening...")
-    arcpy.management.DeleteFeatures(tempWaypoints)
-    print("Suspect waypoints removed from merged waypoint feature class...")
-    arcpy.AddMessage("Suspect waypoints removed from merged waypoint feature class...")              
+    print("Feature class created for suspect waypoints...")
+    arcpy.AddMessage("Feature class created for suspect waypoints...")
+    
+    # Switch selectioni and save waypoints to a new screened waypoint file
+    arcpy.SetProgressorLabel("Removing suspect waypoints from new merged waypoint feature class...")
+    arcpy.SetProgressorPosition()
+    arcpy.management.SelectLayerByAttribute(tempWaypoints, 'SWITCH_SELECTION')
+    arcpy.management.CopyFeatures(tempWaypoints, outputScreenedMergedPoints)
+    print("Suspect waypoints removed from new merged waypoint feature class...")
+    arcpy.AddMessage("Suspect waypoints removed from new merged waypoint feature class...")              
+
+    # Reset the progressor
+    arcpy.ResetProgressor()
     
 except arcpy.ExecuteError:
     for i in range(0, arcpy.GetMessageCount()):
-        arcpy.AddMessage("{0}:  {1}".format(arcpy.GetSeverity(i), arcpy.GetMessage(i)))
+        arcpy.AddError("{0}:  {1}".format(arcpy.GetSeverity(i), arcpy.GetMessage(i)))
 
 finally:    
     # Report aircraft and flight summaries and execution time
@@ -140,7 +162,7 @@ finally:
     arcpy.AddMessage("There were {0} flights meeting the registrant type(s).".format(str(count1)))
     print("There were {0} flights meeting sinuosity criteria.".format(str(count2))) 
     arcpy.AddMessage("There were {0} flights meeting sinuosity criteria.".format(str(count2)))
-    print("There were {0} commercial flight providers identified.".format(str(count3))) 
+    print("There were {0} commercial flight identified.".format(str(count3))) 
     arcpy.AddMessage("There were {0} commercial flight providers identified.".format(str(count3)))
     print("There were {0} flights with flightpath lengths less than the minimum.".format(str(count4))) 
     arcpy.AddMessage("There were {0} flights with flightpath lengths less than the minimum.".format(str(count4)))
