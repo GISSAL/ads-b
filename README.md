@@ -260,6 +260,7 @@ ArcGIS script-based tool code based upon <code>tool_7.py</code> that generates a
 | Input Screened Flightline File  | Merged waypoints feature class produced by Tool #4.                 | Required   | Input     | Feature Class |
 | Management Unit Polygon File  | A polygon feature representing the boundary of the management unit study area.   | Required  | Input     | Feature Class |
 | Buffer Distance               | The distance (in miles) around the input feature(s) that will be buffered.       | Required  | Input     | String        |
+
 *Licensing and Extension Information*
 
 * Basic - Yes
