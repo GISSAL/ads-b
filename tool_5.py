@@ -8,7 +8,7 @@
     Description:  Generates output tables summarizing waypoint altitudes (both MSL and AGL) by ten user-defined bands.
     Status:  Development
     Date created: 1/24/2022
-    Date last modified: 8/2/2022
+    Date last modified: 11/4/2022
     Python Version: 3.72
 """
 
@@ -16,21 +16,23 @@
 import arcpy, time
 
 # User-specified local variable(s) for ArcGIS script tool
-inputFile = arcpy.GetParameterAsText(0)
-outputWorkspace = arcpy.GetParameterAsText(1)
-alt1 = arcpy.GetParameterAsText(2)
-alt2 = arcpy.GetParameterAsText(3)
-alt3 = arcpy.GetParameterAsText(4)
-alt4 = arcpy.GetParameterAsText(5)
-alt5 = arcpy.GetParameterAsText(6)
-alt6 = arcpy.GetParameterAsText(7)
-alt7 = arcpy.GetParameterAsText(8)
-alt8 = arcpy.GetParameterAsText(9)
-alt9 = arcpy.GetParameterAsText(10)
-alt10 = arcpy.GetParameterAsText(11)
+parkName = arcpy.GetParameterAsText(0)
+inputWaypoints = arcpy.GetParameterAsText(1)
+parkBoundaryFile = arcpy.GetParameterAsText(2)
+bufferDistance = arcpy.GetParameterAsText(3)
+alt1 = arcpy.GetParameterAsText(4)
+alt2 = arcpy.GetParameterAsText(5)
+alt3 = arcpy.GetParameterAsText(6)
+alt4 = arcpy.GetParameterAsText(7)
+alt5 = arcpy.GetParameterAsText(8)
+alt6 = arcpy.GetParameterAsText(9)
+alt7 = arcpy.GetParameterAsText(10)
+alt8 = arcpy.GetParameterAsText(11)
+alt9 = arcpy.GetParameterAsText(12)
+alt10 = arcpy.GetParameterAsText(13)
 
 # Set local environments
-arcpy.env.workspace = outputWorkspace
+arcpy.env.workspace = arcpy.Describe(inputWaypoints).path
 arcpy.env.overwriteOutput = True
 
 # Fixed local variables
@@ -41,55 +43,64 @@ try:
     
     # Start timer and create progressor
     start = time.time()
-    arcpy.SetProgressor("step", "Reclassifying waypoints by AGL and MSL altitude bands...", 0, 3, 1)
+    arcpy.SetProgressor("step", "Creating the buffer and clipping screened waypoints...", 0, 3, 1)
+    
+    # NEW - Create buffer polygon around park boundary based on user-defined distance, then clip the inputFile
+    arcpy.analysis.Buffer(parkBoundaryFile, "temp1", bufferDistance)
+    arcpy.analysis.Clip(inputWaypoints,  "temp1", "temp2") 
+    print("Buffer created and waypoints clipped.")    
+    arcpy.AddMessage("Buffer created and waypoints clipped.")    
     
     # Reclassify merged waypoints
-    arcpy.management.ReclassifyField(inputFile, "alt_agl", "MANUAL", "", "", "", reclassTable, "", "alt_agl_MANUAL")
-    arcpy.management.ReclassifyField(inputFile, "alt_msl", "MANUAL", "", "", "", reclassTable, "", "alt_msl_MANUAL")   
+    arcpy.SetProgressorLabel("Reclassifying waypoints by AGL and MSL altitude bands...")
+    arcpy.SetProgressorPosition()
+    arcpy.management.ReclassifyField("temp2", "alt_agl", "MANUAL", "", "", "", reclassTable, "", "alt_agl_MANUAL")
+    arcpy.management.ReclassifyField("temp2", "alt_msl", "MANUAL", "", "", "", reclassTable, "", "alt_msl_MANUAL")   
     print("Reclassification complete.")    
+    arcpy.AddMessage("Reclassification complete.")
     
     # Summarize waypoint altitudes and write output to two new tables
     arcpy.SetProgressorLabel("Calculating altitude frequencies and percentages...")
     arcpy.SetProgressorPosition()
-    arcpy.analysis.Frequency(inputFile, "WaypointSummary_AGL", "alt_agl_MANUAL_RANGE")
-    arcpy.analysis.Frequency(inputFile, "WaypointSummary_MSL", "alt_msl_MANUAL_RANGE")   
-    with arcpy.da.SearchCursor("WaypointSummary_AGL", "FREQUENCY") as cursor:
+    arcpy.analysis.Frequency("temp2", parkName + "_" + "WaypointSummary_AGL", "alt_agl_MANUAL_RANGE")
+    arcpy.analysis.Frequency("temp2", parkName + "_" + "WaypointSummary_MSL", "alt_msl_MANUAL_RANGE")   
+    with arcpy.da.SearchCursor(parkName + "_" + "WaypointSummary_AGL", "FREQUENCY") as cursor:
         for row in cursor:
             totalWaypoints += row[0]
-    arcpy.management.AddField("WaypointSummary_AGL", "PERCENTAGE", "DOUBLE")
-    arcpy.management.AddField("WaypointSummary_MSL", "PERCENTAGE", "DOUBLE")
-    with arcpy.da.UpdateCursor("WaypointSummary_AGL", ("FREQUENCY", "PERCENTAGE")) as cursor:
+    arcpy.management.AddField(parkName + "_" + "WaypointSummary_AGL", "PERCENTAGE", "DOUBLE")
+    arcpy.management.AddField(parkName + "_" + "WaypointSummary_MSL", "PERCENTAGE", "DOUBLE")
+    with arcpy.da.UpdateCursor(parkName + "_" + "WaypointSummary_AGL", ("FREQUENCY", "PERCENTAGE")) as cursor:
         for frequency, percentage in cursor:            
-            cursor.updateRow([frequency, round(frequency / totalWaypoints * 100, 1)])         
-    with arcpy.da.UpdateCursor("WaypointSummary_MSL", ("FREQUENCY", "PERCENTAGE")) as cursor:
+            cursor.updateRow([frequency, round(frequency / totalWaypoints * 100, 1)])                      
+    with arcpy.da.UpdateCursor(parkName + "_" + "WaypointSummary_MSL", ("FREQUENCY", "PERCENTAGE")) as cursor:
         for frequency, percentage in cursor:            
-            cursor.updateRow([frequency, round(frequency / totalWaypoints * 100, 1)])       
+            cursor.updateRow([frequency, round(frequency / totalWaypoints * 100, 1)])                        
     print("Waypoint frequencies and percentages calculated.") 
-    
-    # Clean-up original merged waypoint attribute table
-    arcpy.SetProgressorLabel("Deleting unneeded fields from original merged waypoint attribute table...")
-    arcpy.SetProgressorPosition()
-    arcpy.management.DeleteField(inputFile, ["alt_agl_MANUAL", "alt_agl_MANUAL_RANGE", "alt_msl_MANUAL", "alt_msl_MANUAL_RANGE"])
-    print("Unneeded fields successfully deleted.")     
-    
+    arcpy.AddMessage("Waypoint frequencies and percentages calculated.")
+          
     # Report final aircraft summaries
     print("Success... Aircraft waypoint altitudes summarized!")
     arcpy.AddMessage("Success... Aircraft waypoint altitudes summarized!")
-    print("A total of {0} waypoints were used to generate summary data.".format(str(totalWaypoints)))
-    arcpy.AddMessage("A total of {0} waypoints were used to generate summary data.".format(str(totalWaypoints)))
-
+    print("A total of {0} waypoints were used to generate the summary data.".format(str(totalWaypoints)))
+    arcpy.AddMessage("A total of {0} waypoints were used to generate the summary data.".format(str(totalWaypoints)))
+       
     # Reset the progressor
     arcpy.ResetProgressor()
     
 except arcpy.ExecuteError:
     for i in range(0, arcpy.GetMessageCount()):
-        arcpy.AddMessage("{0}:  {1}".format(arcpy.GetSeverity(i), arcpy.GetMessage(i)))
+        arcpy.AddError("{0}:  {1}".format(arcpy.GetSeverity(i), arcpy.GetMessage(i)))
 
 except:
-    print("An unexpected error occurred processing the input file {0}".format(inputFile))
-    arcpy.AddWarning("An unexpected error occurred processing the input file {0}".format(inputFile))
+    print("An unexpected error occurred processing the input file {0}".format(inputWaypoints))
+    arcpy.AddWarning("An unexpected error occurred processing the input file {0}".format(inputWaypoints))
 
 finally:    
+    # Delete files no longer needed
+    delList = arcpy.ListFeatureClasses("temp*")
+    for i in delList:
+        arcpy.management.Delete(i)
+        
     # Report execution time
     end = time.time()
     print("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))    
