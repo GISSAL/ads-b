@@ -185,24 +185,26 @@ The output of this tool includes waypoints/flights that meet certain characteris
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates an output table summarizing waypoint frequencies by ten fixed 500 foot altitude bands.
+ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates an output table summarizing waypoint frequencies by ten fixed 500 foot altitude bands.  Includes the ability to clip the input screened waypoints file by a user-defined distance prior to summarizing altitudes.
 
 *Parameters*
 
-| Label                     | Explanation                                                         | Type     | Direction | Data Type     |   
-| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
-| Input Waypoint File       | Merged waypoints feature class produced by Tool #3.                 | Required | Input     | Feature Class |
-| Output Workspace          | The geodatabase workspace where the summary table will be written.  | Required | Input     | Workspace     |
-| Max Altitude Class 1      | Maximum altitude value for the first (lowest) class.                | Required | Input     | Double        |
-| Max Altitude Class 2      | Maximum altitude value for the second class.                        | Required | Input     | Double        |
-| Max Altitude Class 3      | Maximum altitude value for the Third class.                         | Required | Input     | Double        |
-| Max Altitude Class 4      | Maximum altitude value for the fourth class.                        | Required | Input     | Double        |
-| Max Altitude Class 5      | Maximum altitude value for the fifth class.                         | Required | Input     | Double        |
-| Max Altitude Class 6      | Maximum altitude value for the sixth class.                         | Required | Input     | Double        |
-| Max Altitude Class 7      | Maximum altitude value for the seventh class.                       | Required | Input     | Double        |
-| Max Altitude Class 8      | Maximum altitude value for the eigth class.                         | Required | Input     | Double        |
-| Max Altitude Class 9      | Maximum altitude value for the ninth class.                         | Required | Input     | Double        |
-| Max Altitude Class 10     | Maximum altitude value for the tenth (highest) lass.                | Required | Input     | Double        |
+| Label                         | Explanation                                                          | Type      | Direction | Data Type   |   
+| :---------------------------- | :------------------------------------------------------------------------------- | :-------- | :---------- | 
+| National Park Unit Code       | Four character abbreviation code for NPS unit.                      | Required   | Input     | String        |
+| Input Screened Waypoint File  | Merged waypoints feature class produced by Tool #4.                 | Required   | Input     | Feature Class |
+| Management Unit Polygon File  | A polygon feature representing the boundary of the management unit study area.   | Required  | Input     | Feature Class |
+| Buffer Distance               | The distance (in miles) around the input feature(s) that will be buffered.       | Required  | Input     | String        |
+| Max Altitude Class 1          | Maximum altitude value for the first (lowest) class.                | Required   | Input     | Double        |
+| Max Altitude Class 2          | Maximum altitude value for the second class.                        | Required   | Input     | Double        |
+| Max Altitude Class 3          | Maximum altitude value for the Third class.                         | Required   | Input     | Double        |
+| Max Altitude Class 4          | Maximum altitude value for the fourth class.                        | Required   | Input     | Double        |
+| Max Altitude Class 5          | Maximum altitude value for the fifth class.                         | Required   | Input     | Double        |
+| Max Altitude Class 6          | Maximum altitude value for the sixth class.                         | Required   | Input     | Double        |
+| Max Altitude Class 7          | Maximum altitude value for the seventh class.                       | Required   | Input     | Double        |
+| Max Altitude Class 8          | Maximum altitude value for the eigth class.                         | Required   | Input     | Double        |
+| Max Altitude Class 9          | Maximum altitude value for the ninth class.                         | Required   | Input     | Double        |
+| Max Altitude Class 10         | Maximum altitude value for the tenth (highest) lass.                | Required   | Input     | Double        |
 
 *Licensing and Extension Information*
 
@@ -214,14 +216,16 @@ ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates a
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_6.py</code> that generates an output table summarizing waypoint frequencies by hour and month.
+ArcGIS script-based tool code based upon <code>tool_6.py</code> that generates an output table summarizing waypoint frequencies by hour and month.  Includes the ability to clip the input screened waypoints file by a user-defined distance prior to summarizing the hour and month of flights.  
 
 *Parameters*
 
 | Label                        | Explanation                                                         | Type     | Direction | Data Type     |
 | :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
-| Input Waypoint File          | Merged waypoints feature class produced by Tool #3.                 | Required | Input     | Feature Class |
-| Output Workspace             | The geodatabase workspace where the summary table will be written.  | Required | Input     | Workspace     |
+| National Park Unit Code       | Four character abbreviation code for NPS unit.                      | Required   | Input     | String        |
+| Input Screened Waypoint File  | Merged waypoints feature class produced by Tool #4.                 | Required   | Input     | Feature Class |
+| Management Unit Polygon File  | A polygon feature representing the boundary of the management unit study area.   | Required  | Input     | Feature Class |
+| Buffer Distance               | The distance (in miles) around the input feature(s) that will be buffered.       | Required  | Input     | String        |
 
 *Licensing and Extension Information*
 
@@ -233,17 +237,16 @@ ArcGIS script-based tool code based upon <code>tool_6.py</code> that generates a
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_7.py</code> that generates an output table summarizing flight (flightlines) by operator as reported in the FAA Releasable Database.
+ArcGIS script-based tool code based upon <code>tool_7.py</code> that generates an output table summarizing flight (flightlines) by operator and type as reported in the FAA Releasable Database.  Includes the ability to clip the input screened flightline file by a user-defined distance prior to summarizing aircraft operators and types.
 
 *Parameters*
 
 | Label                     | Explanation                                                                      | Type     | Direction | Data Type     |
 | :------------------------ |:---------------------------------------------------------------------------------| :------- | :-------- | :------------ | 
-| Input Flightlines File                 | Merged waypoints feature class produced by Tool #3.                 | Required | Input     | Feature Class |
-| Output Workspace                       | The geodatabase workspace where the summary tables will be written. | Required | Input     | Workspace     |
-| Output Aircraft Operator Summary Table | Summary table of aircraft operators.                                | Required | Output    | String        |
-| Output Aircraft Type Summary Table     | Summary table of aircraft types in the input flightline file        | Required | Output    | String        |
-
+| National Park Unit Code       | Four character abbreviation code for NPS unit.                      | Required   | Input     | String        |
+| Input Screened Flightline File  | Merged waypoints feature class produced by Tool #4.                 | Required   | Input     | Feature Class |
+| Management Unit Polygon File  | A polygon feature representing the boundary of the management unit study area.   | Required  | Input     | Feature Class |
+| Buffer Distance               | The distance (in miles) around the input feature(s) that will be buffered.       | Required  | Input     | String        |
 *Licensing and Extension Information*
 
 * Basic - Yes
