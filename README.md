@@ -189,8 +189,8 @@ ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates a
 
 *Parameters*
 
-| Label                         | Explanation                                                          | Type      | Direction | Data Type   |   
-| :---------------------------- | :------------------------------------------------------------------------------- | :-------- | :---------- | 
+| Label                        | Explanation                                                         | Type     | Direction | Data Type     |
+| :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
 | National Park Unit Code       | Four character abbreviation code for NPS unit.                      | Required   | Input     | String        |
 | Input Screened Waypoint File  | Merged waypoints feature class produced by Tool #4.                 | Required   | Input     | Feature Class |
 | Management Unit Polygon File  | A polygon feature representing the boundary of the management unit study area.   | Required  | Input     | Feature Class |
