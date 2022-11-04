@@ -215,7 +215,7 @@ ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates a
 *Description*
 
 Produces two output tables that include the frequency and percentage of total waypoints by user-defined altitude bands.  One table reports altitudes above mean sea level (WaypointSummary_MSL) and the other based on altitudes above ground level (WaypointSummary_AGL).  The national park unit code provided by the user is appended to the beginning of the names for the default tables.  Waypoint summaries can be limited to those located inside a user-defined buffer distance around the management unit.  Key processing steps executed include:
-* A buffer is created and used to clip in the input screened waypoints file.
+* A buffer is created and used to clip the input screened waypoints file.
 * Waypoint altitudes (in units of both MSL and AGL) are reclassified according to values provided by the user.
 * Summary tables are produced that include the frequency and percentage of total waypoints within each altitude band.
 
@@ -241,7 +241,7 @@ ArcGIS script-based tool code based upon <code>tool_6.py</code> that generates a
 * Advanced - Yes
 
 Produces two output tables that include the frequency and percentage of total flights  based on the hour and month in which they occurred.  One table reports the hourly summary (WaypointSummary_HR) and the other the monthly summary (WaypointSummary_MO).  The national park unit code provided by the user is appended to the beginning of the names for the default tables.  Waypoint summaries can be limited to those located inside a user-defined buffer distance around the management unit.  Key processing steps executed include:
-* A buffer is created and used to clip in the input screened waypoints file.
+* A buffer is created and used to clip the input screened waypoints file.
 * Flight summaries are based on the hour and time of the first waypoint for each unique flight in the input file.
 * UTC times for waypoints recorded by the ADS-B data logger are converted to local times prior to summarization.
 * Summary tables are produced that include the frequency and percentage of total flights occurring by hour of the day and month of the year.
@@ -268,7 +268,7 @@ ArcGIS script-based tool code based upon <code>tool_7.py</code> that generates a
 * Advanced - Yes
 
 Produces two output tables that include the frequency and percentage of total flights categorized by the FAA Releasable Database fields "TYPE_REGISTRANT" and "TYPE_AIRCRAFT". One table reports the general category of the aircraft operator (i.e., TYPE_REGISTRANT) (FlightSummary_Operators) and the other the general type of aircraft (i.e. TYPE_AIRCRAFT) (FlightSummary_Type).  The national park unit code provided by the user is appended to the beginning of the names for the default tables.  Flight  summaries can be limited to those located inside a user-defined buffer distance around the management unit.  Key processing steps executed include:
-* A buffer is created and used to clip in the input screened waypoints file.
+* A buffer is created and used to clip the input screened waypoints file.
 * Possible TYPE_REGISTRANT values include: [1, "Individual"], [2, "Partnership"], [3, "Corporation"], [4, "Co-Owned"], [5, "Government"], [7, "LLC"], [8, "Non-Citizen Corporation"], [9, "Non-Citizen Co-Owned"].
 * Possible TYPE_AIRCRAFT values include:  [1, "Glider"], [2, "Balloon"], [3, "Blimp/Dirigible"], [4, "Fixed Wing Single Engine"], [5, "Fixed Wing Multi Engine"], [6, "Rotorcraft"], [7, "Weight-Shift-Control"], [8, "Powered Parachute"], [9, "Gyroplane"]
 * Summary tables are produced that include the frequency and percentage of total flights by aircraft operator and type.
