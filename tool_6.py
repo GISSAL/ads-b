@@ -5,10 +5,10 @@
     File name: tool_6.py
     Author: Shawn Hutchinson
     Credits: Shawn Hutchinson, Brian Peterson
-    Description:  Generates output tables summarizing waypoint frequencies by hour and month.
+    Description:  Generates output tables summarizing waypoint frequencies by hour, month, and month/year.
     Status:  Development
     Date created: 1/24/2022
-    Date last modified: 8/2/2022
+    Date last modified: 11/11/2022
     Python Version: 3.72
 """
 
@@ -17,8 +17,8 @@ import arcpy, time
 
 # User-specified local variable(s) for ArcGIS script tool
 parkName = arcpy.GetParameterAsText(0)
-parkBoundaryFile = arcpy.GetParameterAsText(2)
 inputWaypoints = arcpy.GetParameterAsText(1)
+parkBoundaryFile = arcpy.GetParameterAsText(2)
 bufferDistance = arcpy.GetParameterAsText(3)
 
 # Set local environments
@@ -55,23 +55,30 @@ try:
     arcpy.management.ConvertTimeField("temp2", 'TIME', "", "TIME_TEXT", 'TEXT', "yyyy/MM/dd HH:mm:ss")
     arcpy.management.CalculateField("temp2", "HOUR", "!TIME_TEXT![-8:-6]", 'PYTHON3')
     arcpy.management.CalculateField("temp2", "MONTH", "!TIME_TEXT![-14:-12]", 'PYTHON3')
-    print("Local time, hour, and month fields calculated.")    
-    arcpy.AddMessage("Local time, hour, and month fields calculated.")    
+    arcpy.management.CalculateField("temp2", "YEAR", "!TIME_TEXT![0:4]", 'PYTHON3')
+    arcpy.management.CalculateField("temp2", "MOYEAR", "!MONTH! + '/' + !YEAR!", 'PYTHON3')
+    print("Local time conversion complete; hour and month fields calculated.")    
+    arcpy.AddMessage("Local time conversion complete; hour and month fields calculated.")    
     
     # Calculate frequencies and percentages
-    arcpy.SetProgressorLabel("Calculating hour and month frequencies and percentages...")
-    arcpy.SetProgressorPosition()    
+    arcpy.SetProgressorLabel("Calculating hourly and monthly frequencies and percentages...")
+    arcpy.SetProgressorPosition()     
     arcpy.analysis.Frequency("temp2", parkName + "_" + "WaypointSummary_HR", "HOUR")
-    arcpy.analysis.Frequency("temp2", parkName + "_" + "WaypointSummary_MO", "MONTH")      
     with arcpy.da.SearchCursor(parkName + "_" + "WaypointSummary_HR", "FREQUENCY") as cursor:
         for row in cursor:
             totalWaypoints += row[0]
     arcpy.management.AddField(parkName + "_" + "WaypointSummary_HR", "PERCENTAGE", "DOUBLE")
-    arcpy.management.AddField(parkName + "_" + "WaypointSummary_MO", "PERCENTAGE", "DOUBLE")    
     with arcpy.da.UpdateCursor(parkName + "_" + "WaypointSummary_HR", ("FREQUENCY", "PERCENTAGE")) as cursor:
         for frequency, percentage in cursor:            
-            cursor.updateRow([frequency, round(frequency / totalWaypoints * 100, 1)])            
+            cursor.updateRow([frequency, round(frequency / totalWaypoints * 100, 1)]) 
+    arcpy.analysis.Frequency("temp2", parkName + "_" + "WaypointSummary_MO", "MONTH")              
+    arcpy.management.AddField(parkName + "_" + "WaypointSummary_MO", "PERCENTAGE", "DOUBLE")    
     with arcpy.da.UpdateCursor(parkName + "_" + "WaypointSummary_MO", ("FREQUENCY", "PERCENTAGE")) as cursor:
+        for frequency, percentage in cursor:            
+            cursor.updateRow([frequency, round(frequency / totalWaypoints * 100, 1)])            
+    arcpy.analysis.Frequency("temp2", parkName + "_" + "WaypointSummary_MOYR", "MOYEAR")              
+    arcpy.management.AddField(parkName + "_" + "WaypointSummary_MOYR", "PERCENTAGE", "DOUBLE")    
+    with arcpy.da.UpdateCursor(parkName + "_" + "WaypointSummary_MOYR", ("FREQUENCY", "PERCENTAGE")) as cursor:
         for frequency, percentage in cursor:            
             cursor.updateRow([frequency, round(frequency / totalWaypoints * 100, 1)])            
     print("Hourly and monthly flight summaries calculated.") 
@@ -80,8 +87,8 @@ try:
     # Report final aircraft summaries
     print("Success... Aircraft waypoint hours and months summarized!")
     arcpy.AddMessage("Success... Aircraft waypoint hours and months summarized!")
-    print("A total of {0} waypoints were used to generate summary data.".format(str(totalWaypoints)))
-    arcpy.AddMessage("A total of {0} waypoints were used to generate summary data.".format(str(totalWaypoints)))
+    print("A total of {0} waypoints were used to generate the summary data.".format(str(totalWaypoints)))
+    arcpy.AddMessage("A total of {0} waypoints were used to generate the summary data.".format(str(totalWaypoints)))
         
     # Reset the progressor
     arcpy.ResetProgressor()
