@@ -8,9 +8,13 @@
     Description:  Create waypoint and flightline files to further scrutinize suspected non-tourism flights.
     Status:  Development
     Date created: 2/22/2022
-    Date last modified: 11/2/2022
+    Date last modified: 1/25/2023
     Python Version: 3.72
 """
+
+# Create custom error class
+class NonGPError(Exception):
+    pass
 
 # Import libraries
 import arcpy, time
@@ -45,9 +49,9 @@ try:
     arcpy.SetProgressorLabel("Removing TYPE_REGISTRANT values from merged flightlines...")
     arcpy.SetProgressorPosition()
     newRegistrantValues = registrantValues.strip()
-    splitRegistrantValues = newRegistrantValues.split(",")
+    splitRegistrantValues = newRegistrantValues.split(", ")
     for value in splitRegistrantValues:
-        whereClause = 'TYPE_REGISTRANT = {0}'.format(value)
+        whereClause = """{0} = {1}""".format(arcpy.AddFieldDelimiters(tempFlightlines, "TYPE_REGISTRANT"), value)
         arcpy.management.SelectLayerByAttribute(tempFlightlines, 'ADD_TO_SELECTION', whereClause)
     arcpy.management.CopyFeatures(tempFlightlines, 'temp1')   
     count1 = arcpy.management.GetCount('temp1')
@@ -59,12 +63,8 @@ try:
     arcpy.SetProgressorLabel("Removing SINUOSITY values from merged flightlines...")
     arcpy.SetProgressorPosition()
     arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
-    splitSinuosityValues = sinuosityValues.split(",")
-    newSinuosityValues = []
-    for value in splitSinuosityValues:
-        newS = value.replace(' ', '')
-        newSinuosityValues.append(newS)
-    whereClause = 'Sinuosity < {0} OR Sinuosity > {1}'.format(newSinuosityValues[0], newSinuosityValues[1])
+    splitSinuosityValues = sinuosityValues.split(", ")
+    whereClause = """{0} < {1[0]} OR {0} >  {1[1]}""".format(arcpy.AddFieldDelimiters(tempFlightlines, "Sinuosity"), splitSinuosityValues)
     arcpy.management.SelectLayerByAttribute(tempFlightlines, 'NEW_SELECTION', whereClause)
     arcpy.management.CopyFeatures(tempFlightlines, 'temp2')
     count2 = arcpy.management.GetCount('temp2')
@@ -77,9 +77,8 @@ try:
     arcpy.SetProgressorPosition()
     arcpy.management.SelectLayerByAttribute(tempFlightlines, "CLEAR_SELECTION")
     newNameValues = nameValues.split(",")
-    splitNameValues = [num.strip() for num in newNameValues]
-    for name in splitNameValues:
-        whereClause = "NAME = '{0}'".format(name)
+    for name in newNameValues:
+        whereClause = """{0} = '{1}'""".format(arcpy.AddFieldDelimiters(tempFlightlines, "NAME"), name)
         arcpy.management.SelectLayerByAttribute(tempFlightlines, 'ADD_TO_SELECTION', whereClause)
     arcpy.management.CopyFeatures(tempFlightlines, 'temp3')
     count3 = arcpy.management.GetCount('temp3')
@@ -134,13 +133,13 @@ try:
     
     # Select flight_id's and save waypoints to new screening waypoint file
     flights = "', '".join(flightIdList)
-    whereClause = "flight_id IN ('{}')".format(flights)
+    whereClause = """{0} IN ('{1}')""".format(arcpy.AddFieldDelimiters(tempWaypoints, "flight_id"), flights)
     arcpy.management.SelectLayerByAttribute(tempWaypoints, 'NEW_SELECTION', whereClause)
     arcpy.management.CopyFeatures(tempWaypoints, outputSuspectPoints)
     print("Feature class created for suspect waypoints...")
     arcpy.AddMessage("Feature class created for suspect waypoints...")
     
-    # Switch selectioni and save waypoints to a new screened waypoint file
+    # Switch selection and save waypoints to a new screened waypoint file
     arcpy.SetProgressorLabel("Removing suspect waypoints from new merged waypoint feature class...")
     arcpy.SetProgressorPosition()
     arcpy.management.SelectLayerByAttribute(tempWaypoints, 'SWITCH_SELECTION')
@@ -148,6 +147,18 @@ try:
     print("Suspect waypoints removed from new merged waypoint feature class...")
     arcpy.AddMessage("Suspect waypoints removed from new merged waypoint feature class...")              
 
+    # Print final summary messages
+    print("{0} flights met the registrant type(s).".format(str(count1))) 
+    arcpy.AddMessage("{0} flights met the registrant type(s).".format(str(count1)))
+    print("{0} flights met sinuosity criteria.".format(str(count2))) 
+    arcpy.AddMessage("{0} flights met sinuosity criteria.".format(str(count2)))
+    print("{0} commercial flights identified.".format(str(count3))) 
+    arcpy.AddMessage("{0} commercial flights identified.".format(str(count3)))
+    print("{0} flights with path lengths less than the minimum.".format(str(count4))) 
+    arcpy.AddMessage("{0} flights had path lengths less than the minimum.".format(str(count4)))
+    print("A total of {0} suspect flights met one or more screening criteria.".format(str(count5))) 
+    arcpy.AddMessage("A total of {0} suspect flights met one or more screening criteria.".format(str(count5)))
+    
     # Reset the progressor
     arcpy.ResetProgressor()
     
@@ -155,18 +166,12 @@ except arcpy.ExecuteError:
     for i in range(0, arcpy.GetMessageCount()):
         arcpy.AddError("{0}:  {1}".format(arcpy.GetSeverity(i), arcpy.GetMessage(i)))
 
+except NonGPError:
+    print("A non-geoprocessing error occurred. Please ask for technical assistance.")
+    arcpy.AddError("A non-geoprocessing error occurred. Please ask for technical assistance.")
+
 finally:    
     # Report aircraft and flight summaries and execution time
     end = time.time()
-    print("There were {0} flights meeting the registrant type(s).".format(str(count1))) 
-    arcpy.AddMessage("There were {0} flights meeting the registrant type(s).".format(str(count1)))
-    print("There were {0} flights meeting sinuosity criteria.".format(str(count2))) 
-    arcpy.AddMessage("There were {0} flights meeting sinuosity criteria.".format(str(count2)))
-    print("There were {0} commercial flight identified.".format(str(count3))) 
-    arcpy.AddMessage("There were {0} commercial flight providers identified.".format(str(count3)))
-    print("There were {0} flights with flightpath lengths less than the minimum.".format(str(count4))) 
-    arcpy.AddMessage("There were {0} flights with flightpath lengths less than the minimum.".format(str(count4)))
-    print("There were a total of {0} suspect flights identified meeting screening criteria.".format(str(count5))) 
-    arcpy.AddMessage("There were {0} suspect flights identified meeting screening criteria.".format(str(count5)))
     print("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))    
     arcpy.AddMessage("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
