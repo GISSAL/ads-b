@@ -73,6 +73,7 @@ try:
         desc = arcpy.Describe(lineList[0])
         parkName = desc.baseName[5:9]
         arcpy.management.Merge(lineList, outputLines)
+        arcpy.management.DeleteIdentical(outputLines, 'flight_id')   
         count4 = arcpy.management.GetCount(outputLines)
         print("A total of {0} unique aircraft flightlines were written to the merged line feature class.".format(str(count4)))        
         arcpy.AddMessage("A total of {0} unique aircraft flightlines were written to the merged line feature class.".format(str(count4)))           
