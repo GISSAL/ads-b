@@ -69,14 +69,21 @@ try:
     # Merge line feature classes into a single file
     arcpy.SetProgressorLabel("Merging flightline feature classes into a single line feature class...")
     arcpy.SetProgressorPosition()
+    arcpy.AddMessage("Merging flightline feature classes...")
     if len(lineList) > 0:
         desc = arcpy.Describe(lineList[0])
         parkName = desc.baseName[5:9]
         arcpy.management.Merge(lineList, outputLines)
-        arcpy.management.DeleteIdentical(outputLines, 'flight_id')   
         count4 = arcpy.management.GetCount(outputLines)
-        print("A total of {0} unique aircraft flightlines were written to the merged line feature class.".format(str(count4)))        
-        arcpy.AddMessage("A total of {0} unique aircraft flightlines were written to the merged line feature class.".format(str(count4)))           
+        print("{0} flightlines were found in the input line feature classes.".format(str(count4)))        
+        arcpy.AddMessage("{0} flightlines were found in the input line feature classes.".format(str(count4)))
+        arcpy.management.DeleteIdentical(outputLines, ['flight_id', 'LengthMiles', 'Sinuosity'])   
+        count5 = arcpy.management.GetCount(outputLines)
+        count6 = int(str(count4)) - int(str(count5))
+        print("{0} duplicate flightlines were removed from the input files.".format(str(count6)))
+        arcpy.AddMessage("{0} duplicate flightlines were removed from the input files.".format(str(count6)))
+        print("A total of {0} unique flightlines were written to the merged line feature class.".format(str(count5)))        
+        arcpy.AddMessage("A total of {0} unique flightlines were written to the merged line feature class.".format(str(count5)))        
     else:
         print("There are no flightline files in the workspace!")
         arcpy.AddWarning("There are no flightline files in the workspace!")
