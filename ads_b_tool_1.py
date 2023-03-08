@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 
 """
-    File name: tool_1.py
+    File name: ads_b_tool_1.py
     Author: Shawn Hutchinson
     Credits: Damon Joyce, Shawn Hutchinson, Brian Peterson, Myles Cramer
     Description:  ArcGIS script tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations
