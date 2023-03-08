@@ -53,16 +53,16 @@ Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remov
 
 *Summary*
 
-ArcGIS script-based tool (based upon <code>tool_1.py</code>) that reads raw ADS-B data collected from a logger, performs basic structural checks on each file, formats fields to ensure proper data types, removes flights not meeting a 1-2 second time since last communication (TSLC), identifies and creates unique flights based on a user-defined elapsed time between sequential aircraft waypoints, and generates output CSV files for later ADS-B GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code> where the acquisition date is obtained from the input TSV file.  
+ArcGIS script-based tool (based upon <code>ads_b_tool_1.py</code>) that reads raw ADS-B data collected from a logger, performs basic structural checks on each file, formats fields to ensure proper data types, removes flights not meeting a 1-2 second time since last communication (TSLC), identifies and creates unique flights based on a user-defined elapsed time between sequential aircraft waypoints, and generates output CSV files for later ADS-B GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code> where the acquisition date is obtained from the input TSV file.  
 
 *Parameters*
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type | 
 | :------------------------ | :-------------------------------------------------------------------| :------- | :-------- | :-------- | 
 | National Park Unit Code   | Enter the four letter park unit code (e.g., GRSM, HAVO) where the ADS-B data was collected.  For management units operating more than one                               data logger, it is recommended to also include a short name for the logger location (e.g., GRSM_COVEMTN or GRSM_ELKMONT). | Required | Input     | String    |
-| Raw ADS-B File            | The ADS-B file downloaded from the data logger.                     | Required | Input     | File      |
-| Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      |
-| Output CSV Folder         | Folder where processed CSV file will be saved.                      | Required | Input     | Workspace |
+| Raw ADS-B File            | Select a single ADS-B TSV data logger file.  This tool can also be operated in "batch" mode to process multiple input files in a single tool run.                    | Required | Input     | File      |
+| Flight Duration Threshold | Enter a duration threshold (in seconds) that defines the minimum time between successive aircraft waypoints that must pass before a new flight by that aircraft is considered to occur.      | Required | Input     | Long      |
+| Output CSV Folder         | Select a folder workspace where where the output CSV file will be saved. | Required | Input     | Workspace |
 
 
 
