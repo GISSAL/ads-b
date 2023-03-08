@@ -197,7 +197,7 @@ The output of this tool includes waypoints/flights that meet certain characteris
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates an output table summarizing waypoint frequencies by ten fixed 500 foot altitude bands.  Includes the ability to clip the input screened waypoints file by a user-defined distance prior to summarizing altitudes.
+Creates a new output point feature class that removes waypoints outside a more restrictive buffer distance, kernel density rasters for waypoints occurring within ten user-defined AGL altitude bands, and output tables that summarize waypoint frequencies by both AGL and MSL altitude bands.
 
 *Dependencies*
 
@@ -211,14 +211,14 @@ Requires access to the Python script <code>ads_b_tool_5.py</code> and uses as in
 | Input Screened Waypoint File | Select the screened merged waypoints feature class produced by **Tool #4 - Screen Suspected Non-Tourism Flights**. | Required | Input | Feature Class |
 | Management Unit Polygon File | Select a polygon feature class representing the boundary of the management unit study area. | Required | Input | Feature Class |
 | Buffer Distance (miles) | Enter a horizontal buffer distance (in miles) within which aircraft waypoints will be processed.  | Required  | Input | String |
-| Minimum AGL Altitude | Maximum altitude value for the first (lowest) class.                | Required | Input | Long |
-| Maximum AGL Altitude | Maximum altitude value for the second class.                        | Required | Input | Long |
-| AGL Altitude Interval | Maximum altitude value for the Third class.                         | Required | Input | Long |
-| Minimum MSL Altitude | Maximum altitude value for the fourth class.                        | Required | Input | Long |
-| Maximum MSL Altitude | Maximum altitude value for the fifth class.                         | Required | Input | Long |
-| MSL Altitude Interval | Maximum altitude value for the sixth class.                         | Required | Input | Long |
-| Output AGL Waypoint File | Maximum altitude value for the ninth class.                         | Required | Output | Feature Class |
-| Output Band Statistics Table | Maximum altitude value for the tenth (highest) lass.                | Optional | Output | Text File |
+| Minimum AGL Altitude | Enter the maximum AGL altitude value for the first (lowest altitude) class. | Required | Input | Long |
+| Maximum AGL Altitude | Enter the maximum AGL altitude value for the last (highest altitude) class. | Required | Input | Long |
+| AGL Altitude Interval | Enter the AGL altitude interval to use in a ten-class classification. | Required | Input | Long |
+| Minimum MSL Altitude | Enter the maximum MSL altitude value for the first (lowest altitude) class.  | Required | Input | Long |
+| Maximum MSL Altitude | Enter the maximum MSL altitude value for the last (highest altitude) class. | Required | Input | Long |
+| MSL Altitude Interval | Enter the MSL altitude interval to use in a ten-class classification. | Required | Input | Long |
+| Output Waypoint File | Enter a name for the output point feature class containing waypoints used in the altitude summary. | Required | Output | Feature Class |
+| Output Band Statistics Table | Enter a name for the output ASCII file containing detailed statistics from the kernel density rasters. | Optional | Output | Text File |
 
 *Licensing and Extension Information*
 
@@ -228,10 +228,11 @@ Requires access to the Python script <code>ads_b_tool_5.py</code> and uses as in
 
 *Description*
 
-Produces two output tables that include the frequency and percentage of total waypoints by user-defined altitude bands.  One table reports altitudes above mean sea level (WaypointSummary_MSL) and the other based on altitudes above ground level (WaypointSummary_AGL).  The national park unit code provided by the user is appended to the beginning of the names for the default tables.  Waypoint summaries can be limited to those located inside a user-defined buffer distance around the management unit.  Key processing steps executed include:
-* A buffer is created and used to clip the input screened waypoints file.
-* Waypoint altitudes (in units of both MSL and AGL) are reclassified according to values provided by the user.
-* Summary tables are produced that include the frequency and percentage of total waypoints within each altitude band.
+Produces a new waypoint feature class after a more restrictive buffer operation and two output tables that include the frequency and percentage of total waypoints by user-defined altitude bands.  One table reports altitudes above mean sea level (WaypointSummary_MSL) and the other based on altitudes above ground level (WaypointSummary_AGL).  The user-supplied altitude band information is also used to produce a total of ten AGL kernel density rasters to assist with visualization.  Key processing steps include:
+* A new buffer is created and used to clip the input screened waypoints file by a more restrictive distance than used in **Tool #2 - Create Waypoint and Flightline Feature Classes**.
+* Waypoint altitudes (in both units of AGL and MSL) are reclassified according to user-defined values for the maximum altitude of the first altitude class, the maximum value of the last altitude class, and the desired altitude interval.
+* Summary tables are produced that include the frequency and percentage of total waypoints within each AGL and MSL altitude band. The national park unit code provided by the user is appended to the beginning of the names for both of these tables which will appear automatically in the same output workspace used for the *Output AGL Waypoint File*.
+* A series of ten kernel density rasters are produced for each AGL altitude band to assist with visualization of overflights.
 
 ### Tool #6 - Summarize Waypoints by Time, Operator, and Type
 
