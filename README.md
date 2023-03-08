@@ -130,7 +130,7 @@ Ingests preprocessed ADS-B CSV files produced by **Tool #1 - Process Raw ADS-B F
 
 *Summary*
 
-Merges daily aircraft waypoint and flightlines feature classes into a single point and line feature class.
+Merges all daily aircraft waypoint and flightlines feature classes in a user-defined workspace into single point and line feature classes.
 
 *Dependencies*
 
