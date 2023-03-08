@@ -59,8 +59,7 @@ ArcGIS script-based tool (based upon <code>tool_1.py</code>) that reads raw ADS-
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type | 
 | :------------------------ | :-------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| National Park Unit Code   | Enter the four letter park unit code (e.g., GRMS, HAVO) where the ADS-B data was collected.  For management units operating more than one                               data logger, it is recommended to also include a short name for the logger location (e.g., GRSM_COVEMTN or GRSM_ELKMONT).  
-                                                                                                  | Required | Input     | String    |
+| National Park Unit Code   | Enter the four letter park unit code (e.g., GRMS, HAVO) where the ADS-B data was collected.  For management units operating more than one                               data logger, it is recommended to also include a short name for the logger location (e.g., GRSM_COVEMTN or GRSM_ELKMONT). | Required | Input     | String    |
 | Raw ADS-B File            | The ADS-B file downloaded from the data logger.                     | Required | Input     | File      |
 | Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      | 900 secs
 | Output CSV Folder         | Folder where processed CSV file will be saved.                      | Required | Input     | Workspace |
