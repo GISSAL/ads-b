@@ -12,9 +12,7 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to au
     + [Tool #3 - Merge Daily Waypoints and Flightlines](#tool-3---merge-daily-waypoints-and-flightlines)
     + [Tool #4 - Screen Suspected Non-Tourism Flights](#tool-4---screen-suspected-non-tourism-flights)
     + [Tool #5 - Summarize Waypoint Altitudes](#tool-5---summarize-waypoint-altitudes)
-    + [Tool #6 - Summarize Waypoints by Hour and Month](#tool-6---summarize-waypoints-by-hour-and-month)
-    + [Tool #7 - Summarize Aircraft Operators and Types](#tool-7---summarize-aircraft-operators-and-types)
-    + [Tool #8 - Perform Waypoint Density Analysis](#tool-8---perform-waypoint-density-analysis)
+    + [Tool #6 - Summarize Waypoints by Time, Operator, and Type](#tool-6---summarize-waypoints-by-time-operator-and-type)
 * [Credits](#credits)
 * [References](#references)
 
@@ -235,7 +233,7 @@ Produces two output tables that include the frequency and percentage of total wa
 * Waypoint altitudes (in units of both MSL and AGL) are reclassified according to values provided by the user.
 * Summary tables are produced that include the frequency and percentage of total waypoints within each altitude band.
 
-### Tool #6 - Summarize Waypoints by Hour and Month
+### Tool #6 - Summarize Waypoints by Time, Operator, and Type
 
 *Summary*
 
