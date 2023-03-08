@@ -8,7 +8,7 @@
     Description:  Ingests processed ADS-B data and produces point and line feature classes with sinuosity values and joined FAA database fields
     Status:  Development
     Date created: 10/7/2021
-    Date last modified: 11/2/2022
+    Date last modified: 12/16/2022
     Python Version: 3.7
 """
 
@@ -64,23 +64,26 @@ try:
         # Parse park name and output filename from local input variables
         outputFile = arcpy.Describe(inputFile).baseName
         parkName = outputFile[5:9]
-        print("Reading in ADS-B waypoint data from {0}...".format(outputFile))        
+        print("Reading in ADS-B waypoint data from {0}...".format(outputFile))
+        arcpy.AddMessage("Reading in ADS-B waypoint data from {0}...".format(outputFile))
         
-        # Create point features
+        # Create point feature class
         arcpy.management.XYTableToPoint(inputFile, "temp1", "lon", "lat", "altitude", spatialRef)
-        print("Point feature class created from ADS-B input file...")        
+        print("Point feature class created from ADS-B input file...")
+        arcpy.AddMessage("Point feature class created...")
         
         # Check for an existing park buffer file and use it, or create a new buffer file to screen waypoints
         arcpy.SetProgressorLabel("Removing aircraft waypoints outside of buffered park boundary...")
         arcpy.SetProgressorPosition()
         if arcpy.Exists("Buffer_" + parkName + "_" + bufferDistance.replace(" ", "")):
-            print("Park buffer file already exists.  Moving to next process...")            
+            print("Park buffer file already exists.  Moving to next process...")
             arcpy.analysis.Clip("temp1", "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), "temp2")
             print("Waypoints outside buffer removed...")
         else:
             arcpy.analysis.Buffer(parkBoundaryFile, "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), bufferDistance)
             arcpy.analysis.Clip("temp1", "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), "temp2")
             print("Park buffer generated and waypoints outside buffer removed...")
+        arcpy.AddMessage("Waypoints outside of management unit buffer removed...")
 
         # Ensure waypoints exist within buffer before continuing, otherwise exit      
         if int(arcpy.GetCount_management("temp2") [0]) > 0:
@@ -94,16 +97,35 @@ try:
         arcpy.SetProgressorPosition()
         arcpy.management.CalculateField("temp2", "alt_msl", "int(!altitude! * 3.28084)", "PYTHON3", "", "LONG")
         arcpy.analysis.Select("temp2", "temp3", """"alt_msl" <= %s""" %mslFilter)
-        print("Waypoints with altitudes above user-defined threshold removed...")
+        print("Waypoints above user-defined altitude threshold removed...")
+        arcpy.AddMessage("Waypoints above user-defined altitude threshold removed...")
 
         # Perform AGL calculations and add new attribute field to waypoints
         arcpy.SetProgressorLabel("Calculating waypoint altitudes (AGL in feet)...")
         arcpy.SetProgressorPosition()
         countPts = arcpy.management.GetCount("temp3")
         arcpy.sa.ExtractValuesToPoints("temp3", inputDEM,  outputFile + "_Points_" + bufferDistance.replace(" ", ""))
-        arcpy.management.CalculateField(outputFile + "_Points_" + bufferDistance.replace(" ", ""), "alt_agl", "int(!altitude! - !RASTERVALU! * 3.28084)", "PYTHON3", "", "LONG")
+        arcpy.management.CalculateField(outputFile + "_Points_" + bufferDistance.replace(" ", ""), "alt_agl", "int(!alt_msl! - !RASTERVALU! * 3.28084)", "PYTHON3", "", "LONG")
         arcpy.management.DeleteField(outputFile + "_Points_" + bufferDistance.replace(" ", ""), ["RASTERVALU"])
         print("Aircraft altitude above ground level (AGL in feet) calculated...")
+        arcpy.AddMessage("Aircraft altitude above ground level (AGL in feet) calculated...")
+        
+        
+        # Strip whitespace from the MODE_S_CODE_HEX field in the FAA MASTER file for waypoint table join
+        arcpy.SetProgressorLabel("Joining fields from FAA Releaseable Database MASTER table to waypoints...")
+        arcpy.SetProgressorPosition()
+        arcpy.CalculateField_management(joinTable1, joinField1, "!MODE_S_CODE_HEX!.strip()", "PYTHON3")
+        
+        # Perform a table join to add FAA database variables from MASTER file to waypoints
+        arcpy.management.JoinField(outputFile + "_Points_" + bufferDistance.replace(" ", ""), inField1, joinTable1, joinField1, fieldList1)
+        print("FAA fields N_Number, Type_Aircraft, Type_Engine, Name, and MFR_MDL_Code joined to waypoint file from MASTER table to waypoints...")
+        
+        # Perform a table join to add FAA database variables from ACFTREF file to waypoints
+        arcpy.SetProgressorLabel("Joining fields from FAA Releaseable Database ACFTREF to waypoints...")
+        arcpy.SetProgressorPosition()
+        arcpy.management.JoinField(outputFile + "_Points_" + bufferDistance.replace(" ", ""), inField2, joinTable2, joinField2, fieldList2)   
+        print("FAA field MODEL joined to waypoint file from ACFTREF table...")
+        arcpy.AddMessage("Select fields from FAA Releasable Database joined to waypoint file...")
         
         # Create line feature class from screened waypoints
         arcpy.SetProgressorLabel("Creating initial flightline feature class from filtered ADS-B waypoints...")
@@ -120,6 +142,7 @@ try:
         arcpy.CalculateField_management(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "ICAO_address", "!flight_id![:6]", "PYTHON3")
         arcpy.management.CalculateGeometryAttributes(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), [["LengthMiles", "LENGTH_GEODESIC"]], "MILES_US")
         print("Line feature class created from ADS-B waypoint data...")
+        arcpy.AddMessage("Line feature class created from ADS-B waypoint file {0}...".format(outputFile))
 
         # Add new field to store sinuosity values
         arcpy.SetProgressorLabel("Calculating the sinuosity of aircraft flightlines...")
@@ -130,45 +153,47 @@ try:
         # Apply sinuosity calculation
         arcpy.CalculateField_management(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "Sinuosity", "getSinuosity(!Shape!)", "PYTHON3", codeblock1)
         print("Sinuosity calculated for flight lines...")
-              
-        # Strip whitespace from the MODE_S_CODE_HEX field in the FAA MASTER file
-        arcpy.SetProgressorLabel("Joining select fields from MASTER table of FAA Releaseable Database...")
+        arcpy.AddMessage("Sinuosity calculated for flightline file...")
+
+        # Strip whitespace from the MODE_S_CODE_HEX field in the FAA MASTER file for flightline table join
+        arcpy.SetProgressorLabel("Joining fields from FAA Releaseable Database MASTER table to flighlines...")
         arcpy.SetProgressorPosition()
         arcpy.CalculateField_management(joinTable1, joinField1, "!MODE_S_CODE_HEX!.strip()", "PYTHON3")
     
-        # Perform a table join to add FAA database variables from MASTER file
+        # Perform a table join to add FAA database variables from MASTER file to flightline
         arcpy.management.JoinField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), inField1, joinTable1, joinField1, fieldList1)
-        print("FAA fields N_Number, Type_Aircraft, Type_Engine, Name, and MFR_MDL_Code joined from MASTER table...")
+        print("FAA fields N_Number, Type_Aircraft, Type_Engine, Name, and MFR_MDL_Code joined from MASTER table to flightline file...")
     
-        # Perform a table join to add FAA database variables from ACFTREF file
-        arcpy.SetProgressorLabel("Joining select fields from ACFTREF table of FAA Releaseable Database...")
+        # Perform a table join to add FAA database variables from ACFTREF file to flightline
+        arcpy.SetProgressorLabel("Joining fields from FAA Releaseable Database ACFTREF table to flightlines...")
         arcpy.SetProgressorPosition()
         arcpy.management.JoinField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), inField2, joinTable2, joinField2, fieldList2)   
-        print("FAA field MODEL joined from ACFTREF table...")
+        print("FAA field MODEL joined from ACFTREF table to flightline file...")
+        arcpy.AddMessage("Select fields from FAA Releasable Database joined to flightline file...")
         
         # Count number of aircraft with "null" N-Numbers (i.e., aircraft not in FAA database)
         arcpy.SetProgressorLabel("Finalizing flightline feature class with fields from FAA Releasable Database...")
         arcpy.SetProgressorPosition()
         selFlight = arcpy.management.SelectLayerByAttribute(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "NEW_SELECTION", "N_NUMBER IS NULL")
         countNA = arcpy.management.GetCount(selFlight)
-              
+                
         # Report aircraft and flight summaries and execution time
-        print("Success... Aircraft waypoint and flightline feature classes created!")
-        arcpy.AddMessage("Success... Aircraft waypoint and flightline feature classes created!")
+        print("Success... Aircraft waypoint and flightline feature class created!")
+        arcpy.AddMessage("Success... Aircraft waypoint and flightline feature class created!")
         
         if countPts != 0:
-            print("There are {0} total aircraft waypoints in {1}.".format(str(countPts), outputFile))
-            arcpy.AddMessage("There are {0} total aircraft waypoints in {1}.".format(str(countPts), outputFile))
+            print("There are {0} aircraft waypoints in {1}.".format(str(countPts), outputFile))
+            arcpy.AddMessage("There are {0} aircraft waypoints in {1}.".format(str(countPts), outputFile))
         else:
             pass            
         if countLines != 0:
-            print("There are {0} total aircraft flightlines in {1}.".format(str(countLines), outputFile))
-            arcpy.AddMessage("There are {0} total aircraft flightlines in {1}.".format(str(countLines), outputFile))
+            print("There are {0} aircraft flightlines in {1}.".format(str(countLines), outputFile))
+            arcpy.AddMessage("There are {0} aircraft flightlines in {1}.".format(str(countLines), outputFile))
         else:
             pass  
         if countNA != 0:
-            print("There are {0} total aircraft with null values for N-Number.".format(str(countNA))) 
-            arcpy.AddMessage("There are {0} total aircraft with null values for N-Number.".format(str(countNA)))
+            print("There are {0} aircraft with null N-Number values in {1}.".format(str(countNA), outputFile)) 
+            arcpy.AddMessage("There are {0} aircraft with null N-Number values in {1}.".format(str(countNA), outputFile))
         else:
             pass
         end = time.time()
@@ -189,8 +214,8 @@ except arcpy.ExecuteError:
         arcpy.AddMessage("{0}:  {1}".format(arcpy.GetSeverity(i), arcpy.GetMessage(i)))
         
 except WaypointError:
-    print("No aircraft waypoints in {0} exist within the buffered park boundary.  Moving to the next file...".format(outputFile))
-    arcpy.AddWarning("No aircraft waypoints in {0} exist within the buffered park boundary.  Moving to the next file...".format(outputFile))
+    print("No aircraft waypoints in {0} exist within the buffered park boundary!".format(outputFile))
+    arcpy.AddWarning("No aircraft waypoints in {0} exist within the buffered park boundary!".format(outputFile))
     
 finally:    
     
