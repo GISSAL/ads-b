@@ -201,24 +201,26 @@ The output of this tool includes waypoints/flights that meet certain characteris
 
 ArcGIS script-based tool code based upon <code>tool_5.py</code> that generates an output table summarizing waypoint frequencies by ten fixed 500 foot altitude bands.  Includes the ability to clip the input screened waypoints file by a user-defined distance prior to summarizing altitudes.
 
+*Dependencies*
+
+Requires access to the Python script <code>ads_b_tool_5.py</code> and uses as input the output from **Tool #4 - Screen Suspected Non-Tourism Flights**. 
+
 *Parameters*
 
 | Label                        | Explanation                                                         | Type     | Direction | Data Type     |
 | :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
-| National Park Unit Code       | Four character abbreviation code for NPS unit.                      | Required   | Input     | String        |
-| Input Screened Waypoint File  | Merged waypoints feature class produced by Tool #4.                 | Required   | Input     | Feature Class |
-| Management Unit Polygon File  | A polygon feature representing the boundary of the management unit study area.   | Required  | Input     | Feature Class |
-| Buffer Distance               | The distance (in miles) around the input feature(s) that will be buffered.       | Required  | Input     | String        |
-| Max Altitude Class 1          | Maximum altitude value for the first (lowest) class.                | Required   | Input     | Double        |
-| Max Altitude Class 2          | Maximum altitude value for the second class.                        | Required   | Input     | Double        |
-| Max Altitude Class 3          | Maximum altitude value for the Third class.                         | Required   | Input     | Double        |
-| Max Altitude Class 4          | Maximum altitude value for the fourth class.                        | Required   | Input     | Double        |
-| Max Altitude Class 5          | Maximum altitude value for the fifth class.                         | Required   | Input     | Double        |
-| Max Altitude Class 6          | Maximum altitude value for the sixth class.                         | Required   | Input     | Double        |
-| Max Altitude Class 7          | Maximum altitude value for the seventh class.                       | Required   | Input     | Double        |
-| Max Altitude Class 8          | Maximum altitude value for the eigth class.                         | Required   | Input     | Double        |
-| Max Altitude Class 9          | Maximum altitude value for the ninth class.                         | Required   | Input     | Double        |
-| Max Altitude Class 10         | Maximum altitude value for the tenth (highest) lass.                | Required   | Input     | Double        |
+| National Park Unit Code | Enter the four letter park unit code (e.g., GRSM, HAVO) where the ADS-B data was collected. | Required | Input | String |
+| Input Screened Waypoint File | Select the screened merged waypoints feature class produced by **Tool #4 - Screen Suspected Non-Tourism Flights**. | Required | Input | Feature Class |
+| Management Unit Polygon File | Select a polygon feature class representing the boundary of the management unit study area. | Required | Input | Feature Class |
+| Buffer Distance (miles) | Enter a horizontal buffer distance (in miles) within which aircraft waypoints will be processed.  | Required  | Input | String |
+| Minimum AGL Altitude | Maximum altitude value for the first (lowest) class.                | Required | Input | Long |
+| Maximum AGL Altitude | Maximum altitude value for the second class.                        | Required | Input | Long |
+| AGL Altitude Interval | Maximum altitude value for the Third class.                         | Required | Input | Long |
+| Minimum MSL Altitude | Maximum altitude value for the fourth class.                        | Required | Input | Long |
+| Maximum MSL Altitude | Maximum altitude value for the fifth class.                         | Required | Input | Long |
+| MSL Altitude Interval | Maximum altitude value for the sixth class.                         | Required | Input | Long |
+| Output AGL Waypoint File | Maximum altitude value for the ninth class.                         | Required | Output | Feature Class |
+| Output Band Statistics Table | Maximum altitude value for the tenth (highest) lass.                | Optional | Output | Text File |
 
 *Licensing and Extension Information*
 
