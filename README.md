@@ -84,7 +84,7 @@ Ingests and pre-processes a single daily ADS-B data logger TSV file and returns 
 * Converts original Unix timestamps to Python datetime objects in UTC which are then re-scaled to integer values.
 * Calculates the time difference between sequential waypoints for each unique aircraft.
 * **Removes any identical waypoints in a single daily file that have the same values for aircraft ICAO address, time, latitude, and longitude.**
-* Appends a zero-based index to the existing ICAO Address to create a new FlightID attribute and values (e.g., ICAO_0, ICAO_1, etc).  A new flight by the same aircraft is indicated when two sequential waypoints have a time difference exceeding the user-defined parameter “Flight Duration Threshold (secs)” which is set to a default value of 900 seconds.
+* Appends a zero-based index to the existing ICAO Address to create a new *FlightID* attribute and values (e.g., ICAO_0, ICAO_1, etc).  A new flight by the same aircraft is indicated when two sequential waypoints have a time difference exceeding the user-defined parameter *Flight Duration Threshold (secs)* which is set to a default value of 900 seconds.
 * **Removes any record where a unique flight_id has just a single recorded waypoint.** 
 
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
