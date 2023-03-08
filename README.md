@@ -238,7 +238,7 @@ Produces a new waypoint feature class after a more restrictive buffer operation 
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_6.py</code> that generates an output table summarizing waypoint frequencies by hour and month.  Includes the ability to clip the input screened waypoints file by a user-defined distance prior to summarizing the hour and month of flights.  
+Generates six output tables summarizing waypoint frequencies by hour, day of week, weekday vs. weekend, month, aircraft operator (e.g., individual, corporation), and aircraft type (e.g., fixed wing single engine, rotorcraft) using as input the same waypoints summarized by altitude bands in **Tool #5 - Summarize Waypoint Altitudes**. 
 
 *Dependencies*
 
@@ -248,8 +248,8 @@ Requires access to the Python script <code>ads_b_tool_6.py</code> and uses as in
 
 | Label                        | Explanation                                                         | Type     | Direction | Data Type     |
 | :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
-| National Park Unit Code       | Four character abbreviation code for NPS unit.                      | Required   | Input     | String        |
-| Input Waypoint File  | Enter the point feature class produced by **Tool #5 - Summarize Waypoint Altitudes** and containing the waypoints used in previous altitude  summary. | Required | Input | Feature Class |
+| National Park Unit Code | Enter the four letter park unit code (e.g., GRSM, HAVO) where the ADS-B data was collected. | Required | Input | String |
+| Input Waypoint File | Enter the point feature class produced by **Tool #5 - Summarize Waypoint Altitudes** and containing the waypoints used in previous altitude  summary. | Required | Input | Feature Class |
 | FAA Releasable Database | Select the local geodatabase containing recent versions of the FAA Releasable Database tables MASTER and ACFTREF. | Required | Input | Workspace |
 
 *Licensing and Extension Information*
@@ -258,59 +258,13 @@ Requires access to the Python script <code>ads_b_tool_6.py</code> and uses as in
 * Standard - Yes
 * Advanced - Yes
 
-Produces two output tables that include the frequency and percentage of total flights  based on the hour and month in which they occurred.  One table reports the hourly summary (WaypointSummary_HR) and the other the monthly summary (WaypointSummary_MO).  The national park unit code provided by the user is appended to the beginning of the names for the default tables.  Waypoint summaries can be limited to those located inside a user-defined buffer distance around the management unit.  Key processing steps executed include:
-* A buffer is created and used to clip the input screened waypoints file.
+Produces six output tables that include the frequency and percentage of total flights based on the hour, day of week, weekday vs. weekend, month, aircraft operator, and aircraft type using as input the output waypoint feature class produced by **Tool #5 - Summarize Waypoint Altitudes**.  One table reports the hourly summary (WaypointSummary_HR) and the other the monthly summary (WaypointSummary_MO).  The national park unit code provided by the user is appended to the beginning of the names for each output table (e.g., GRSM_FlightSummary_DAY, GRSM_FlightSummary_Operators).  Key processing steps executed include:
 * Flight summaries are based on the hour and time of the first waypoint for each unique flight in the input file.
-* UTC times for waypoints recorded by the ADS-B data logger are converted to local times prior to summarization.
-* Summary tables are produced that include the frequency and percentage of total flights occurring by hour of the day and month of the year.
-
-### Tool #7 - Summarize Aircraft Operators and Types
-
-*Summary*
-
-ArcGIS script-based tool code based upon <code>tool_7.py</code> that generates an output table summarizing flight (flightlines) by operator and type as reported in the FAA Releasable Database.  Includes the ability to clip the input screened flightline file by a user-defined distance prior to summarizing aircraft operators and types.
-
-*Parameters*
-
-| Label                     | Explanation                                                                      | Type     | Direction | Data Type     |
-| :------------------------ |:---------------------------------------------------------------------------------| :------- | :-------- | :------------ | 
-| National Park Unit Code       | Four character abbreviation code for NPS unit.                      | Required   | Input     | String        |
-| Input Screened Flightline File  | Merged waypoints feature class produced by Tool #4.                 | Required   | Input     | Feature Class |
-| Management Unit Polygon File  | A polygon feature representing the boundary of the management unit study area.   | Required  | Input     | Feature Class |
-| Buffer Distance               | The distance (in miles) around the input feature(s) that will be buffered.       | Required  | Input     | String        |
-
-*Licensing and Extension Information*
-
-* Basic - Yes
-* Standard - Yes
-* Advanced - Yes
-
-Produces two output tables that include the frequency and percentage of total flights categorized by the FAA Releasable Database fields "TYPE_REGISTRANT" and "TYPE_AIRCRAFT". One table reports the general category of the aircraft operator (i.e., TYPE_REGISTRANT) (FlightSummary_Operators) and the other the general type of aircraft (i.e. TYPE_AIRCRAFT) (FlightSummary_Type).  The national park unit code provided by the user is appended to the beginning of the names for the default tables.  Flight  summaries can be limited to those located inside a user-defined buffer distance around the management unit.  Key processing steps executed include:
-* A buffer is created and used to clip the input screened waypoints file.
+* **UTC times for waypoints recorded by the ADS-B data logger are converted to local times prior to summarization**.
+* **Performs a table join between aircraft flightlines and select fields from the FAA Releasable Database**.  Joined fields from the MASTER table include N-Number, MFR MDL CODE, TYPE REGISTRANT, NAME, and Type Engine.  A single field – Model – is joined from the ACFTREF table.  Users must create a local geodatabase (e.g., FAA_Releasable_Database.gdb),  download current copies of the MASTER and ACFTREF tables from the FAA Releasable Database website (https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download), then import the tables into the local geodatabase for this join operation to be successful.
+* Summary tables are produced that include the frequency and percentage of total flights occurring by hour of the day, day of week, weekday vs. weekend, month of the year, aircraft operator (i.e., TYPE_REGISTRANT field from the FAA Releaseable Database), and aircraft type (i.e., TYPE_AIRCRAFT field from the FAA Releasable Database).
 * Possible TYPE_REGISTRANT values include: [1, "Individual"], [2, "Partnership"], [3, "Corporation"], [4, "Co-Owned"], [5, "Government"], [7, "LLC"], [8, "Non-Citizen Corporation"], [9, "Non-Citizen Co-Owned"].
 * Possible TYPE_AIRCRAFT values include:  [1, "Glider"], [2, "Balloon"], [3, "Blimp/Dirigible"], [4, "Fixed Wing Single Engine"], [5, "Fixed Wing Multi Engine"], [6, "Rotorcraft"], [7, "Weight-Shift-Control"], [8, "Powered Parachute"], [9, "Gyroplane"]
-* Summary tables are produced that include the frequency and percentage of total flights by aircraft operator and type.
-
-### Tool #8 - Perform Waypoint Density Analysis
-
-*Summary*
-
-ArcGIS script-based tool code based upon <code>tool_8.py</code> that performs kernel density analyses of aircraft waypoints for five fixed altitude bands within a buffered management unit.
-
-*Parameters*
-
-| Label                     | Explanation                                                         | Type     | Direction | Data Type |
-| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Input Waypoint File       | Merged waypoints feature class produced by Tool #3.. | Required | Input | Feature Class |
-| Management Unit Buffer Polygon | A polygon feature representing the buffered boundary of the management unit study area. | Required | Input | Feature Class |
-| Output Workspace | The geodatabase workspace where the kernel density raster will be written.. | Required | Input | Workspace |
-| Output Kernel Density Raster | Base filename of kernel density raster results; altitude band values will be automatically appended to the basename . | Required | Output | Raster Dataset |
-
-*Licensing and Extension Information*
-
-* Basic - Requires Spatial Analyst
-* Standard - Requires Spatial Analyst
-* Advanced - Requires Spatial Analyst
 
 ## Credits
 
