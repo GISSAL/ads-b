@@ -208,7 +208,7 @@ Requires access to the Python script <code>ads_b_tool_5.py</code> and uses as in
 | Label                        | Explanation                                                         | Type     | Direction | Data Type     |
 | :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
 | National Park Unit Code | Enter the four letter park unit code (e.g., GRSM, HAVO) where the ADS-B data was collected. | Required | Input | String |
-| Input Screened Waypoint File | Select the screened merged waypoints feature class produced by **Tool #4 - Screen Suspected Non-Tourism Flights**. | Required | Input | Feature Class |
+| Input Waypoint File | Select the screened merged waypoints feature class produced by **Tool #4 - Screen Suspected Non-Tourism Flights**. | Required | Input | Feature Class |
 | Management Unit Polygon File | Select a polygon feature class representing the boundary of the management unit study area. | Required | Input | Feature Class |
 | Buffer Distance (miles) | Enter a horizontal buffer distance (in miles) within which aircraft waypoints will be processed.  | Required  | Input | String |
 | Minimum AGL Altitude | Enter the maximum AGL altitude value for the first (lowest altitude) class. | Required | Input | Long |
@@ -240,14 +240,17 @@ Produces a new waypoint feature class after a more restrictive buffer operation 
 
 ArcGIS script-based tool code based upon <code>tool_6.py</code> that generates an output table summarizing waypoint frequencies by hour and month.  Includes the ability to clip the input screened waypoints file by a user-defined distance prior to summarizing the hour and month of flights.  
 
+*Dependencies*
+
+Requires access to the Python script <code>ads_b_tool_6.py</code> and uses as input the output from **Tool #5 - Summarize Waypoint Altitudes**. 
+
 *Parameters*
 
 | Label                        | Explanation                                                         | Type     | Direction | Data Type     |
 | :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :------------ | 
 | National Park Unit Code       | Four character abbreviation code for NPS unit.                      | Required   | Input     | String        |
-| Input Screened Waypoint File  | Merged waypoints feature class produced by Tool #4.                 | Required   | Input     | Feature Class |
-| Management Unit Polygon File  | A polygon feature representing the boundary of the management unit study area.   | Required  | Input     | Feature Class |
-| Buffer Distance               | The distance (in miles) around the input feature(s) that will be buffered.       | Required  | Input     | String        |
+| Input Waypoint File  | Enter the point feature class produced by **Tool #5 - Summarize Waypoint Altitudes** and containing the waypoints used in previous altitude  summary. | Required | Input | Feature Class |
+| FAA Releasable Database | Select the local geodatabase containing recent versions of the FAA Releasable Database tables MASTER and ACFTREF. | Required | Input | Workspace |
 
 *Licensing and Extension Information*
 
