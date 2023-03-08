@@ -53,7 +53,7 @@ Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remov
 
 *Summary*
 
-ArcGIS script-based tool (based upon <code>tool_1.py</code>) that reads raw ADS-B data collected from a logger, performs basic structural checks on each file, formats fields to ensure proper data types, removes flights not meeting a 1-2 second time since last communication (TSLC), identifies and creates unique flights based on a user-defined elapsed time between sequential aircraft waypoints, and generates output CSV files for later GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code> where the acquisition date is obtained from the input TSV file.  
+ArcGIS script-based tool (based upon <code>tool_1.py</code>) that reads raw ADS-B data collected from a logger, performs basic structural checks on each file, formats fields to ensure proper data types, removes flights not meeting a 1-2 second time since last communication (TSLC), identifies and creates unique flights based on a user-defined elapsed time between sequential aircraft waypoints, and generates output CSV files for later ADS-B GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code> where the acquisition date is obtained from the input TSV file.  
 
 *Parameters*
 
@@ -64,6 +64,15 @@ ArcGIS script-based tool (based upon <code>tool_1.py</code>) that reads raw ADS-
 | Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      | 900 secs
 | Output CSV Folder         | Folder where processed CSV file will be saved.                      | Required | Input     | Workspace |
 
+| Label                     | Explanation                                                         | Type     | Direction | Data Type | Default Value |
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | :------------ |
+| National Park Unit Code   | Enter the four letter park acronym (e.g., HAVO, GRSM) where the 
+                            ADS-B data was collected.  For management units operating more than one data logger, it is recommended to also include a short name for the logger location.  For example, GRSM_COVEMTN or GRSM_ELKMONT for one of the two collection sites at Great Smoky Mountains National Park.                      | Required | Input     | String    |
+| Raw ADS-B File            | The ADS-B file downloaded from the data logger.                     | Required | Input     | File      |
+| Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      | 900 secs
+| Output CSV Folder         | Folder where processed CSV file will be saved.                      | Required | Input     | Workspace |
+
+
 *Licensing and Extension Information*
 
 * Basic - Yes
@@ -72,16 +81,16 @@ ArcGIS script-based tool (based upon <code>tool_1.py</code>) that reads raw ADS-
 
 *Description*
 
-Ingests and pre-processes a single daily ADS-B data logger TSV file and returns a new daily file in CSV format.  This tool can be operated in "batch" mode within ArcGIS Pro to process many daily ADS-B files at once.  Tool messaging includes data regarding QA/QC results, number of unique aircraft and flights, and total execution time.  Important preprocessing steps include:
+Ingests and pre-processes a single daily ADS-B data logger TSV file and returns a new output daily file in CSV format for use in later ADS-B GIS data processing.  This tool can be operated in "batch" mode within ArcGIS Pro to process several daily ADS-B TSV files in a single tool run.  Tool messaging includes data regarding QA/QC results, number of unique aircraft and flights, and total execution time.  Key preprocessing steps include:
 * Checks for presence of required header line and exits if it is not present.
 * Effectively reads logger data files that have recorded data using different field names for the same variable (e.g., TIME vs. timestamp).
 * **Unpacking validFlags data from the ADS-B input file and removing any records with invalid latitude, longitude, and/or altitude flags.**
 * **Removes any records with Time Since Last Communication (TSLC) values equal to 0 or greater than or equal to 3 (i.e., only TSLC values of 1 or 2 are retained).**  
 * Converts original Unix timestamps to Python datetime objects in UTC which are then re-scaled to integer values.
-* Calculating the time difference between sequential waypoints for each aircraft.
-* **Removes any identical waypoints in a single daily file that has the same values for ICAO address, time, latitude, and longitude.**
-* Appending a zero-based index to the ICAO Address for a new FlightID attribute field and values (e.g., ICAO_0, ICAO_1, etc).  A new flight by the same aircraft is indicated when two sequential waypoints have a time difference exceeding the user parameter “Flight Duration Threshold” which is set to a default value of 900 seconds.
-* **Removing any records where a unique flight_id has just a single recorded waypoint.** 
+* Calculates the time difference between sequential waypoints for each unique aircraft.
+* **Removes any identical waypoints in a single daily file that have the same values for aircraft ICAO address, time, latitude, and longitude.**
+* Appends a zero-based index to the existing ICAO Address to create a new FlightID attribute and values (e.g., ICAO_0, ICAO_1, etc).  A new flight by the same aircraft is indicated when two sequential waypoints have a time difference exceeding the user-defined parameter “Flight Duration Threshold (secs)” which is set to a default value of 900 seconds.
+* **Removes any record where a unique flight_id has just a single recorded waypoint.** 
 
 ### Tool #2 - Create Waypoint and Flightline Feature Classes
 
