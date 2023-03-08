@@ -1,7 +1,7 @@
 ### ads-b
 # ADS-B Overflight Analysis Toolbox
 
-A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools to automate and simplify processing and analysis of Automatic Dependent Surveillance-Broadcast (ADS-B) for better understanding aircraft overflights of National Park Service (NPS) management units. 
+A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing script tools to automate and simplify processing and analysis of Automatic Dependent Surveillance-Broadcast (ADS-B) data for better understanding aircraft overflights of National Park Service (NPS) management units. 
 
 * [Overview of ADS-B Overflight Analysis](#overview-of-ads-b-overflight-analysis)
 * [Toolbox Purpose](#toolbox-purpose)
@@ -28,24 +28,24 @@ ADS-B data loggers can record latitude, longitude, a timestamp, altitude, and un
 
 ## Toolbox Purpose
 
-This repository documents and points users to a downloadable ArcGIS Pro project file containing a custom ArcGIS Pro toolbox with multiple Python-based geoprocessing tools.  The parent Python script serving as the basis of each geoprocessing tool may also be accessed.  These tools can be used to process raw ADS-B data files recorded on site by data loggers, compute required flight-related attributes to support analyses, and create aircraft waypoint and flightline feature classes.  Additional tools help automate merging daily waypoint and flightline files, facilitate screening of flights meeting certain criteria that may be omitted from further analysis, and generate summary statistics and analytical outputs for use in overflight reports. 
+This repository documents and points users to a downloadable ArcGIS Pro project package containing a custom ArcGIS Pro toolbox with multiple Python-based geoprocessing script tools.  The parent Python script serving as the basis of each geoprocessing tool may also be accessed.  These tools can be used to process raw ADS-B data files recorded on site by data loggers, create aircraft waypoint and flightline feature classes, and compute required flight-related attributes to support a variety of analyses.  Additional tools help automate merging daily waypoint and flightline files, facilitate screening of flights meeting certain criteria that may be omitted from further analysis, and generate summary statistics and analytical outputs for use in aircraft overflight reporting. 
 
 ## Access the Current ArcGIS Pro Project File from the K-State GIS Portal
 [https://arcg.is/1vLjHu](https://arcg.is/1vLjHu)
 
 ## Get Started with the Toolbox
 
-Each geoprocessing tool in the ADS-B Overflight Analysis Toolbox is described below and includes a tool summary, list of parameters,  associated ArcGIS license and extension requirements needed for successful tool operation, and a description section containing details about the processing completed.
+Each geoprocessing tool in the ADS-B Overflight Analysis Toolbox is described below and includes a tool summary, dependencies, list of parameters, associated ArcGIS license and extension requirements needed for successful tool operation, and a description section containing details about the processing steps completed.
 
-Before starting, be sure to have an ArcGIS Pro project file created with the additional features:
+Before starting, be sure to have an ArcGIS Pro project file created with these additional features:
 
-* Add a folder connection to the system folder containing raw ADS-B data files in TSV format (e.g., InputData).
-* Create and add a folder connection to another system folder that will store CSV outputs from Tool #1 (e.g., OutputData).
-* Add a file or enterprise geodatabase to your project containing, at minimum, study area specific files for the unit boundary and digital elevation model that records elevation in units of meters.
+* Add a folder connection to a system folder containing raw ADS-B data files in TSV format (e.g., InputData).
+* Create and add a folder connection to another system folder that will store the CSV outputs from Tool #1 (e.g., OutputData).
+* Add a file or enterprise geodatabase to your project containing, at minimum, study area specific files for the management unit boundary and digital elevation model that records elevation in units of meters.
 * Add a file or enterprise geodatabase to your project that contains, at minimum, two tables imported from the FAA Releasable Database.  The required tables are MASTER and ACFTREF.  A compressed file containing text-based attribute tables valid for a calendar year can be downloaded from https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download/.
-* Finally, download the ADS-B Overflight Analysis Toolbox and add it to your ArcGIS Pro project.
+* Finally, download the ADS-B Overflight Analysis Toolbox from this site and add it to your ArcGIS Pro project.  The tools in the toolbox contain embedded versions of the scripts that are also hosted in this repository.
 
-Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remove records from further analysis.  Users may need to modify these procedures to suit their particular needs.  Filtering operations are outlined in the Description section for each tool.  Those indicated by **bold** text are operations that are hard-coded into the script and cannot be changed within the script tool dialog window.
+Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remove records from further analysis.  Users may need to modify these procedures to better suit particular needs.  Filtering operations are outlined in the Description section for each tool.  Those indicated by **bold** text are operations that are hard-coded into the script and cannot be changed within the script tool dialog window.
 
 ### Tool #1 - Process Raw ADS-B Data Files
 
@@ -77,7 +77,7 @@ Requires access to the Python script <code>ads_b_tool_1.py</code> and raw ADS-B 
 Ingests and pre-processes a single daily ADS-B data logger TSV file and returns a new output daily file in CSV format for use in later ADS-B GIS data processing.  This tool can be operated in "batch" mode within ArcGIS Pro to process several daily ADS-B TSV files in a single tool run.  Tool messaging includes data regarding QA/QC results, number of unique aircraft and flights, and total tool execution time.  Key processing steps include:
 * Checks for presence of required header line and exits with an appropriate error message if it is not present.  Other structural errors are also trapped and an error message reported.
 * Effectively reads logger data files that have recorded data using different field names for the same variable (e.g., TIME vs. timestamp).
-* **Unpacking validFlags data from the ADS-B input file and removing any records with invalid latitude, longitude, and/or altitude flags.**
+* Unpacking validFlags data from the ADS-B input file and removing any records with invalid latitude, longitude, and/or altitude flags.
 * **Removes any records with Time Since Last Communication (TSLC) values equal to 0 or greater than or equal to 3 (i.e., only TSLC values of 1 or 2 are retained).**  
 * Converts original Unix timestamps to Python datetime objects in UTC which are then re-scaled to integer values.
 * Calculates the time difference between sequential waypoints for each unique aircraft.
@@ -122,7 +122,7 @@ Ingests preprocessed ADS-B CSV files produced by **Tool #1 - Process Raw ADS-B F
 * Calculates a new *Alt_AGL* field (altitude above ground level) in the aircraft waypoints table with values based on aircraft waypoint MSL altitudes minus corresponding terrain elevations from the user-supplied digital elevation model (DEM).
 * Adds new fields and values for the aircraft flightlines feature class including *ICAO Address* (retrieved from the aircraft waypoint table), *Sinuosity* , and *LengthMiles*. *Sinuosity* is calculated as the ratio of the curvilinear length of the flightline and the Eucliean distance between the first and last waypoint comprising the flightline and may be useful in identifying specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights. The field *LengthMiles* is the total length of the flightpath in miles.
 * **Removes any aircraft flightline features with a length of 0.**
-* **Performs a table join between aircraft flightlines and select fields from the FAA Releasable Database**.  Joined fields from the MASTER table include N-Number, MFR MDL CODE, TYPE REGISTRANT, NAME, and Type Engine.  A single field – Model – is joined from the ACFTREF table.  Users must create a local geodatabase (e.g., FAA_Releasable_Database.gdb),  download current copies of the MASTER and ACFTREF tables from the FAA Releasable Database website (https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download), then import the tables into the local geodatabase for this join operation to be successful.
+* Performs a table join between aircraft flightlines and select fields from the FAA Releasable Database.  Joined fields from the MASTER table include N-Number, MFR MDL CODE, TYPE REGISTRANT, NAME, and Type Engine.  A single field – Model – is joined from the ACFTREF table.  Users must create a local geodatabase (e.g., FAA_Releasable_Database.gdb),  download current copies of the MASTER and ACFTREF tables from the FAA Releasable Database website (https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download), then import the tables into the local geodatabase for this join operation to be successful.
 
 ### Tool #3 - Merge Daily Waypoints and Flightlines
 
@@ -189,9 +189,9 @@ Requires access to the Python script <code>ads_b_tool_4.py</code> and uses as in
 *Description*
 
 The output of this tool includes waypoints/flights that meet certain characteristics typical of flights that should be omitted from further overflight analyses.  One example of this might be commerical airliner flights included in the parameter *Aircraft Operator Name(s)*. The tool also automatically deletes suspect flights from the existing merged waypoint and flightline feature classes and creates "clean" versions of both.  Key considerations when running this tool include:
-* For the parameter *Type Registrant Values*, users should enter one or more comma-separated numeric values representing valid values from the *Type Registrant* field in the FAA Releasable Database (e.g., 5 = Government)
-* For the parameter *Sinuosity Values*, users should enter a comma-separated minimum and maximum sinuosity value to select flightlines with less than the minimum or greater than the maximum for identifying suspect flights (e.g., 0.10, 0.99).
-* For the parameter *Aircraft Operator Name(s)*, users should enter comma-separated values for aircraft operator names (e.g., AMERICAN AIRLINES INC, DELTA AIR LINES INC) to select specific operators of suspect flights.  Note that operator names must exactly match those published in the FAA Releasable Database.
+* **For the parameter *Type Registrant Values*, users should enter one or more comma-separated numeric values representing valid values from the *Type Registrant* field in the FAA Releasable Database (e.g., 5 = Government)**.
+* **For the parameter *Sinuosity Values*, users should enter a comma-separated minimum and maximum sinuosity value to select flightlines with less than the minimum or greater than the maximum for identifying suspect flights (e.g., 0.10, 0.99)**.
+* **For the parameter *Aircraft Operator Name(s)*, users should enter comma-separated values for aircraft operator names (e.g., AMERICAN AIRLINES INC, DELTA AIR LINES INC) to select specific operators of suspect flights.  Note that operator names must exactly match those published in the FAA Releasable Database**.
 
 ### Tool #5 - Summarize Waypoint Altitudes
 
@@ -229,7 +229,7 @@ Requires access to the Python script <code>ads_b_tool_5.py</code> and uses as in
 *Description*
 
 Produces a new waypoint feature class after a more restrictive buffer operation and two output tables that include the frequency and percentage of total waypoints by user-defined altitude bands.  One table reports altitudes above mean sea level (WaypointSummary_MSL) and the other based on altitudes above ground level (WaypointSummary_AGL).  The user-supplied altitude band information is also used to produce a total of ten AGL kernel density rasters to assist with visualization.  Key processing steps include:
-* A new buffer is created and used to clip the input screened waypoints file by a more restrictive distance than used in **Tool #2 - Create Waypoint and Flightline Feature Classes**.
+* **A new buffer is created and used to clip the input screened waypoints file by a more restrictive distance than used in Tool #2 - Create Waypoint and Flightline Feature Classes**.
 * Waypoint altitudes (in both units of AGL and MSL) are reclassified according to user-defined values for the maximum altitude of the first altitude class, the maximum value of the last altitude class, and the desired altitude interval.
 * Summary tables are produced that include the frequency and percentage of total waypoints within each AGL and MSL altitude band. The national park unit code provided by the user is appended to the beginning of the names for both of these tables which will appear automatically in the same output workspace used for the *Output AGL Waypoint File*.
 * A series of ten kernel density rasters are produced for each AGL altitude band to assist with visualization of overflights.
