@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 
 """
-    File name: tool_4.py
+    File name: ads_b_tool_4.py
     Author: Shawn Hutchinson
     Credits: Shawn Hutchinson, Brian Peterson
     Description:  Create waypoint and flightline files to further scrutinize suspected non-tourism flights.
