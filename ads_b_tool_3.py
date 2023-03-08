@@ -8,7 +8,7 @@
     Description:  Merges daily aircraft waypoint and flightlines feature classes into single feature classes for a desired time interval.
     Status:  Development
     Date created: 12/15/2021
-    Date last modified: 1/25/2023
+    Date last modified: 8/1/2022
     Python Version: 3.72
 """
 
@@ -46,6 +46,7 @@ try:
     arcpy.SetProgressorLabel("Merging waypoint feature classes into a single point feature class...")
     arcpy.SetProgressorPosition()
     if len(pointList) > 0:
+        arcpy.AddMessage("Merging waypoint feature classes...")
         desc = arcpy.Describe(pointList[0])
         parkName = desc.baseName[5:9]       
         arcpy.management.Merge(pointList, outputPoints)
@@ -55,12 +56,12 @@ try:
         count2 = arcpy.management.GetCount(outputPoints)
         count3 = int(str(count1)) - int(str(count2))
         arcpy.management.DeleteField(outputPoints, "DATE")        
-        print("A total of {0} aircraft waypoints were found in the input point feature classes.".format(str(count1)))        
-        arcpy.AddMessage("A total of {0} aircraft waypoints were found in the input point feature classes.".format(str(count1)))
-        print("A total of {0} duplicate aircraft waypoints were removed from the input files.".format(str(count3)))
-        arcpy.AddMessage("A total of {0} duplicate aircraft waypoints were removed from the input files.".format(str(count3)))
-        print("A total of {0} unique aircraft waypoints were written to the merged point feature class.".format(str(count2)))        
-        arcpy.AddMessage("A total of {0} unique aircraft waypoints were written to the merged point feature class.".format(str(count2)))        
+        print("{0} waypoints were found in the input point feature classes.".format(str(count1)))        
+        arcpy.AddMessage("{0} waypoints were found in the input point feature classes.".format(str(count1)))
+        print("{0} duplicate waypoints were removed from the input files.".format(str(count3)))
+        arcpy.AddMessage("{0} duplicate waypoints were removed from the input files.".format(str(count3)))
+        print("{0} unique waypoints were written to the merged point feature class.".format(str(count2)))        
+        arcpy.AddMessage("{0} unique waypoints were written to the merged point feature class.".format(str(count2)))        
     else:
         print("There are no waypoint files in the workspace {0}!")
         arcpy.AddWarning("There are no waypoint files in the workspace!")
@@ -92,12 +93,12 @@ try:
     # Report final aircraft summaries
     arcpy.SetProgressorLabel("Preparing aircraft and flight summary information...")
     arcpy.SetProgressorPosition()
-    print("Success... Aircraft feature classes merged into a single file!")
-    arcpy.AddMessage("Success... Aircraft feature classes merged into a single file!")
-    print("A total of {0} point feature classes were merged.".format(str(len(pointList))))
-    arcpy.AddMessage("A total of {0} point feature classes were merged.".format(str(len(pointList))))
-    print("A total of {0} line feature classes were merged.".format(str(len(lineList))))
-    arcpy.AddMessage("A total of {0} line feature classes were merged.".format(str(len(lineList))))
+    print("Success... Aircraft feature classes merged into single files!")
+    arcpy.AddMessage("Success... Aircraft feature classes merged into single files!")
+    print("{0} point feature classes were merged.".format(str(len(pointList))))
+    arcpy.AddMessage("{0} point feature classes were merged.".format(str(len(pointList))))
+    print("{0} line feature classes were merged.".format(str(len(lineList))))
+    arcpy.AddMessage("{0} line feature classes were merged.".format(str(len(lineList))))
 
     # Reset the progressor
     arcpy.ResetProgressor()
