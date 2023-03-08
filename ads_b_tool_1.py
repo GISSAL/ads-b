@@ -156,7 +156,7 @@ try:
     # Use threshold waypoint duration value to identify separate flights by an aircraft then sum the number of "true" conditions to assign unique ID's
     arcpy.SetProgressorLabel("Identifying and creating labels for separate flights by the same aircraft...")
     arcpy.SetProgressorPosition()
-    data['diff_flight'] = data['dur_secs'] >= dur_threshold
+    data['diff_flight'] = data['dur_secs'] >= int(dur_threshold)
     
     data['cumsum'] = data.groupby('ICAO_address')['diff_flight'].cumsum()
     data['flight_id'] = data['ICAO_address'] + "_" + data['cumsum'].astype(str)  + "_" + data['DATE']   
