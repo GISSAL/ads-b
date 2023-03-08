@@ -161,22 +161,26 @@ Merges all daily aircraft waypoint and flightline feature classes stored in the 
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a waypoint and flightline feature class containing waypoints and flightlines suspected of being unrelated to tourism operations.  User's may use screening parameters including the FAA Releasable Database attribute 'Type Registrant', minimum and maximum 'Sinuosity" values, and a minimum flight path length (in miles).  The tool also automatically deletes suspect waypoints and flightlines from the existing merged feature classes produced by Tool #3 and creates new merged feature classes without the suspect flights.
+Creates a waypoint and flightline feature class containing features suspected of being unrelated to management unit tourism operations based on screening parameters including the FAA Releasable Database attribute *Type Registrant*, minimum and maximum *Sinuosity* values, and a minimum flight path length (in miles).  The tool also automatically removes these suspect waypoints and flightlines from the existing merged feature classes produced by **Tool #3 - Merge Daily Waypoints and Flightlines** and creates new and "cleaned" merged waypoint and flightline feature classes.
+
+*Dependencies*
+
+Requires access to the Python script <code>ads_b_tool_4.py</code> and uses as input the output from **Tool #3 - Merge Daily Waypoints and Flightlines**. 
 
 *Parameters*
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type |
 | :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Input Waypoint File       | Merged waypoints feature class produced by Tool #3. | Required | Input | Feature Class |
-| Input Flightlines File     | Merged flightlines feature class produced by Tool #3. | Required | Input | Feature Class |
-| Type Registrant Value(s)     | A single value or comma-separated list of values representing aircraft registrant types from the FAA Releasable Database that may be eliminated from further analysis. | Required | Input | String |
-| Sinuosity Value(s)          | A comma-separated list of values for the minimum and maximum sinuosity below or above which flightlines may be eliminated from further analysis. | Required | Input | String |
-| Aircraft Operator Name(s)    | A comma-separated list of values for commerical airlines flying in the region. | Required | Input | String |
-| Minimum Flight Length (Miles) | A single value representing the minimum flightline length (in miles) below which flightlines may be eliminated from further analysis. | Required | Input | Long |
-| Output Suspect Waypoints | Output waypoint feature class meeting screening critera for further examination. | Required | Output | Feature Class |
-| Output Suspect Flightlines | Output flightline feature class meeting screening critera for further examination. | Required | Output | Feature Class |
-| Output Screened Waypoints | Output merged waypoint feature class with suspect waypoints removed. | Required | Output | Feature Class |
-| Output Screened Flightlines | Output merged flightline feature class with suspect flighlines removed. | Required | Output | Feature Class |
+| Input Waypoint File | Select the merged waypoint feature class produced by **Tool #3 - Merge Daily Waypoints and Flightlines**. | Required | Input | Feature Class |
+| Input Flightlines File | Select the merged flightline feature class produced by **Tool #3 - Merge Daily Waypoints and Flightlines**. | Required | Input | Feature Class |
+| Type Registrant Value(s) | Enter a single or comma-separated list of values representing aircraft registrant types from the **FAA Releasable Database** that should be eliminated from further analysis.  Valid values include:  1 = Individual; 2 = Partnership; 3 = Corporation; 4 = Co-Owned; 5 = Government; 7 = LLC; 8 = Non-Citizen Corporation; 9 = Non-Citizen Co-Owned.. | Required | Input | String |
+| Sinuosity Value(s) | Enter a comma-separated list of values for the minimum and maximum sinuosity below or above which flightlines should be eliminated from further analysis (e.g., 0.10, 0.99).  For reference, a sinuosity value of 1 equals a straight line. | Required | Input | String |
+| Aircraft Operator Name(s) | Enter comma-separated values for aircraft operator names (e.g., AMERICAN AIRLINES INC, DELTA AIR LINES INC) to identify flights for further scrutiny.  Note that operator names must exactly match those published in the FAA Releasable Database. | Required | Input | String |
+| Minimum Flight Length (miles) | Enter the minimum flightpath length (in miles) below which flightlines will be eliminated from further analysis.  For example, if a value of 1 is entered, flightlines with a total flight length less than 1 mile will be excluded. | Required | Input | Long |
+| Output Suspect Waypoints | Enter a name for the output point feature class containing waypoints for further scrutiny. | Required | Output | Feature Class |
+| Output Suspect Flightlines | Enter a name for the output line feature class containing flightlines for further scrutiny. | Required | Output | Feature Class |
+| Output Screened Waypoints | Enter a name for the "cleaned" output point feature class with suspect aircraft waypoints removed. | Required | Output | Feature Class |
+| Output Screened Flightlines | Enter a name for the "cleaned" output line feature class with suspect aircraft flightlines removed. | Required | Output | Feature Class |
 
 *Licensing and Extension Information*
 
@@ -186,10 +190,10 @@ ArcGIS script-based tool code based upon <code>tool_4.py</code> that creates a w
 
 *Description*
 
-The output of this tool includes waypoints/flights that meet certain characteristics typical of flights that should be omitted during further analyses.  One example of this might be commerical airliner flights included in the parameter "Aircraft Operator Name(s)". The tool also automatically deletes suspect flights from the existing merged waypoint and flightline feature classes.
-* For the parameter "Type Registrant Values", users should enter one or more comma-separated numeric values representing valid values from the "Type Registrant" field in the FAA Releasable Database (e.g., 5 = Government)
-* For the parameter "Sinuosity Values", users should enter a comma-separated minimum and maximum sinuosity value to select flightlines with less than the minimum or greater than the maximum for identifying suspect flights (e.g., 0.10, 0.99).
-* For the parameter "Aircraft Operator Name(s), users should enter comma-separated values for aircraft operator names (e.g., AMERICAN AIRLINES INC, DELTA AIR LINES INC) to select specific operators of suspect flights.  Note that operator names must exactly match those published in the FAA Releasable Database.
+The output of this tool includes waypoints/flights that meet certain characteristics typical of flights that should be omitted from further overflight analyses.  One example of this might be commerical airliner flights included in the parameter *Aircraft Operator Name(s)*. The tool also automatically deletes suspect flights from the existing merged waypoint and flightline feature classes and creates "clean" versions of both.  Key considerations when running this tool include:
+* For the parameter *Type Registrant Values*, users should enter one or more comma-separated numeric values representing valid values from the *Type Registrant* field in the FAA Releasable Database (e.g., 5 = Government)
+* For the parameter *Sinuosity Values*, users should enter a comma-separated minimum and maximum sinuosity value to select flightlines with less than the minimum or greater than the maximum for identifying suspect flights (e.g., 0.10, 0.99).
+* For the parameter *Aircraft Operator Name(s)*, users should enter comma-separated values for aircraft operator names (e.g., AMERICAN AIRLINES INC, DELTA AIR LINES INC) to select specific operators of suspect flights.  Note that operator names must exactly match those published in the FAA Releasable Database.
 
 ### Tool #5 - Summarize Waypoint Altitudes
 
