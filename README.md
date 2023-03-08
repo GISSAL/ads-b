@@ -53,9 +53,10 @@ Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remov
 
 *Summary*
 
-ArcGIS script-based tool (based upon <code>ads_b_tool_1.py</code>) that reads raw ADS-B data collected from a logger, performs basic structural checks on each file, formats fields to ensure proper data types, removes flights not meeting a 1-2 second time since last communication (TSLC), identifies and creates unique flights based on a user-defined elapsed time between sequential aircraft waypoints, and generates output CSV files for later ADS-B GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code> where the acquisition date is obtained from the input TSV file.  
+Reads raw ADS-B data collected from a logger, performs basic structural checks on each file, formats fields to ensure proper data types, removes flights not meeting a 1-2 second time since last communication (TSLC), identifies and creates unique flights based on a user-defined elapsed time between sequential aircraft waypoints, and generates output CSV files for later ADS-B GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code> where the acquisition date is obtained from the input TSV file.  
 
 *Dependencies*
+
 Requires access to the Python script <code>ads_b_tool_1.py</code> and raw ADS-B data logger files. 
 
 *Parameters*
@@ -90,9 +91,10 @@ Ingests and pre-processes a single daily ADS-B data logger TSV file and returns 
 
 *Summary*
 
-ArcGIS script-based tool (based upon <code>ads_b_tool_2.py</code> that ingests ADS-B data processed with Tool #1 and produces point (aircraft waypoints) and line (aircraft flightlines) feature classes for all features within a user-defined distance of a management unit polygon and below a user-defined altitude threshold.  The attribute table for the output aircraft flightlines has appended to it select fields and values from the FAA Releasable Database, as well as the new field 'Sinuosity' which is calculated as the ratio of the curvilinear length of the flightline and the Eucliean distance between the first and last waypoint comprising the flightline.  Sinuosity may be useful in identifying specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights. 
+Ingests ADS-B data processed with **Tool #1 - Process Raw ADS-B Files** and produces point (aircraft waypoint) and line (aircraft flightline) feature classes for all features within a user-defined distance of a management unit polygon and below a user-defined altitude threshold.  The attribute table for the output aircraft flightlines has appended to it select fields and values from the **FAA Releasable Database**, as well as the new field * *Sinuosity* * which is calculated as the ratio of the curvilinear length of the flightline and the Eucliean distance between the first and last waypoint comprising the flightline.  Sinuosity may be useful in identifying specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights. 
 
 *Dependencies*
+
 Requires access to the Python script <code>ads_b_tool_2.py</code> and uses as input the output from **Tool #1 - Process Raw ADS-B Data Files**. 
 
 *Parameters*
