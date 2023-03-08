@@ -61,7 +61,7 @@ ArcGIS script-based tool (based upon <code>ads_b_tool_1.py</code>) that reads ra
 | :------------------------ | :-------------------------------------------------------------------| :------- | :-------- | :-------- | 
 | National Park Unit Code   | Enter the four letter park unit code (e.g., GRSM, HAVO) where the ADS-B data was collected.  For management units operating more than one                               data logger, it is recommended to also include a short name for the logger location (e.g., GRSM_COVEMTN or GRSM_ELKMONT). | Required | Input     | String    |
 | Raw ADS-B File            | Select a single ADS-B TSV data logger file.  This tool can also be operated in "batch" mode to process multiple input files in a single tool run.                    | Required | Input     | File      |
-| Flight Duration Threshold | Enter a duration threshold (in seconds) that defines the minimum time between successive aircraft waypoints that must pass before a new flight by that aircraft is considered to occur.      | Required | Input     | Long      |
+| Flight Duration Threshold (secs) | Enter a duration threshold (in seconds) that defines the minimum time between successive aircraft waypoints that must pass before a new flight by that aircraft is considered to occur.      | Required | Input     | Long      |
 | Output CSV Folder         | Select a folder workspace where where the output CSV file will be saved. | Required | Input     | Workspace |
 
 
