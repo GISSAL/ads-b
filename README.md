@@ -53,15 +53,15 @@ Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remov
 
 *Summary*
 
-ArcGIS script-based tool code based upon <code>tool_1.py</code> that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV files for later GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code> where the acquisition date is obtained from the input TSV file.  
+ArcGIS script-based tool (based upon <code>tool_1.py</code>) that reads raw ADS-B data collected from a logger, performs basic structural checks on each file, formats fields to ensure proper data types, removes flights not meeting a 1-2 second time since last communication (TSLC), identifies and creates unique flights based on a user-defined elapsed time between sequential aircraft waypoints, and generates output CSV files for later GIS operations.  The output CSV filename uses the convention <code>ADSB_National Park Unit Code_ADS-B Acquisition Date.csv</code> where the acquisition date is obtained from the input TSV file.  
 
 *Parameters*
 
-| Label                     | Explanation                                                         | Type     | Direction | Data Type |
-| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
+| Label                     | Explanation                                                         | Type     | Direction | Data Type | Default Value |
+| :------------------------ |:--------------------------------------------------------------------| :------- | :-------- | :-------- | :------------ |
 | National Park Unit Code   | Four character abbreviation code for NPS unit.                      | Required | Input     | String    |
 | Raw ADS-B File            | The ADS-B file downloaded from the data logger.                     | Required | Input     | File      |
-| Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      |
+| Flight Duration Threshold | Maximum time between successive waypoints for a unique flight.      | Required | Input     | Long      | 900 secs
 | Output CSV Folder         | Folder where processed CSV file will be saved.                      | Required | Input     | Workspace |
 
 *Licensing and Extension Information*
