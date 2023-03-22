@@ -33,7 +33,7 @@ This repository documents and points users to a downloadable ArcGIS Pro project 
 ## Access the Current ArcGIS Pro Project File from the K-State GIS Portal
 [https://arcg.is/1vLjHu](https://arcg.is/1vLjHu)
 
-## Get Started with the Toolbox
+## Getting Started with the Toolbox
 
 Each geoprocessing tool in the ADS-B Overflight Analysis Toolbox is described below and includes a tool summary, dependencies, list of parameters, associated ArcGIS license and extension requirements needed for successful tool operation, and a description section containing details about the processing steps completed.
 
