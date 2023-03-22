@@ -2,13 +2,13 @@
 #!/usr/bin/env python
 
 """
-    File name: tool_3.py
+    File name: ads_b_tool_3.py
     Author: Shawn Hutchinson
     Credits: Shawn Hutchinson, Brian Peterson, Myles Cramer
     Description:  Merges daily aircraft waypoint and flightlines feature classes into single feature classes for a desired time interval.
     Status:  Development
     Date created: 12/15/2021
-    Date last modified: 8/1/2022
+    Date last modified: 3/22/2023
     Python Version: 3.72
 """
 
