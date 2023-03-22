@@ -8,7 +8,7 @@
     Description:  Generates output tables summarizing waypoint altitudes (both MSL and AGL) by user-defined classes, creates kernel density grids for each AGL class, and produces optional band collection statistics
     Status:  Development
     Date created: 1/24/2022
-    Date last modified: 12/16/2022
+    Date last modified: 3/22/2023
     Python Version: 3.72
 """
 
@@ -37,6 +37,9 @@ outputTable = arcpy.GetParameterAsText(11)  #Optional correlation matrix text fi
 arcpy.env.workspace = arcpy.Describe(inputWaypoints).path
 arcpy.env.overwriteOutput = True
 arcpy.env.extent = inputWaypoints
+
+# Parallel Processing Factor - applies only to Buffer. Clip, and Kernel Density functions
+arcpy.env.parallelProcessingFactor = "50%"
 
 # Fixed local variables
 totalWaypoints_agl = 0
