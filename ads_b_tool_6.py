@@ -8,7 +8,7 @@
     Description:  Generates output tables summarizing waypoint frequencies by day, hour, month/year, aircraft operator, and aircraft type.
     Status:  Development
     Date created: 1/24/2022
-    Date last modified: 12/16/2022
+    Date last modified: 3/22/2023
     Python Version: 3.72
 """
 
@@ -122,7 +122,7 @@ try:
     # Strip whitespace from the MODE_S_CODE_HEX field in the FAA MASTER file
     arcpy.SetProgressorLabel("Joining select fields from MASTER table of FAA Releaseable Database...")
     arcpy.SetProgressorPosition()
-    arcpy.CalculateField_management(joinTable1, joinField1, "!MODE_S_CODE_HEX!.strip()", "PYTHON3")
+    arcpy.management.CalculateField(joinTable1, joinField1, "!MODE_S_CODE_HEX!.strip()", "PYTHON3")
     
     # Perform a table join to add FAA database variables from MASTER file
     arcpy.management.JoinField("temp1", inField1, joinTable1, joinField1, fieldList1)
