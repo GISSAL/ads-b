@@ -8,7 +8,7 @@
     Description:  Generates output tables summarizing waypoint frequencies by day, hour, month/year, aircraft operator, and aircraft type.
     Status:  Development
     Date created: 1/24/2022
-    Date last modified: 3/22/2023
+    Date last modified: 12/16/2022
     Python Version: 3.72
 """
 
@@ -94,7 +94,7 @@ try:
     arcpy.AddMessage("Day, hour, and month flight summaries calculated.")     
     
     # Calculate frequencies and percentages for flights by hour for weekdays and weekends
-    arcpy.CalculateField_management("temp1", "DAYTYPE", "getDayType(!TIME!)", "PYTHON3", codeblock1)
+    arcpy.management.CalculateField("temp1", "DAYTYPE", "getDayType(!TIME!)", "PYTHON3", codeblock1)
     arcpy.analysis.Frequency("temp1", parkName + "_" + "FlightSummary_DAYTYPE2", ["HOUR", "DAYTYPE"])
     arcpy.management.Sort(parkName + "_" + "FlightSummary_DAYTYPE2", parkName + "_" + "FlightSummary_DAYTYPE", "DAYTYPE")
     arcpy.management.Delete(parkName + "_" + "FlightSummary_DAYTYPE2")
