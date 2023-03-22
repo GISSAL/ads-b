@@ -6,7 +6,7 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing script tool
 * [Overview of ADS-B Overflight Analysis](#overview-of-ads-b-overflight-analysis)
 * [Toolbox Purpose](#toolbox-purpose)
 * [Access the Current ArcGIS Pro Package File](#access-the-current-arcgis-pro-project-file)
-* [Getting Started with the Toolbox](#get-started-with-the-toolbox)
+* [Getting Started with the Toolbox](#getting-started-with-the-toolbox)
     + [Tool #1 - Process Raw ADS-B Data Files](#tool-1---process-raw-ads-b-data-files)
     + [Tool #2 - Create Waypoint and Flightline Feature Classes](#tool-2---create-waypoint-and-flightline-feature-classes)
     + [Tool #3 - Merge Daily Waypoints and Flightlines](#tool-3---merge-daily-waypoints-and-flightlines)
