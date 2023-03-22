@@ -2,13 +2,13 @@
 #!/usr/bin/env python
 
 """
-    File name: tool_2.py
+    File name: ads_b_tool_2.py
     Author: Shawn Hutchinson
     Credits: Shawn Hutchinson, Brian Peterson, Myles Cramer
     Description:  Ingests processed ADS-B data and produces point and line feature classes with sinuosity values and joined FAA database fields
     Status:  Development
     Date created: 10/7/2021
-    Date last modified: 12/16/2022
+    Date last modified: 3/22/2023
     Python Version: 3.7
 """
 
@@ -114,7 +114,7 @@ try:
         # Strip whitespace from the MODE_S_CODE_HEX field in the FAA MASTER file for waypoint table join
         arcpy.SetProgressorLabel("Joining fields from FAA Releaseable Database MASTER table to waypoints...")
         arcpy.SetProgressorPosition()
-        arcpy.CalculateField_management(joinTable1, joinField1, "!MODE_S_CODE_HEX!.strip()", "PYTHON3")
+        arcpy.management.CalculateField(joinTable1, joinField1, "!MODE_S_CODE_HEX!.strip()", "PYTHON3")
         
         # Perform a table join to add FAA database variables from MASTER file to waypoints
         arcpy.management.JoinField(outputFile + "_Points_" + bufferDistance.replace(" ", ""), inField1, joinTable1, joinField1, fieldList1)
@@ -139,7 +139,7 @@ try:
         
         # Add a new field to store ICAO address, retrieve values from FlightID, and flightline length (miles)
         arcpy.management.AddField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "ICAO_address", "TEXT")
-        arcpy.CalculateField_management(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "ICAO_address", "!flight_id![:6]", "PYTHON3")
+        arcpy.management.CalculateField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "ICAO_address", "!flight_id![:6]", "PYTHON3")
         arcpy.management.CalculateGeometryAttributes(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), [["LengthMiles", "LENGTH_GEODESIC"]], "MILES_US")
         print("Line feature class created from ADS-B waypoint data...")
         arcpy.AddMessage("Line feature class created from ADS-B waypoint file {0}...".format(outputFile))
@@ -151,14 +151,14 @@ try:
         print("New field for sinuosity created...")
         
         # Apply sinuosity calculation
-        arcpy.CalculateField_management(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "Sinuosity", "getSinuosity(!Shape!)", "PYTHON3", codeblock1)
+        arcpy.management.CalculateField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "Sinuosity", "getSinuosity(!Shape!)", "PYTHON3", codeblock1)
         print("Sinuosity calculated for flight lines...")
         arcpy.AddMessage("Sinuosity calculated for flightline file...")
 
         # Strip whitespace from the MODE_S_CODE_HEX field in the FAA MASTER file for flightline table join
         arcpy.SetProgressorLabel("Joining fields from FAA Releaseable Database MASTER table to flighlines...")
         arcpy.SetProgressorPosition()
-        arcpy.CalculateField_management(joinTable1, joinField1, "!MODE_S_CODE_HEX!.strip()", "PYTHON3")
+        arcpy.management.CalculateField(joinTable1, joinField1, "!MODE_S_CODE_HEX!.strip()", "PYTHON3")
     
         # Perform a table join to add FAA database variables from MASTER file to flightline
         arcpy.management.JoinField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), inField1, joinTable1, joinField1, fieldList1)
