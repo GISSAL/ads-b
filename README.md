@@ -197,7 +197,7 @@ The output of this tool includes waypoints/flights that meet certain characteris
 
 *Summary*
 
-Creates a new output point feature class that removes waypoints outside a more restrictive buffer distance, kernel density rasters for waypoints occurring within ten user-defined AGL altitude bands, and output tables that summarize waypoint frequencies by both AGL and MSL altitude bands.
+Creates a new output point feature class that removes waypoints outside a more restrictive buffer distance, kernel density rasters (unit area = square kilometer) for waypoints occurring within ten user-defined AGL altitude bands, and output tables that summarize waypoint frequencies by both AGL and MSL altitude bands.
 
 *Dependencies*
 
