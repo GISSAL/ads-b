@@ -113,6 +113,10 @@ Requires access to the Python script <code>ads_b_tool_2.py</code> and uses as in
 * Standard - Requires Spatial Analyst
 * Advanced - Requires Spatial Analyst
 
+*Special Environment Settings*
+
+This script tool uses the <code>arcpy.env.parallelProcessingFactor = "50%"</code> setting which means processes will be spread over half of the cores available on a machine.  As of development, the only tools in this script which honor parallel processing are the Buffer and Clip functions.
+
 *Description*
 
 Ingests preprocessed ADS-B CSV files produced by **Tool #1 - Process Raw ADS-B Files** and creates point (aircraft waypoints) and line (aircraft flightlines) feature classes in an existing geodatabase workspace.  Aircraft data located beyond user-defined horizontal (distance in miles) and vertical buffers (MSL altitude in feet) are excluded from the output.  Tool messaging includes the number of waypoints and flightlines in each output feature class, the number of aircraft with a "null" value for N Number, and total tool execution time. Key processing steps include:
@@ -225,6 +229,10 @@ Requires access to the Python script <code>ads_b_tool_5.py</code> and uses as in
 * Basic - Yes
 * Standard - Yes
 * Advanced - Yes
+
+*Special Environment Settings*
+
+This script tool uses the <code>arcpy.env.parallelProcessingFactor = "50%"</code> setting which means processes will be spread over half of the cores available on a machine.  As of development, the only tools in this script which honor parallel processing are the Buffer, Clip, and Kernel Density functions.
 
 *Description*
 
