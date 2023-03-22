@@ -8,7 +8,7 @@
     Description:  Ingests processed ADS-B data and produces point and line feature classes with sinuosity values and joined FAA database fields
     Status:  Development
     Date created: 10/7/2021
-    Date last modified: 3/22/2023
+    Date last modified: 12/16/2022
     Python Version: 3.7
 """
 
@@ -49,6 +49,9 @@ def getSinuosity(shape):
 # Set local environments
 arcpy.env.workspace = outputWorkspace
 arcpy.env.overwriteOutput = True
+
+# Parallel Processing Factor - applies only to Buffer and Clip functions
+arcpy.env.parallelProcessingFactor = "50%"
 
 try:
     
