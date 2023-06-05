@@ -132,7 +132,7 @@ Ingests preprocessed ADS-B CSV files produced by **Tool #1 - Process Raw ADS-B F
 
 *Summary*
 
-Merges all daily aircraft waypoint and flightlines feature classes created by **Tool #2 - Create Waypoint and Flightline Feature Classes** and stored in a user-defined input workspace into single point and line feature classes. Note that this tool will consider any point or line feature class in the input workspace a daily waypoint or flightline file.  
+Merges all daily aircraft waypoint and flightlines feature classes created by **Tool #2 - Create Waypoint and Flightline Feature Classes** and stored in a user-defined input workspace into single point and line feature classes. Note that this tool will consider any point or line feature class in the Input Workspace as either a daily waypoint or flightline file for merging purposes.  
 
 *Dependencies*
 
