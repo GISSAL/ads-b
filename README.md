@@ -132,7 +132,7 @@ Ingests preprocessed ADS-B CSV files produced by **Tool #1 - Process Raw ADS-B F
 
 *Summary*
 
-Merges all daily aircraft waypoint and flightlines feature classes in a user-defined workspace into single point and line feature classes.
+Merges all daily aircraft waypoint and flightlines feature classes created by **Tool #2 - Create Waypoint and Flightline Feature Classes** and stored in a user-defined input workspace into single point and line feature classes. Note that this tool will consider any point or line feature class in the input workspace a daily waypoint or flightline file.  
 
 *Dependencies*
 
@@ -142,7 +142,7 @@ Requires access to the Python script <code>ads_b_tool_3.py</code> and uses as in
 
 | Label                        | Explanation                                                         | Type     | Direction | Data Type |
 | :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Input Workspace | Select the geodatabase workspace containing daily waypoint and flightline feature classes produced by **Tool #2 - Create Waypoint and Flightline Feature Classes**. Caution - All point and line features this workspace will be merged. | Required | Input | Workspace |
+| Input Workspace | Select the geodatabase workspace containing daily waypoint and flightline feature classes produced by **Tool #2 - Create Waypoint and Flightline Feature Classes**. Caution - All point and line features this workspace will be merged by this tool. | Required | Input | Workspace |
 | Output Merged Waypoints | Enter a name for the merged aircraft waypoint feature class. | Required | Output | Feature Class |
 | Ouput Merged Flightlines | Enter a name for the merged aircraft flightline feature class. | Required | Output | Feature Class |
 
