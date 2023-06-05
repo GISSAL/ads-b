@@ -83,7 +83,7 @@ try:
             arcpy.analysis.Clip("temp1", "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), "temp2")
             print("Waypoints outside buffer removed...")
         else:
-            arcpy.analysis.Buffer(parkBoundaryFile, "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), bufferDistance)
+            arcpy.analysis.Buffer(parkBoundaryFile, "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), bufferDistance, "", "", "ALL")
             arcpy.analysis.Clip("temp1", "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), "temp2")
             print("Park buffer generated and waypoints outside buffer removed...")
         arcpy.AddMessage("Waypoints outside of management unit buffer removed...")
