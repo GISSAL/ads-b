@@ -105,7 +105,7 @@ Requires access to the Python script <code>ads_b_tool_2.py</code> and uses as in
 | MSL Altitude Threshold (feet) | Enter a MSL altitude value (in feet) above which flights will be excluded from further analysis. | Required | Input | Long |
 | Input DEM | Select a digital elevation model (DEM) for the management unit. | Required | Input | Raster Dataset|
 | FAA Releasable Database | Select the local geodatabase containing recent versions of the FAA Releasable Database tables MASTER and ACFTREF. | Required | Input | Workspace |
-| Output Workspace | Choose an output geodatabase workspace to store output daily aircraft waypoint and flightline feature classes.  This is also the location where the buffer file will be created and stored using the naming convention <code>Buffer_National Park Unit Code_Management Unit Buffer Distance (e.g., Buffer_GRSM_10Miles) | Required | Input | Workspace |
+| Output Workspace | Choose an output geodatabase workspace to store output daily aircraft waypoint and flightline feature classes.  This is also the location where the buffer file will be created and stored using the naming convention <code>Buffer_National Park Unit Code_Management Unit Buffer Distance</code> (e.g., Buffer_GRSM_10Miles) | Required | Input | Workspace |
 
 *Licensing and Extension Information*
 
