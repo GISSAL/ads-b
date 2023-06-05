@@ -8,7 +8,7 @@
     Description:  Ingests processed ADS-B data and produces point and line feature classes with sinuosity values and joined FAA database fields
     Status:  Development
     Date created: 10/7/2021
-    Date last modified: 12/16/2022
+    Date last modified: 6/5/2023
     Python Version: 3.7
 """
 
@@ -83,7 +83,7 @@ try:
             arcpy.analysis.Clip("temp1", "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), "temp2")
             print("Waypoints outside buffer removed...")
         else:
-            arcpy.analysis.Buffer(parkBoundaryFile, "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), bufferDistance)
+            arcpy.analysis.Buffer(parkBoundaryFile, "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), bufferDistance, "", "", "ALL")
             arcpy.analysis.Clip("temp1", "Buffer_" + parkName + "_" + bufferDistance.replace(" ", ""), "temp2")
             print("Park buffer generated and waypoints outside buffer removed...")
         arcpy.AddMessage("Waypoints outside of management unit buffer removed...")
