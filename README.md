@@ -89,7 +89,7 @@ Ingests and pre-processes a single daily ADS-B data logger TSV file and returns 
 
 *Summary*
 
-Ingests ADS-B data processed with **Tool #1 - Process Raw ADS-B Files** and produces point (aircraft waypoint) and line (aircraft flightline) feature classes for all features within a user-defined distance of a management unit polygon and below a user-defined altitude threshold.  The attribute table for the output aircraft flightlines has appended to it select fields and values from the **FAA Releasable Database**, as well as the new field *Sinuosity* which may be useful in identifying specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights. 
+Ingests ADS-B data processed with **Tool #1 - Process Raw ADS-B Files** and produces point (aircraft waypoint) and line (aircraft flightline) feature classes for all features within a user-defined distance of a management unit polygon and below a user-defined altitude threshold. The tool automatically searches for a buffer file in the Output Workspace that uses the naming convention "Buffer_National Park Unit Code_Management Unit Buffer Distance" (e.g., <code>Buffer_GRSM_10Miles</code>).  If this buffer file does not exist it will be created.  The attribute table for the output aircraft flightlines has appended to it select fields and values from the **FAA Releasable Database**, as well as the new field *Sinuosity* which may be useful in identifying specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights. 
 
 *Dependencies*
 
@@ -105,7 +105,7 @@ Requires access to the Python script <code>ads_b_tool_2.py</code> and uses as in
 | MSL Altitude Threshold (feet) | Enter a MSL altitude value (in feet) above which flights will be excluded from further analysis. | Required | Input | Long |
 | Input DEM | Select a digital elevation model (DEM) for the management unit. | Required | Input | Raster Dataset|
 | FAA Releasable Database | Select the local geodatabase containing recent versions of the FAA Releasable Database tables MASTER and ACFTREF. | Required | Input | Workspace |
-| Output Workspace | Choose an output geodatabase workspace to store output daily aircraft waypoint and flightline feature classes.  This is also the location where the buffer file will be created and stored using the naming convention "Buffer_National Park Unit Code_Management Unit Buffer Distance" (e.g., <code>Buffer_GRSM_10Miles</code>) | Required | Input | Workspace |
+| Output Workspace | Choose an output geodatabase workspace to store output daily aircraft waypoint and flightline feature classes.  This is also the location where the buffer file will be created and stored. | Required | Input | Workspace |
 
 *Licensing and Extension Information*
 
