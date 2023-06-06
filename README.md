@@ -35,6 +35,8 @@ ADS-B data loggers can record latitude, longitude, a timestamp, altitude, and un
 
 This repository documents and points users to a downloadable ArcGIS Pro toolbox with multiple embedded Python-based geoprocesing script tools.  The original Python scripts embedded in each tool may also be accessed.  These tools can be used to process raw ADS-B data files recorded on site by data loggers, create aircraft waypoint and flightline feature classes, and compute required flight-related attributes to support a variety of analyses.  Additional tools help automate merging daily waypoint and flightline files, facilitate screening of flights meeting certain criteria that may be omitted from further analysis, and generate summary statistics and analytical outputs for use in aircraft overflight analysis and reporting. 
 
+An example report that used this toolbox to analyze aircraft overflight activity over a national park can be reviewed [here[(https://irma.nps.gov/DataStore/Reference/Profile/2299255) (Peterson et al., 2023).
+
 ## Access the Current ArcGIS Pro Package File from the K-State GIS Portal
 [https://arcg.is/1vLjHu](https://arcg.is/1vLjHu)
 
@@ -303,6 +305,8 @@ Mace, B. L., Corser, G. C., Zitting, L., & Denison, J. (2013). Effects of overfl
 McDonald, C. D., Baumgarten, R. M., & Iachan, R. (1995). Aircraft management studies: National park service visitors survey. HMMH Report, (290940.12), 94-2.
 
 Miller, Z. D., Fefer, J. P., Kraja, A., Lash, B., & Freimund, W. (2017, January). Perspectives on visitor use management in the National Parks. In The George Wright Forum (Vol. 34, No. 1, pp. 37-44). George Wright Society.
+
+Peterson, B. A., J.M. Shawn Hutchinson, B. Gurung, J.A. Beeco, S.J. Anderson, and D. Joyce. 2023. Exploring spatial patterns of overflights at Great Smoky Mountains National Park. Natural Resource Report NPS/GRSM/NRR—2023/2518. National Park Service, Fort Collins, Colorado. doi.org/10.36967/2299255
 
 Prakash, S. L., Perera, P., Newsome, D., Kusuminda, T., & Walker, O. (2019). Reasons for visitor dissatisfaction with wildlife tourism experiences at highly visited national parks in Sri Lanka. Journal of Outdoor Recreation and Tourism, 25, 102-112.
 
