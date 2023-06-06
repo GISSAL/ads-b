@@ -35,7 +35,7 @@ ADS-B data loggers can record latitude, longitude, a timestamp, altitude, and un
 
 This repository documents and points users to a downloadable ArcGIS Pro toolbox with multiple embedded Python-based geoprocesing script tools.  The original Python scripts embedded in each tool may also be accessed.  These tools can be used to process raw ADS-B data files recorded on site by data loggers, create aircraft waypoint and flightline feature classes, and compute required flight-related attributes to support a variety of analyses.  Additional tools help automate merging daily waypoint and flightline files, facilitate screening of flights meeting certain criteria that may be omitted from further analysis, and generate summary statistics and analytical outputs for use in aircraft overflight analysis and reporting. 
 
-An example report that used this toolbox to analyze aircraft overflight activity over a national park can be reviewed [here[(https://irma.nps.gov/DataStore/Reference/Profile/2299255) (Peterson et al., 2023).
+An example report that used this toolbox to analyze aircraft overflight activity over a national park can be reviewed [here](https://irma.nps.gov/DataStore/Reference/Profile/2299255) (Peterson et al., 2023).
 
 ## Access the Current ArcGIS Pro Package File from the K-State GIS Portal
 [https://arcg.is/1vLjHu](https://arcg.is/1vLjHu)
