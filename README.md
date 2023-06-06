@@ -305,11 +305,7 @@ Shannon, G., McKenna, M. F., Angeloni, L. M., Crooks, K. R., Fristrup, K. M., Br
 
 Tarrant, M. A., Haas, G. E., & Manfredo, M. J. (1995). Factors affecting visitor evaluations of aircraft overflights of wilderness areas. Society & Natural Resources, 8(4), 351-360.
 
----
-
 ## License
-
-### Public domain
 
 This project is in the worldwide [public domain](LICENSE.md):
 
