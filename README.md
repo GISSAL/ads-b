@@ -44,7 +44,7 @@ An example report that used this toolbox to help analyze aircraft overflights of
 
 ## Getting Started with the Toolbox
 
-<img align="right" height="500" src="https://imgur.com/6HpmEsl.jpg" alt="Example ArcGIS Pro Workspace Setup"> Each geoprocessing tool in the ADS-B Overflight Analysis Toolbox is described below and includes a tool summary, dependencies, list of parameters, associated ArcGIS license and extension requirements needed for successful tool operation, and a description section containing details about the processing steps completed.
+<img align="right" height="550" src="https://imgur.com/6HpmEsl.jpg" alt="Example ArcGIS Pro Workspace Setup"> Each geoprocessing tool in the ADS-B Overflight Analysis Toolbox is described below and includes a tool summary, dependencies, list of parameters, associated ArcGIS license and extension requirements needed for successful tool operation, and a description section containing details about the processing steps completed.
 
 Before starting, be sure to have an ArcGIS Pro project file created with the features listed below.  Click on the image to the right to see an example ArcGIS Pro project setup.
 
