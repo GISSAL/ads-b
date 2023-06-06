@@ -16,8 +16,10 @@ A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing script tool
     + [Tool #4 - Screen Suspected Non-Tourism Flights](#tool-4---screen-suspected-non-tourism-flights)
     + [Tool #5 - Summarize Waypoint Altitudes](#tool-5---summarize-waypoint-altitudes)
     + [Tool #6 - Summarize Waypoints by Time, Operator, and Type](#tool-6---summarize-waypoints-by-time-operator-and-type)
-* [Credits](#credits)
 * [References](#references)
+* [Credits](#credits)
+* [License](#license)
+
 
 ## Overview of ADS-B Overflight Analysis
 
@@ -281,10 +283,6 @@ Produces six output tables that include the frequency and percentage of total fl
 * Possible TYPE_REGISTRANT values include: [1, "Individual"], [2, "Partnership"], [3, "Corporation"], [4, "Co-Owned"], [5, "Government"], [7, "LLC"], [8, "Non-Citizen Corporation"], [9, "Non-Citizen Co-Owned"].
 * Possible TYPE_AIRCRAFT values include:  [1, "Glider"], [2, "Balloon"], [3, "Blimp/Dirigible"], [4, "Fixed Wing Single Engine"], [5, "Fixed Wing Multi Engine"], [6, "Rotorcraft"], [7, "Weight-Shift-Control"], [8, "Powered Parachute"], [9, "Gyroplane"]
 
-## Credits
-
-[Applied Park Science Laboratory](https://kstateapslab.wixsite.com/appliedparkscience) and [Geographic Information Systems Spatial Analysis Laboratory](https://www.ksu.edu/gissal), Kansas State University
-
 ## References
 
 Beeco, J. A., & Joyce, D. (2019). Automated aircraft tracking for park and landscape planning. Landscape and Urban Planning, 186, 103-111.
@@ -313,6 +311,10 @@ Prakash, S. L., Perera, P., Newsome, D., Kusuminda, T., & Walker, O. (2019). Rea
 Shannon, G., McKenna, M. F., Angeloni, L. M., Crooks, K. R., Fristrup, K. M., Brown, E., Warner, K. A., Nelson, M. D., White, C., Briggs, J., McFarland, S., & Wittenmyer, G. (2016). A synthesis of two decades of research documenting the effects of noise on wildlife. Biological Reviews, 91(4), 982-1005.
 
 Tarrant, M. A., Haas, G. E., & Manfredo, M. J. (1995). Factors affecting visitor evaluations of aircraft overflights of wilderness areas. Society & Natural Resources, 8(4), 351-360.
+
+## Credits
+
+[Applied Park Science Laboratory](https://kstateapslab.wixsite.com/appliedparkscience) and [Geographic Information Systems Spatial Analysis Laboratory](https://www.ksu.edu/gissal), Kansas State University
 
 ## License
 
