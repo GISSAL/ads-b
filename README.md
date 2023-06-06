@@ -304,3 +304,18 @@ Prakash, S. L., Perera, P., Newsome, D., Kusuminda, T., & Walker, O. (2019). Rea
 Shannon, G., McKenna, M. F., Angeloni, L. M., Crooks, K. R., Fristrup, K. M., Brown, E., Warner, K. A., Nelson, M. D., White, C., Briggs, J., McFarland, S., & Wittenmyer, G. (2016). A synthesis of two decades of research documenting the effects of noise on wildlife. Biological Reviews, 91(4), 982-1005.
 
 Tarrant, M. A., Haas, G. E., & Manfredo, M. J. (1995). Factors affecting visitor evaluations of aircraft overflights of wilderness areas. Society & Natural Resources, 8(4), 351-360.
+
+---
+
+## License
+
+### Public domain
+
+This project is in the worldwide [public domain](LICENSE.md):
+
+> This project is in the public domain within the United States,
+> and copyright and related rights in the work worldwide are waived through the
+> [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+>
+> All contributions to this project will be released under the CC0 dedication.
+> By submitting a pull request, you are agreeing to comply with this waiver of copyright interest.
