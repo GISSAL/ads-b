@@ -4,12 +4,14 @@ authors:
 - given-names: James M. Shawn
   family-names: Hutchinson
   email:  shutch@ksu.edu
-  affiliation: Kansas State University
+  affiliation: Department of Geography and Geospatial Sciences, Kansas State University
   orcid: "https://orcid.org/0000-0002-7667-8446"
 - family-names: Peterson
   given-names: Brian A.
+  email: brianpeterson@ksu.edu
+  affiliation: Department of Horticulture and Natural Resources, Kansas State University
 title: "ADS-B Overflight Analysis Toolbox"
 version: 1.0.1
-doi: 10.5281/zenodo.8011586
+doi: 10.5281/zenodo.8011754
 date-released: 2023-06-06
 url: "https://github.com/GISSAL/ads-b"
