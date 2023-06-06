@@ -61,10 +61,10 @@ Requires access to the Python script <code>ads_b_tool_1.py</code> and raw ADS-B 
 
 | Label                     | Explanation                                                         | Type     | Direction | Data Type | 
 | :------------------------ | :-------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| National Park Unit Code   | Enter the four letter park unit code (e.g., GRSM, HAVO) where the ADS-B data was collected.  For management units operating more than one                               data logger, it is recommended to also include a short name for the logger location (e.g., GRSM_COVEMTN or GRSM_ELKMONT). | Required | Input     | String    |
-| Raw ADS-B File            | Select a single ADS-B TSV data logger file.  This tool can also be operated in "batch" mode to process multiple input files in a single tool run.                    | Required | Input     | File      |
+| National Park Unit Code   | Enter the four letter park unit code (e.g., GRSM, HAVO) where the ADS-B data was collected.  For management units operating more than one                               data logger, it is recommended to also include a short name for the logger location (e.g., ACAD for Acadia or BADL for Badlands).  If your management unit operates multiple data loggers at different locations, include additional detail in the short name (e.g., GRSM_COVEMTN or GRSM_ELKMONT for the Cove Mountain and Elkmont locations within Great Smoky Mountains). | Required | Input     | String    |
+| Raw ADS-B File            | Select a single ADS-B TSV data logger file.  This tool can also be operated in "batch" mode within ArcGIS Pro to process multiple input TSV files in a single tool run.                    | Required | Input     | File      |
 | Flight Duration Threshold (secs) | Enter a duration threshold (in seconds) that defines the minimum time between successive aircraft waypoints that must pass before a new flight by that aircraft is considered to occur.      | Required | Input     | Long      |
-| Output CSV Folder         | Select a folder workspace where where the output CSV file will be saved. | Required | Input     | Workspace |
+| Output CSV Folder         | Select a folder workspace where where the output CSV file(s) will be saved. | Required | Input     | Workspace |
 
 *Licensing and Extension Information*
 
@@ -89,7 +89,7 @@ Ingests and pre-processes a single daily ADS-B data logger TSV file and returns 
 
 *Summary*
 
-Ingests ADS-B data processed with **Tool #1 - Process Raw ADS-B Files** and produces point (aircraft waypoint) and line (aircraft flightline) feature classes for all features within a user-defined distance of a management unit polygon and below a user-defined altitude threshold.  The attribute table for the output aircraft flightlines has appended to it select fields and values from the **FAA Releasable Database**, as well as the new field *Sinuosity* which may be useful in identifying specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights. 
+Ingests ADS-B data processed with **Tool #1 - Process Raw ADS-B Files** and produces point (aircraft waypoint) and line (aircraft flightline) feature classes for all features within a user-defined distance of a management unit polygon and below a user-defined altitude threshold. The tool automatically searches for a buffer file in the Output Workspace that uses the naming convention "Buffer_National Park Unit Code_Management Unit Buffer Distance" (e.g., <code>Buffer_GRSM_10Miles</code>).  If this buffer file does not exist it will be created.  The attribute table for the output aircraft flightlines has appended to it select fields and values from the **FAA Releasable Database**, as well as the new field *Sinuosity* which may be useful in identifying specific types of flights, including straight line paths typical of commercial aircraft and regular curvilinear paths characteristic of survey flights. 
 
 *Dependencies*
 
@@ -105,7 +105,7 @@ Requires access to the Python script <code>ads_b_tool_2.py</code> and uses as in
 | MSL Altitude Threshold (feet) | Enter a MSL altitude value (in feet) above which flights will be excluded from further analysis. | Required | Input | Long |
 | Input DEM | Select a digital elevation model (DEM) for the management unit. | Required | Input | Raster Dataset|
 | FAA Releasable Database | Select the local geodatabase containing recent versions of the FAA Releasable Database tables MASTER and ACFTREF. | Required | Input | Workspace |
-| Output Workspace | Choose an output geodatabase workspace to store output daily aircraft waypoint and flightline feature classes. | Required | Input | Workspace |
+| Output Workspace | Choose an output geodatabase workspace to store output daily aircraft waypoint and flightline feature classes.  This is also the location where the buffer file will be created and stored. | Required | Input | Workspace |
 
 *Licensing and Extension Information*
 
@@ -132,7 +132,7 @@ Ingests preprocessed ADS-B CSV files produced by **Tool #1 - Process Raw ADS-B F
 
 *Summary*
 
-Merges all daily aircraft waypoint and flightlines feature classes in a user-defined workspace into single point and line feature classes.
+Merges all daily aircraft waypoint and flightlines feature classes created by **Tool #2 - Create Waypoint and Flightline Feature Classes** and stored in a user-defined input workspace into single point and line feature classes. Note that this tool will consider any point or line feature class in the Input Workspace as either a daily waypoint or flightline file for merging purposes.  
 
 *Dependencies*
 
@@ -142,9 +142,9 @@ Requires access to the Python script <code>ads_b_tool_3.py</code> and uses as in
 
 | Label                        | Explanation                                                         | Type     | Direction | Data Type |
 | :--------------------------- |:--------------------------------------------------------------------| :------- | :-------- | :-------- | 
-| Input Workspace | Select the geodatabase workspace containing daily waypoint and flightline feature classes produced by **Tool #2 - Create Waypoint and Flightline Feature Classes**. Caution - All point and line features this workspace will be merged. | Required | Input | Workspace |
-| Output Merged Waypoints | Enter a name for the merged aircraft waypoint feature class. | Required | Output | Feature Class |
-| Ouput Merged Flightlines | Enter a name for the merged aircraft flightline feature class. | Required | Output | Feature Class |
+| Input Workspace | Select the geodatabase workspace containing daily waypoint and flightline feature classes produced by **Tool #2 - Create Waypoint and Flightline Feature Classes**. Caution - All point and line features this workspace will be merged by this tool. | Required | Input | Workspace |
+| Output Merged Waypoints | Enter a filename and geodatabase for the merged aircraft waypoint feature class. | Required | Output | Feature Class |
+| Ouput Merged Flightlines | Enter a filename and geodatabase for the merged aircraft flightline feature class. | Required | Output | Feature Class |
 
 *Licensing and Extension Information*
 
@@ -154,7 +154,7 @@ Requires access to the Python script <code>ads_b_tool_3.py</code> and uses as in
 
 *Description*
 
-Merges all daily aircraft waypoint and flightline feature classes stored in the user-defined workspace into single point and line feature classes.  Waypoints are further filtered to identify and remove any duplicates which may be introduced when combining daily waypoint feature classes created from data recorded at two or more data loggers within the management unit.  Tool messaging includes the number of original, duplicate, and final waypoints and the total number of unique aircraft flightlines in the merged aircraft waypoint and flightline feature classes, respectively.  Key processing steps include:
+Merges all daily aircraft waypoint and flightline feature classes stored in the user-defined Input Workspace into single point and line feature classes.  Waypoints are further filtered to identify and remove any duplicates which may be introduced when combining daily waypoint feature classes created from data recorded at two or more data loggers within the management unit.  Tool messaging includes the number of original, duplicate, and final waypoints and the total number of unique aircraft flightlines in the merged aircraft waypoint and flightline feature classes, respectively.  Key processing steps include:
 * Creates a temporary new field called *DATE* based on the original datetime stamp field *TIME*, but including only the yyyyMMdd information.  The newly created *DATE* field is deleted at the end of the script after it is no longer needed.
 * Combines all point and line feature classes present in the user-defined input workspace into single merged waypoint and flightline feature classes.
 * **Removes duplicate waypoints from the merged feature class if identical values appear in the *flight_id*, *lat*, *lon*, and *DATE8 fields.**
