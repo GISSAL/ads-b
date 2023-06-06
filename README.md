@@ -27,6 +27,8 @@ Monitoring low-level overflights is important for the NPS to fulfill its mission
 
 A relatively new technology, [Automatic Dependent Surveillance-Broadcast (ADS-B)](https://www.faa.gov/air_traffic/technology/adsb), can be used to understand overflight travel patterns (Beeco & Joyce, 2019). ADS-B technology features a radio signal that is broadcasted from aircraft for monitoring purposes which improves airspace safety and air traffic efficiency (FAA, 2018). Data, including position, velocity, and aircraft identification, are sent to other aircraft and ground stations (Duong et al., 2019). Broadcasted ADS-B data is unencrypted, publicly accessible, and can be collected using a data logger (Beeco & Joyce, 2019). 
 
+[![How Does ADS-B Work?](http://i.imgur.com/Ot5DWAW.png)](https://youtu.be/F-v54MlxMIo?t=139s "How Does ADS-B Work?")
+
 Data logger components include antennas, software, display screen, USB dongle, 5V AC-DC regulator, 50’ AC power cable, thermal transfer pads, and a shielded aluminum enclosure (Beeco & Joyce, 2019). A terrestrial data logger with an expansive skyward exposure is effective at collecting large volumes of ADS-B data as millions of aircraft waypoints (Beeco & Joyce, 2020).
 
 ADS-B data loggers can record latitude, longitude, a timestamp, altitude, and unique identification codes. The unique identification code can be related to data contained in the [FAA Releasable Database](https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download/) which provides additional relevant data including the aircraft tail number, type, and operator.
@@ -42,7 +44,7 @@ An example report that used this toolbox to help analyze aircraft overflights of
 
 ## Getting Started with the Toolbox
 
-Each geoprocessing tool in the ADS-B Overflight Analysis Toolbox is described below and includes a tool summary, dependencies, list of parameters, associated ArcGIS license and extension requirements needed for successful tool operation, and a description section containing details about the processing steps completed.
+<img align="right" height="500" src="images\example_arc_workspace.jpg"> Each geoprocessing tool in the ADS-B Overflight Analysis Toolbox is described below and includes a tool summary, dependencies, list of parameters, associated ArcGIS license and extension requirements needed for successful tool operation, and a description section containing details about the processing steps completed.
 
 Before starting, be sure to have an ArcGIS Pro project file created with these additional features:
 
