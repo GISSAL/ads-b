@@ -9,7 +9,7 @@ authors:
 - family-names: Peterson
   given-names: Brian A.
 title: "ADS-B Overflight Analysis Toolbox"
-version: 1.0.0
-doi: 10.5281/zenodo.1234
+version: 1.0.1
+doi: 10.5281/zenodo.8011586
 date-released: 2023-06-06
 url: "https://github.com/GISSAL/ads-b"
