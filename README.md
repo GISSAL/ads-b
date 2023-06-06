@@ -291,8 +291,6 @@ Beeco, J. A., Joyce, D., & Anderson, S. (2020). Evaluating the use of spatiotemp
 
 Duong, Q., Tran, T., Pham, D. T., & Mai, A. (2019, March). A Simplified Framework for Air Route Clustering Based on ADS-B Data. In 2019 IEEE-RIVF International Conference on Computing and Communication Technologies (RIVF) (pp. 1-6). IEEE.
 
-FAA (2018). ADS-B, Research, Airspace. Retrieved from: https://www.faa.gov/nextgen/equipadsb/research/airspace/
-
 Lawson, S., K Hockett, B. Kiser, N. Reigner, A. Ingrm, J. Howard, and S. Dymond (2007).  Social Science Research to Inform Soundscape Management in Hawai‘i Volcanoes
 National Park. Final Report. Department of Forestry, College of Natural Resources, Virginia Polytechnic Institute and State University.
 
