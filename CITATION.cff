@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "This software was through a grant awarded by the National Park Service, U.S. Department of Interior and is in the public domain. Please cite as below:"
 authors:
-- given-names: J.M. Shawn
+- given-names: James M. Shawn
   family-names: Hutchinson
   email:  shutch@ksu.edu
   affiliation: Kansas State University
