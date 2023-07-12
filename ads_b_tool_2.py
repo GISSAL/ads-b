@@ -8,7 +8,7 @@
     Description:  Ingests processed ADS-B data and produces point and line feature classes with sinuosity values and joined FAA database fields
     Status:  Development
     Date created: 10/7/2021
-    Date last modified: 6/5/2023
+    Date last modified: 7/12/2023
     Python Version: 3.7
 """
 
@@ -111,8 +111,7 @@ try:
         arcpy.management.CalculateField(outputFile + "_Points_" + bufferDistance.replace(" ", ""), "alt_agl", "int(!alt_msl! - !RASTERVALU! * 3.28084)", "PYTHON3", "", "LONG")
         arcpy.management.DeleteField(outputFile + "_Points_" + bufferDistance.replace(" ", ""), ["RASTERVALU"])
         print("Aircraft altitude above ground level (AGL in feet) calculated...")
-        arcpy.AddMessage("Aircraft altitude above ground level (AGL in feet) calculated...")
-        
+        arcpy.AddMessage("Aircraft altitude above ground level (AGL in feet) calculated...")        
         
         # Strip whitespace from the MODE_S_CODE_HEX field in the FAA MASTER file for waypoint table join
         arcpy.SetProgressorLabel("Joining fields from FAA Releaseable Database MASTER table to waypoints...")
@@ -140,9 +139,11 @@ try:
         selRecs = arcpy.management.SelectLayerByAttribute("temp4", "NEW_SELECTION", "Shape_Length > 0")
         arcpy.management.CopyFeatures(selRecs, outputFile + "_Lines_" + bufferDistance.replace(" ", ""))
         
-        # Add a new field to store ICAO address, retrieve values from FlightID, and flightline length (miles)
+        # Add a new field to store ICAO address and year by extracting  values from FlightID,then calculate flightline length (miles)
         arcpy.management.AddField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "ICAO_address", "TEXT")
         arcpy.management.CalculateField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "ICAO_address", "!flight_id![:6]", "PYTHON3")
+        arcpy.management.AddField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "Year", "SHORT")
+        arcpy.management.CalculateField(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), "Year", "!flight_id![-8:-4]", "PYTHON3")
         arcpy.management.CalculateGeometryAttributes(outputFile + "_Lines_" + bufferDistance.replace(" ", ""), [["LengthMiles", "LENGTH_GEODESIC"]], "MILES_US")
         print("Line feature class created from ADS-B waypoint data...")
         arcpy.AddMessage("Line feature class created from ADS-B waypoint file {0}...".format(outputFile))
