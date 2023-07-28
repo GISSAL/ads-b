@@ -4,12 +4,12 @@
 """
     File name: ads_b_tool_1.py
     Author: Shawn Hutchinson
-    Credits: Damon Joyce, Shawn Hutchinson, Brian Peterson, Myles Cramer
+    Credits: Damon Joyce, Shawn Hutchinson, Brian Peterson, Myles Cramer, Davyd Betchkal
     Description:  ArcGIS script tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations
     Status:  Development
     Date created: 10/6/2021
-    Date last modified: 02/10/2023
-    Python Version: 3.7
+    Date last modified: 07/28/2023
+    Python Version: 3.9.16
 """
 
 # Create custom error class
@@ -35,7 +35,13 @@ try:
     base = os.path.basename(input_file)
     
     # Read in ADS-B text file and check for presence of a single text header row
-    data = pd.read_csv(input_file, sep="\t", low_memory=False, on_bad_lines="warn")
+    # How the pandas read_csv function checks for and warns users of bad lines changed at version 1.3.   
+    # The initial pandas version check ensure users running ArcGIS 2.x and 3.x can run the script.
+    pd_version = float(pd.__version__[:-2])
+    if (pd_version < 1.3):
+        data = pd.read_csv(input_file, sep="\t", low_memory=False, error_bad_lines=False, warn_bad_lines=True)
+    else:
+        data = pd.read_csv(input_file, sep="\t", low_memory=False, on_bad_lines="warn")
     mask = data.iloc[:, 0].isin(["TIME", "timestamp"])
     data = data[~mask]
     header_list = ["TIME", "timestamp"]
@@ -94,7 +100,7 @@ try:
     print("Rows with invalid Altitudes and Lat/Lon coordinates removed.")
     arcpy.AddMessage("Rows with invalid Altitudes and Lat/Lon coordinates removed.")
     
-    # Ensure remaining field values (except TIME) are in proper numeric format
+    # Ensure remaining field values (except TIME) use proper data types
     arcpy.SetProgressorLabel("Formatting field values...")
     arcpy.SetProgressorPosition()
     data.replace('-', np.NaN, inplace=True)
@@ -108,7 +114,7 @@ try:
     data["ver_velocity"] = data["ver_velocity"].astype(int)
     data["tslc"] = data["tslc"].astype(int)
     
-    # Convert Unix-based TIME field to datetime objects in UTC and re-scale selected numeric variable values 
+    # Convert Unix-based TIME field to datetime objects in UTC then re-scale selected numeric variable values 
     arcpy.SetProgressorLabel("Converting TIME field to datetime objects and re-scaling numeric variables...")
     arcpy.SetProgressorPosition()
     data["TIME"] = pd.to_datetime(data["TIME"], unit = "s")
@@ -205,15 +211,15 @@ try:
     arcpy.ResetProgressor()
 
 except HeaderError:
-    print("Input file does not have a required text header...processing cannot proceed!")
-    arcpy.AddWarning("The input file {0} does not have a required text header...processing cannot proceed!".format(base))
+    print("Input file does not have the required text header...processing cannot proceed!")
+    arcpy.AddWarning("The input file {0} does not have the required text header...processing cannot proceed!".format(base))
     
 except:
     print("An unexpected error occurred processing the input file {0}".format(base))
     arcpy.AddWarning("An unexpected error occurred processing the input file {0}".format(base))
     
 finally:    
-    # Report script tool execution time
+    # Report script tool execution time if an exception is encountered
     if "end" in locals():
         pass
     else:
