@@ -9,7 +9,7 @@
     Status:  Development
     Date created: 2/22/2022
     Date last modified: 1/26/2023
-    Python Version: 3.72
+    Python Version: 3.9.16
 """
 
 # Create custom error class
