@@ -9,7 +9,7 @@
     Status:  Development
     Date created: 10/7/2021
     Date last modified: 7/12/2023
-    Python Version: 3.7
+    Python Version: 3.9.16
 """
 
 # Create custom error class
@@ -72,6 +72,7 @@ try:
         
         # Create point feature class
         arcpy.management.XYTableToPoint(inputFile, "temp1", "lon", "lat", "altitude", spatialRef)
+        arcpy.management.DeleteField("temp1", "Field1")
         print("Point feature class created from ADS-B input file...")
         arcpy.AddMessage("Point feature class created...")
         
@@ -111,7 +112,8 @@ try:
         arcpy.management.CalculateField(outputFile + "_Points_" + bufferDistance.replace(" ", ""), "alt_agl", "int(!alt_msl! - !RASTERVALU! * 3.28084)", "PYTHON3", "", "LONG")
         arcpy.management.DeleteField(outputFile + "_Points_" + bufferDistance.replace(" ", ""), ["RASTERVALU"])
         print("Aircraft altitude above ground level (AGL in feet) calculated...")
-        arcpy.AddMessage("Aircraft altitude above ground level (AGL in feet) calculated...")        
+        arcpy.AddMessage("Aircraft altitude above ground level (AGL in feet) calculated...")
+        
         
         # Strip whitespace from the MODE_S_CODE_HEX field in the FAA MASTER file for waypoint table join
         arcpy.SetProgressorLabel("Joining fields from FAA Releaseable Database MASTER table to waypoints...")
