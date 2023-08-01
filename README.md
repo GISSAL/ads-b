@@ -235,9 +235,9 @@ Requires access to the Python script <code>ads_b_tool_5.py</code> and uses as in
 
 *Licensing and Extension Information*
 
-* Basic - Yes
-* Standard - Yes
-* Advanced - Yes
+* Basic - Requires Spatial Analyst
+* Standard - Requires Spatial Analyst
+* Advanced - Requires Spatial Analyst
 
 *Special Environment Settings*
 
