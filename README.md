@@ -166,7 +166,7 @@ Requires access to the Python script <code>ads_b_tool_3.py</code> and uses as in
 Merges all daily aircraft waypoint and flightline feature classes stored in the user-defined Input Workspace into single point and line feature classes.  Waypoints are further filtered to identify and remove any duplicates which may be introduced when combining daily waypoint feature classes created from data recorded at two or more data loggers within the management unit.  Tool messaging includes the number of original, duplicate, and final waypoints and the total number of unique aircraft flightlines in the merged aircraft waypoint and flightline feature classes, respectively.  Key processing steps include:
 * Creates a temporary new field called *DATE* based on the original datetime stamp field *TIME*, but including only the yyyyMMdd information.  The newly created *DATE* field is deleted at the end of the script after it is no longer needed.
 * Combines all point and line feature classes present in the user-defined input workspace into single merged waypoint and flightline feature classes.
-* **Removes duplicate waypoints from the merged feature class if identical values appear in the** *flight_id*, *lat*, *lon*, and *DATE8 **fields.**
+* **Removes duplicate waypoints from the merged feature class if identical values appear in the** *flight_id*, *lat*, *lon*, and *DATE* **fields.**
 
 ### Tool #4 - Screen Suspected Non-Tourism Flights
 
