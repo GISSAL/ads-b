@@ -90,6 +90,7 @@ try:
     data.drop(data[data["valid_LATLON"] == "False"].index, inplace = True)
     data.drop(data[data["valid_ALTITUDE"] == "False"].index, inplace = True)
     print("Rows with invalid flags for altitude and lat/lon coordinates removed.")
+    arcpy.AddMessage("Rows with invalid flags for altitude and lat/lon coordinates removed.")
     
     # Ensure remaining field values (except TIME) use proper data types
     arcpy.SetProgressorLabel("Formatting field values...")
@@ -143,22 +144,25 @@ try:
 
     # Count then delete any duplicate waypoints in a single input file
     duplicateWaypoints = 100 - (len(data.drop_duplicates(subset=["TIME", "ICAO_address", "lat", "lon", "altitude", "heading"])) / len(data) * 100)
-    data.drop_duplicates(subset=["TIME", "ICAO_address", "lat", "lon", "altitude", "heading"], keep = 'last')
+    data.drop_duplicates(subset=["TIME", "ICAO_address", "lat", "lon", "altitude", "heading"], keep = 'last', inplace = True)    
     print("Duplicate aircraft waypoints removed.")
-    
+    arcpy.AddMessage("Duplicate aircraft waypoints removed.")
+
     # Sort records by ICAO_address and TIME then reset dataframe index
     arcpy.SetProgressorLabel("Sorting records by ICAO Address and Time...")
     arcpy.SetProgressorPosition()
-    data.sort_values(["ICAO_address", "TIME"], inplace=True)
+    data.sort_values(["ICAO_address", "TIME"], inplace = True)
+    print(len(data))
     data = data.reset_index(drop=True)
     print("ADS-B records sorted by ICAO Address and Time.")
     arcpy.AddMessage("ADS-B records sorted by ICAO Address and Time.")
     
     # Simplify waypoints by removing rows with sequential values
-    preSimplify = len(data)
+    preSimplify = len(data)    
     cols = ["ICAO_address", "lat", "lon", "altitude", "heading", "SITE"]
     data = data.loc[(data[cols].shift() != data[cols]).any(axis=1)]
     postSimplify = len(data)
+    percentSimplify = ((preSimplify - postSimplify) / preSimplify) * 100
     print("ADS-B records simplified by removing sequential duplicates.")
     arcpy.AddMessage("ADS-B records simplified by removing sequential duplicates.")
 
@@ -185,8 +189,8 @@ try:
     arcpy.SetProgressorPosition()
     data = data[data.groupby("flight_id").flight_id.transform(len) > 1]
     data = data.drop(columns = ['dur_secs', 'diff_flight', 'cumsum'])
-    print("Single waypoint records and unneeded attribute fields removed.")
-    arcpy.AddMessage("Single waypoint records and unneeded attribute fields removed.") 
+    print("Flights with a single waypoint deleted and unneeded attribute fields removed.")
+    arcpy.AddMessage("Flights with a single waypoint deleted and unneeded attribute fields removed.") 
     
     # Write output file in CSV format based on the TSV input file name
     arcpy.SetProgressorLabel("Writing the output CSV file...")
@@ -202,23 +206,24 @@ try:
     # Record end time of operation
     end = time.time()
     
-    # Report aircraft and flight summary information in messages
-    print("Percent of original waypoints eliminated by TSLC: {0}".format(str(round(invalidTslc, 2))))
-    arcpy.AddMessage("Percent of original waypoints eliminated by TSLC: {0}".format(str(round(invalidTslc,2))))
-    print("Percent of duplicate waypoints: {0}".format(str(round(duplicateWaypoints,2))))
-    arcpy.AddMessage("Percent of duplicate waypoints: {0}".format(str(round(duplicateWaypoints,2))))
-    print("Percent of waypoints with invalid altitudes: {0}".format(str(invalidAltitude)))
-    arcpy.AddMessage("Duplicate Sequential Waypoints Deleted: {0}".format(str(round(preSimplify-postSimplify,2))))
-    print("Percent of waypoints with invalid altitudes: {0}".format(str(round(preSimplify-postSimplify,2))))
-    arcpy.AddMessage("Percent of waypoints with invalid altitudes: {0}".format(str(invalidAltitude)))
-    print("Percent of waypoints with invalid x,y coordinates: {0}".format(str(round(invalidCoords, 2))))
-    arcpy.AddMessage("Percent of waypoints with invalid x,y coordinates: {0}".format(str(round(invalidCoords, 2))))
-    print("Total Flights in Input File: {0}".format(len(flights)))
-    arcpy.AddMessage("Total Flights in Input File: {0}".format(len(flights)))
-    print("Total Unique Aircraft in Input File: {0}".format(len(aircraft)))
-    arcpy.AddMessage("Total Unique Aircraft in Input File: {0}".format(len(aircraft)))
-    print("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
-    arcpy.AddMessage("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
+    # Report aircraft and flight summary information in messages for the user
+    print("Percent of original waypoints eliminated due to TSLC: {0}".format(str(round(invalidTslc, 2))))
+    arcpy.AddMessage("Percent of original waypoints eliminated due to TSLC: {0}".format(str(round(invalidTslc,2))))
+    print("Percent duplicate waypoints: {0}".format(str(round(duplicateWaypoints,2))))
+    arcpy.AddMessage("Percent duplicate waypoints: {0}".format(str(round(duplicateWaypoints,2))))
+    print("Percent waypoints with invalid altitudes: {0}".format(str(invalidAltitude)))
+    arcpy.AddMessage("Percent waypoints with invalid altitudes: {0}".format(str(invalidAltitude)))
+    print("Duplicate sequential waypoints deleted: {0}".format(str(round(percentSimplify,2))))
+    arcpy.AddMessage("Duplicate sequential waypoints deleted: {0}".format(str(round(percentSimplify,2))))
+    print("Percent waypoints with invalid x,y coordinates: {0}".format(str(round(invalidCoords, 2))))
+    arcpy.AddMessage("Percent waypoints with invalid x,y coordinates: {0}".format(str(round(invalidCoords, 2))))
+    print("Total flights in input file: {0}".format(len(flights)))
+    arcpy.AddMessage("Total flights in input file: {0}".format(len(flights)))
+    print("Total unique aircraft in input file: {0}".format(len(aircraft)))
+    arcpy.AddMessage("Total unique aircraft in input file: {0}".format(len(aircraft)))
+    
+    #print("Total execution time (secs) = {0}".format(str(round(end - start, 3))))
+    #arcpy.AddMessage("Total execution time (secs) = {0}".format(str(round(end - start, 3))))
 
     # Reset the progressor
     arcpy.ResetProgressor()
@@ -237,5 +242,5 @@ finally:
         pass
     else:
         end = time.time()
-        print("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))    
-        arcpy.AddMessage("Total Execution Time (secs) = {0}".format(str(round(end - start, 3))))
+        print("Total execution time (secs) = {0}".format(str(round(end - start, 3))))    
+        arcpy.AddMessage("Total execution time (secs) = {0}".format(str(round(end - start, 3))))
