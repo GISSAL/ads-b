@@ -2,13 +2,13 @@
 #!/usr/bin/env python
 
 """
-    File name: ads_b_tool_3.py
+    File name: ads_b_tool_3a.py
     Author: Shawn Hutchinson
     Credits: Shawn Hutchinson, Brian Peterson, Myles Cramer
     Description:  Merges daily aircraft waypoint and flightlines feature classes into single feature classes for a desired time interval.
     Status:  Development
     Date created: 12/15/2021
-    Date last modified: 3/22/2023
+    Date last modified: 01/10/2024
     Python Version: 3.9.16
 """
 
@@ -52,7 +52,7 @@ try:
         arcpy.management.Merge(pointList, outputPoints)
         count1 = arcpy.management.GetCount(outputPoints)
         arcpy.management.ConvertTimeField(outputPoints, 'TIME', "", 'DATE', 'TEXT', 'yyyyMMdd')
-        arcpy.management.DeleteIdentical(outputPoints, ['flight_id', 'lat', 'lon', 'DATE'])
+        arcpy.management.DeleteIdentical(outputPoints, ['ICAO_address', 'lat', 'lon', 'DATE', 'altitude'])
         count2 = arcpy.management.GetCount(outputPoints)
         count3 = int(str(count1)) - int(str(count2))
         arcpy.management.DeleteField(outputPoints, "DATE")        
