@@ -12,7 +12,7 @@
     Python Version: 3.9.16
 """
 
-# Create custom error classes
+# Create custom error class
 class HeaderError(Exception):
     pass
 
