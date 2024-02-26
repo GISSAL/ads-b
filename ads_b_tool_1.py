@@ -8,11 +8,11 @@
     Description:  ArcGIS script tool code that reads raw ADS-B data from the logger, creates unique flights, and generates output CSV for later GIS operations
     Status:  Development
     Date created: 10/6/2021
-    Date last modified: 01/10/2024
+    Date last modified: 02/26/2024
     Python Version: 3.9.16
 """
 
-# Create custom error class
+# Create custom error classes
 class HeaderError(Exception):
     pass
 
@@ -62,7 +62,11 @@ try:
         data = data.rename(columns={"timestamp":"TIME"})
     if "valid_flags" in data.columns:
         data = data.rename(columns={"valid_flags":"validFlags"})
-    data.drop(["squawk", "altitude_type", "alt_type", "altType", "callsign", "emitter_type", "emitterType"], axis=1, inplace=True, errors="ignore")
+    if "altitude_type" in data.columns:
+        data = data.rename(columns={"altitude_type":"altType"})
+    if "alt_type" in data.columns:
+        data = data.rename(columns={"alt_type":"altType"})
+    data.drop(["squawk", "callsign", "emitter_type", "emitterType"], axis=1, inplace=True, errors="ignore")
     print("Key field names standardized and unused fields removed.")
     arcpy.AddMessage("Key field names standardized and unused fields removed.")
     
@@ -101,6 +105,9 @@ try:
     data["lat"] = data["lat"].astype(int)
     data["lon"] = data["lon"].astype(int)
     data["altitude"] = data["altitude"].astype(int)
+    if "altType" in data.columns:
+        data["altType"] = data["altType"].astype(int)
+        pressureAlts = len(data["altType"] == 0) / len(data) * 100           
     data["heading"] = data["heading"].astype(int)
     data["hor_velocity"] = data["hor_velocity"].astype(int)
     data["ver_velocity"] = data["ver_velocity"].astype(int)
@@ -217,13 +224,15 @@ try:
     arcpy.AddMessage("Duplicate sequential waypoints deleted: {0}".format(str(round(percentSimplify,2))))
     print("Percent waypoints with invalid x,y coordinates: {0}".format(str(round(invalidCoords, 2))))
     arcpy.AddMessage("Percent waypoints with invalid x,y coordinates: {0}".format(str(round(invalidCoords, 2))))
+    if "pressureAlts" in locals():
+        print("Percent waypoints with pressure altitute estimates: {0}".format(str(round(pressureAlts, 2))))
+        arcpy.AddMessage("Percent waypoints with pressure altitudes: {0}".format(str(round(pressureAlts, 2))))
+    else:
+        pass
     print("Total flights in input file: {0}".format(len(flights)))
     arcpy.AddMessage("Total flights in input file: {0}".format(len(flights)))
     print("Total unique aircraft in input file: {0}".format(len(aircraft)))
     arcpy.AddMessage("Total unique aircraft in input file: {0}".format(len(aircraft)))
-    
-    #print("Total execution time (secs) = {0}".format(str(round(end - start, 3))))
-    #arcpy.AddMessage("Total execution time (secs) = {0}".format(str(round(end - start, 3))))
 
     # Reset the progressor
     arcpy.ResetProgressor()
