@@ -54,7 +54,7 @@ Before starting, be sure to have an ArcGIS Pro project file created with the fea
 * Add a file or enterprise geodatabase to your project that contains, at minimum, two tables imported from the FAA Releasable Database which contains data from the FAA's Aircraft Registry for all civil aircraft in the United States.  The required tables are *Aircraft Registration Master File (MASTER)* and *Aircraft Reference File (ACTREF)*.  A compressed file containing text-based attribute tables valid for a calendar year can be [downloaded from the FAA](https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download).
 * Finally, download the ADS-B Overflight Analysis Toolbox from this site and add it to your ArcGIS Pro project.  The tools in the toolbox contain embedded versions of the scripts that are also hosted in this repository.
 
-Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remove records from further analysis.  Users may need to modify these procedures to better suit particular needs.  **Filtering operations are outlined in the Description section for each tool and highlighted in bold text**.
+Tools in the ADS-B Overflight Analysis Toolbox provide several checks that remove records from further analysis.  Users may need to modify these procedures to better suit particular needs.  **These kind of filtering operations are outlined in the Description section for each tool and highlighted in bold text**.
 
 ### Tool #1 - Process Raw ADS-B Data Files
 
