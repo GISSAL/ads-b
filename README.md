@@ -4,7 +4,7 @@
 
 # ADS-B Overflight Analysis Toolbox
 
-A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing script tools to automate and simplify processing and analysis of Automatic Dependent Surveillance-Broadcast (ADS-B) data for better understanding aircraft overflights of National Park Service (NPS) management units. 
+A custom ArcGIS Pro toolbox with multiple Python-based geoprocessing script tools to simplify and automateprocessing and analysis of Automatic Dependent Surveillance-Broadcast (ADS-B) data for better understanding aircraft overflights of National Park Service (NPS) management units. 
 
 * [Overview of ADS-B Overflight Analysis](#overview-of-ads-b-overflight-analysis)
 * [Toolbox Purpose](#toolbox-purpose)
