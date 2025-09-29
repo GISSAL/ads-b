@@ -305,6 +305,30 @@ Miller, Z. D., Fefer, J. P., Kraja, A., Lash, B., & Freimund, W. (2017, January)
 
 Peterson, B. A., J.M. Shawn Hutchinson, B. Gurung, J.A. Beeco, S.J. Anderson, and D. Joyce. 2023. Exploring spatial patterns of overflights at Great Smoky Mountains National Park. Natural Resource Report NPS/GRSM/NRR—2023/2518. National Park Service, Fort Collins, Colorado. doi.org/10.36967/2299255
 
+Peterson, B.A., J.M.S. Hutchinson, B. Gurung, J.A. Beeco, S.J. Anderson, and D. Joyce. 2023. Exploring spatial patterns of overflights at Grand Canyon National Park. Natural Resource Report NPS/GRCA/NRR—2023/2554. National Park Service, Fort Collins, Colorado. doi.org/10.36967/2299660
+
+Gurung, B., J.M. Shawn Hutchinson, B.A. Peterson, J.A. Beeco, S.J. Anderson, and D. Joyce. 2024. Exploring spatial patterns of overflights at Olympic National Park. Science Report NPS/SR—2024/161. National Park Service, Fort Collins, Colorado. doi.org/10.36967/2304991
+
+Olstad, T. A., B. A. Peterson, J. M. S. Hutchinson, J. A. Beeco, and D. Joyce. 2024. Exploring spatial patterns of overflights at Bryce Canyon National Park. Science Report NPS/SR—2024/149. National Park Service, Fort Collins, Colorado. doi.org/10.36967/2304315
+
+Peterson, B. A., J. M. S. Hutchinson, B. Gurung, J. A. Beeco, and D. Joyce. 2024. Exploring spatial patterns of overflights at Badlands National Park. Science Report NPS/SR—2024/115. National Park Service, Fort Collins, Colorado. doi.org/10.36967/2303602
+
+Peterson, B. A., J. M. S. Hutchinson, B. Gurung, J. A. Beeco, and D. Joyce. 2024. Exploring spatial patterns of overflights at Hawai‘i Volcanoes National Park. Science Report NPS/SR—2024/114. National Park Service, Fort Collins, Colorado. doi.org/10.36967/2303507
+
+Betchkal, D. H., T. A. Olstad, B. A. Peterson, J. M. S. Hutchinson, and J. A. Beeco. 2025. Exploring spatial patterns of overflights at Mount Rushmore National Memorial, Updated 2023–2024. Science Report NPS/SR—2025/330. National Park Service, Fort Collins, Colorado. doi.org/10.36967/2314177
+
+Olstad, T. A., B. A. Peterson, J. M. S. Hutchinson, J. A. Beeco, and D. Joyce. 2025. Spatial patterns of overflights at Bryce Canyon National Park, updated 2023–2024. Science Report NPS/SR—2025/242. National Park Service, Fort Collins, Colorado. doi.org/10.36967/2307673
+
+Peterson B.A., J.M.S. Hutchinson, B. Gurung, J.A. Beeco. 2025. Exploring spatial patterns of overflights at Acadia National Park. Science Report.  NPS/SR—2025/278. National Park Service. Fort Collins, Colorado. doi.org/10.36967/2310324
+
+Peterson B.A., J.M.S. Hutchinson, B. Gurung, D.H. Betchkal, J.A. Beeco. 2025. Exploring spatial patterns of overflights at Denali National Park and Preserve. Science Report. NPS/SR—2025/220. National Park Service. Fort Collins, Colorado. doi.org/10.36967/2307459
+
+Peterson B.A., J.M.S. Hutchinson, B. Gurung, T. Olstad, and J.A. Beeco.  2025. Exploring spatial patterns of overflights at Glacier National Park. Science Report. NPS/SR—2025/259. National Park Service. Fort Collins, Colorado. doi.org/10.36967/2309483
+
+Peterson, B. A., J. M. S. Hutchinson, B. Gurung, and J. A. Beeco. 2025. Exploring spatial patterns of overflights at Saguaro National Park. Science Report. NPS/SR—2025/331. National Park Service, Fort Collins, Colorado. doi.org/10.36967/2314311
+
+Peterson, B.A., J.M. Shawn Hutchinson, T.A. Olstad, B. Gurung, S.J. Anderson, D.H. Betchkal, D. Joyce, and J. Adam Beeco.  2025.  Developing and testing an automated GIS toolbox for tracking low-level overflights above United States’ National Park Service units.  International Journal of Astronautics and Aeronautical Engineering 10:067.  doi.org/10.35840/2631-5009/7567.
+
 Prakash, S. L., Perera, P., Newsome, D., Kusuminda, T., & Walker, O. (2019). Reasons for visitor dissatisfaction with wildlife tourism experiences at highly visited national parks in Sri Lanka. Journal of Outdoor Recreation and Tourism, 25, 102-112.
 
 Shannon, G., McKenna, M. F., Angeloni, L. M., Crooks, K. R., Fristrup, K. M., Brown, E., Warner, K. A., Nelson, M. D., White, C., Briggs, J., McFarland, S., & Wittenmyer, G. (2016). A synthesis of two decades of research documenting the effects of noise on wildlife. Biological Reviews, 91(4), 982-1005.
